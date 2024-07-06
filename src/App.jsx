@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import Choose from "./Components/Modules/Choose/Choose";
 import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
@@ -13,6 +13,10 @@ function App({data}) {
 
   const [activeModule, setActiveModule] = useState("Choose");
   const [direction, setDirection] = useState("forward");
+
+  const chooseRef = useRef(null);
+  const pairRef = useRef(null);
+  const testRef = useRef(null);
 
   const changeModule = (module) => {
     if((activeModule === "Choose" && module === "Pair") || (activeModule === "Pair" && module === "Test")) {
@@ -45,8 +49,13 @@ function App({data}) {
           key={activeModule}
           timeout={300}
           classNames={`slide-${direction}`}
+          nodeRef={
+            activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
+          }
         >
-          <div>
+          <div ref={
+            activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
+          }>
             {activeModule === "Choose" &&
               <Choose 
                 fonts={data.fonts} 

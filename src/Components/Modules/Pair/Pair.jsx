@@ -67,7 +67,11 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
       setPairingPrimaryFont(font);
       setAlternativesIndex(alternatives.indexOf(font));
     } else {
-      setActivePrimaryFont(font); 
+      if(activePrimaryFont === font) {
+        testPairing();
+      } else {
+        setActivePrimaryFont(font); 
+      }
     }
   }
 
@@ -77,14 +81,27 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
       setPairingsIndex(pairings.indexOf(font));
     } else {
       setActivePrimaryFont(font);
+      setPairingSecondaryFont({});
+      setPairingsIndex(null);
     }
   }
 
-  function testPairing(e) {
-    e.preventDefault();
+  function testPairing() {
     setActivePrimaryFont(pairingPrimaryFont);
     setActiveSecondaryFont(pairingSecondaryFont);
     changeModule("Test");
+  }
+
+  function handleSlideChangeAlternatives(swiper) {
+    if(alternatives.length > 0) {
+      setPairingPrimaryFont(alternatives[swiper.activeIndex]);
+    }
+  }
+
+  function handleSlideChangePairings(swiper) {
+    if(pairings.length > 0) {
+      setPairingSecondaryFont(pairings[swiper.activeIndex]);
+    }
   }
 
   function handleReachEndAlternatives() {
@@ -110,6 +127,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
           centeredSlides={true} 
           grabCursor={true} 
           onReachEnd={handleReachEndAlternatives}
+          onSlideChange={handleSlideChangeAlternatives}
           onSwiper={(swiper) => (alternativesSwiperRef.current = swiper)}
         >
           {alternatives.map((font, index) => (
@@ -126,6 +144,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
           centeredSlides={true} 
           grabCursor={true} 
           onReachEnd={handleReachEndPairings}
+          onSlideChange={handleSlideChangePairings}
           onSwiper={(swiper) => (pairingsSwiperRef.current = swiper)}
         >
           {pairings.map((font, index) => (
@@ -136,7 +155,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         </Swiper>
       </div>
       <div className="flex justify-center">
-        <a onClick={(e) => testPairing(e)} className="inline-block rounded-full py-2.5 px-5 bg-gray-100 uppercase tracking-wider text-sm leading-5 font-bold" href="#">Test This Pairing</a>
+        <a onClick={(e) => {e.preventDefault(); testPairing()}} className="inline-block rounded-full py-2.5 px-5 bg-gray-100 uppercase tracking-wider text-sm leading-5 font-bold" href="#">Test This Pairing</a>
       </div>
     </>
   );
