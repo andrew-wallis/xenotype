@@ -24,16 +24,13 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
 
 
   return (
-    <>
-      <header className="my-16 relative">
-        <h1 className="uppercase tracking-wider font-black text-center leading-5">Choose</h1>
-      </header>
+    <div className="max-w-[68rem] mx-auto">
       <div className="grid grid-cols-3 gap-9">
         {sortedFonts.map(([fontKey, font]) => (
           <ChooseSample key={fontKey} font={font} sampleText={sampleText} chooseFont={chooseFont} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

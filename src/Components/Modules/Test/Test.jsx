@@ -83,15 +83,11 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
 
 
   return (
-    <>
+    <div className="max-w-[68rem] mx-auto">
       <style>
         @import url('{primaryFontStylesheet}')
         @import url('{secondaryFontStylesheet}')
       </style>
-      <header className="my-16 relative">
-        <a className="absolute uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>Back</a>
-        <h1 className="uppercase tracking-wider font-black text-center leading-5">Test</h1>
-      </header>
       <div className="flex">
         <aside className="w-64 mr-16">
           <div className="mb-12">
@@ -118,7 +114,7 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         </main>
       </div>
 
-    </>
+    </div>
   );
 }
 

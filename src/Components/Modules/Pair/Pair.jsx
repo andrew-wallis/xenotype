@@ -80,14 +80,6 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
     }
   }
 
-
-  // Local functions
-
-  function handleBack(e) {
-    e.preventDefault();
-    changeModule("Choose");
-  }
-
   function testPairing(e) {
     e.preventDefault();
     setActivePrimaryFont(pairingPrimaryFont);
@@ -111,10 +103,6 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
 
   return (
     <>
-      <header className="my-16 relative">
-        <a className="absolute uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>Back</a>
-        <h1 className="uppercase tracking-wider font-black text-center leading-5">Pair</h1>
-      </header>
       <div className="mb-12">
         <Swiper 
           slidesPerView={2} 

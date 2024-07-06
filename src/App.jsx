@@ -23,9 +23,24 @@ function App({data}) {
     setActiveModule(module);
   }
 
+  function handleBack(e) {
+    e.preventDefault();
+    if(activeModule === "Pair") {
+      changeModule("Choose");
+    } else if(activeModule === "Test") {
+      changeModule("Pair");
+    }
+  }
+
   return (
-    <div>
-      <TransitionGroup>
+    <div className="flex flex-col h-screen">
+      <header className="w-full max-w-[68rem] mx-auto my-16 relative">
+        {(activeModule === "Pair" || activeModule === "Test") && 
+          <a className="absolute uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>Back</a>
+        }
+        <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
+      </header>
+      <TransitionGroup className="flex-1 overflow-y-auto">
         <CSSTransition 
           key={activeModule}
           timeout={300}
