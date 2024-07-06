@@ -8,12 +8,7 @@ function TestSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   const fontNameStyles = {
-    fontSize: `${0.875 / font.adjust}rem`,
-    lineHeight: "1.2"
-  }
-
-  const fontSampleStyles = {
-    fontSize: `${2.5 / font.adjust}rem`,
+    fontSize: `${1 / font.adjust}rem`,
     lineHeight: "1.2"
   }
 
@@ -23,7 +18,7 @@ function TestSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   return (
-    <a href="#" className={`${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <a href="#" className={`block mb-3 font-semibold ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>

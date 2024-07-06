@@ -2,55 +2,61 @@ import { useEffect, useState } from "react";
 import findAlternatives from "../../../utils/findAlternatives";
 import findPairings from "../../../utils/findPairings";
 import TestSample from "./TestSample";
-import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
+import getStylesheet from "./helpers/getStylesheet";
 
 
-function Test({fonts, sampleText, setActiveModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
+function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
 
-  const alternatives = findAlternatives(activePrimaryFont, fonts);
-  const pairings = findPairings(activePrimaryFont, fonts);
   
+  // React Hooks
+
+  const [allAlternatives, setAllAlternatives] = useState([]);
+  const [allPairings, setAllPairings] = useState([]);
+
+  const [alternativesIndex, setAlternativesIndex] = useState(null);
+  const [pairingsIndex, setPairingsIndex] = useState(null);
+
+  const [alternatives, setAlternatives] = useState([]);
+  const [pairings, setPairings] = useState([]);
+
   const [pairingPrimaryFont, setPairingPrimaryFont] = useState({});
   const [pairingSecondaryFont, setPairingSecondaryFont] = useState({});
+
+  const [primaryFontStylesheet, setPrimaryFontStylesheet] = useState(null);
+  const [secondaryFontStylesheet, setSecondaryFontStylesheet] = useState(null);
+
   const [styles, setStyles] = useState({});
 
   useEffect(() => {
+   setAllAlternatives(findAlternatives(activePrimaryFont, fonts));
+   setAllPairings(findPairings(activePrimaryFont, fonts)); 
+  }, [activePrimaryFont]);
+
+  useEffect(() => {
+    setAlternativesIndex(0);
+    setAlternatives(allAlternatives.slice(0, alternativesIndex + 4));
     setPairingPrimaryFont(activePrimaryFont);
+  }, [allAlternatives]);
+
+  useEffect(() => {
+    setPairingsIndex(allPairings.indexOf(activeSecondaryFont));
+    setPairings(allPairings.slice(0, pairingsIndex > 4 ? pairingsIndex : 4));
     setPairingSecondaryFont(activeSecondaryFont);
-  }, [activePrimaryFont, activeSecondaryFont]);
+  }, [allPairings]);
 
   useEffect(() => {
     if(Object.keys(pairingPrimaryFont).length !== 0 && Object.keys(pairingSecondaryFont).length !== 0) {
-      const updateStyles = {
-        h1: {
-          fontFamily: getFontFamily(pairingPrimaryFont, "rg"),
-          fontSize: `${3 / pairingPrimaryFont.adjust}rem`,
-          lineHeight: 1.2
-        },
-        h2: {
-          fontFamily: getFontFamily(pairingPrimaryFont, "rg"),
-          fontSize: `${2 / pairingPrimaryFont.adjust}rem`,
-          lineHeight: 1.2
-        },
-        h3: {
-          fontFamily: getFontFamily(pairingPrimaryFont, "rg"),
-          fontSize: `${1.5 / pairingPrimaryFont.adjust}rem`,
-          lineHeight: 1.2
-        },
-        p: {
-          fontFamily: getFontFamily(pairingSecondaryFont, "rg"),
-          fontSize: `${1 / pairingSecondaryFont.adjust}rem`,
-          lineHeight: 1.5
-        }
-      }
-      setStyles(updateStyles);
+      setStyles(getStylesheet(pairingPrimaryFont, pairingSecondaryFont));
+      setPrimaryFontStylesheet(getFontStylesheet(pairingPrimaryFont, ["rg"]));
+      setSecondaryFontStylesheet(getFontStylesheet(pairingSecondaryFont, ["rg"]));
     }
   }, [pairingPrimaryFont, pairingSecondaryFont]);
 
   const choosePrimaryFont = (font) => {
     if(font !== pairingPrimaryFont) {
       setPairingPrimaryFont(font);
+      setAlternativesIndex(alternatives.indexOf(font));
     } else {
       setActivePrimaryFont(font); 
     }
@@ -59,38 +65,41 @@ function Test({fonts, sampleText, setActiveModule, activePrimaryFont, setActiveP
   const chooseSecondaryFont = (font) => {
     if(font !== pairingSecondaryFont) {
       setPairingSecondaryFont(font);
+      setPairingsIndex(pairings.indexOf(font));
     } else {
       setActivePrimaryFont(font);
     }
   }
 
+  
+  // Local functions
+
   function handleBack(e) {
-    e.preventDefault();
     e.preventDefault();
     setActivePrimaryFont(pairingPrimaryFont);
     setActiveSecondaryFont(pairingSecondaryFont);
-    setActiveModule("Pair");
+    changeModule("Pair");
   }
 
 
   return (
     <>
       <style>
-        @import url('{getFontStylesheet(pairingPrimaryFont, ["rg"])}')
-        @import url('{getFontStylesheet(pairingSecondaryFont, ["rg"])}')
+        @import url('{primaryFontStylesheet}')
+        @import url('{secondaryFontStylesheet}')
       </style>
       <header className="my-16 relative">
-        <a className="absolute" href="#" onClick={(e) => handleBack(e)}>Back</a>
-        <h1 className="uppercase tracking-wider font-black text-center">Pair</h1>
+        <a className="absolute uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>Back</a>
+        <h1 className="uppercase tracking-wider font-black text-center leading-5">Test</h1>
       </header>
       <div className="flex">
         <aside className="w-64 mr-16">
-          <div className="">
+          <div className="mb-12">
             {alternatives.map((font, index) => (
               <TestSample key={index} font={font} activeFont={pairingPrimaryFont} sampleText={sampleText} chooseFont={choosePrimaryFont} />
             ))}
           </div>
-          <div className="">
+          <div className="mb-12">
             {pairings.map((font, index) => (
               <TestSample key={index} font={font} activeFont={pairingSecondaryFont} sampleText={sampleText} chooseFont={chooseSecondaryFont} />
             ))}

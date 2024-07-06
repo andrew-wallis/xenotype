@@ -7,7 +7,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 
 
-function Pair({fonts, sampleText, setActiveModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
+function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
+
+
+  // React Hooks
 
   const [allAlternatives, setAllAlternatives] = useState([]);
   const [allPairings, setAllPairings] = useState([]);
@@ -27,20 +30,22 @@ function Pair({fonts, sampleText, setActiveModule, activePrimaryFont, setActiveP
   useEffect(() => {
     setAllAlternatives(findAlternatives(activePrimaryFont, fonts));
     setAllPairings(findPairings(activePrimaryFont, fonts));
-
-    setPairingPrimaryFont(activePrimaryFont);
-    setPairingSecondaryFont(activeSecondaryFont ? activeSecondaryFont : pairings[0]);
   }, [activePrimaryFont]);
 
   useEffect(() => {
-
     setAlternativesIndex(0);
-    setPairingsIndex(activeSecondaryFont ? allPairings.indexOf(activeSecondaryFont) : 0);
-
     setAlternatives(allAlternatives.slice(0, alternativesIndex + 4));
-    setPairings(allPairings.slice(0, pairingsIndex + 4));
+    setPairingPrimaryFont(activePrimaryFont);
+  }, [allAlternatives]);
 
-  }, [allAlternatives, allPairings]);
+  useEffect(() => {
+
+    const isSecondaryFontActive = (Object.keys(activeSecondaryFont).length > 0 && allPairings.includes(activeSecondaryFont)) ? true : false;
+
+    setPairingsIndex(isSecondaryFontActive ? allPairings.indexOf(activeSecondaryFont) : 0);
+    setPairings(allPairings.slice(0, pairingsIndex + 4));
+    setPairingSecondaryFont(isSecondaryFontActive ? activeSecondaryFont : allPairings[0]);
+  }, [allPairings]);
 
   useEffect(() => {
     if(alternativesSwiperRef.current) {
@@ -54,6 +59,8 @@ function Pair({fonts, sampleText, setActiveModule, activePrimaryFont, setActiveP
     }
   }, [pairingsIndex]);
 
+
+  // Functions
 
   const choosePrimaryFont = (font) => {
     if(font !== pairingPrimaryFont) {
@@ -73,16 +80,19 @@ function Pair({fonts, sampleText, setActiveModule, activePrimaryFont, setActiveP
     }
   }
 
+
+  // Local functions
+
   function handleBack(e) {
     e.preventDefault();
-    setActiveModule("Choose");
+    changeModule("Choose");
   }
 
   function testPairing(e) {
     e.preventDefault();
     setActivePrimaryFont(pairingPrimaryFont);
     setActiveSecondaryFont(pairingSecondaryFont);
-    setActiveModule("Test");
+    changeModule("Test");
   }
 
   function handleReachEndAlternatives() {
@@ -102,8 +112,8 @@ function Pair({fonts, sampleText, setActiveModule, activePrimaryFont, setActiveP
   return (
     <>
       <header className="my-16 relative">
-        <a className="absolute" href="#" onClick={(e) => handleBack(e)}>Back</a>
-        <h1 className="uppercase tracking-wider font-black text-center">Pair</h1>
+        <a className="absolute uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>Back</a>
+        <h1 className="uppercase tracking-wider font-black text-center leading-5">Pair</h1>
       </header>
       <div className="mb-12">
         <Swiper 

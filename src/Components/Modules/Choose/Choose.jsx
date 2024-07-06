@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 import ChooseSample from "./ChooseSample";
 
-function Choose({fonts, sampleText, setActivePrimaryFont, setActiveModule}) {
+function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont, changeModule}) {
 
   //  React Hooks
 
@@ -18,14 +18,15 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveModule}) {
 
   const chooseFont = (font) => {
     setActivePrimaryFont(font);
-    setActiveModule("Pair");
+    setActiveSecondaryFont({});
+    changeModule("Pair");
   }
 
 
   return (
     <>
       <header className="my-16 relative">
-        <h1 className="uppercase tracking-wider font-black text-center">Choose</h1>
+        <h1 className="uppercase tracking-wider font-black text-center leading-5">Choose</h1>
       </header>
       <div className="grid grid-cols-3 gap-9">
         {sortedFonts.map(([fontKey, font]) => (
