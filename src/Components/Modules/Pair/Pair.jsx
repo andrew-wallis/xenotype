@@ -155,7 +155,14 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         </Swiper>
       </div>
       <div className="flex justify-center">
-        <a onClick={(e) => {e.preventDefault(); testPairing()}} className="inline-block rounded-full py-2.5 px-5 bg-gray-100 uppercase tracking-wider text-sm leading-5 font-bold" href="#">Test This Pairing</a>
+        <a onClick={(e) => {e.preventDefault(); testPairing()}} className="inline-block relative rounded-full py-2.5 pl-5 pr-10 bg-gray-100 uppercase tracking-wider text-sm leading-5 font-bold" href="#">
+          Test This Pairing
+          <div className="p-px absolute top-2.5 right-2.5 -rotate-90">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
+            </svg>
+          </div>
+        </a>
       </div>
     </>
   );

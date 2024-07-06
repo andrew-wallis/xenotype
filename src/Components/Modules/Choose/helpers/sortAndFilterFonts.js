@@ -9,7 +9,7 @@ function sortAndFilterFonts(fonts, filter, sort) {
 
   if(sort === "Rating") {
     sortFonts = sortFonts.sort((a, b) => b[1].Rating - a[1].Rating);
-  } else if(sort === "Alphabetical") {
+  } else if(sort === "A-Z") {
     sortFonts = sortFonts.sort((a, b) => b[1].Label - a[1].Label);
   }
 
