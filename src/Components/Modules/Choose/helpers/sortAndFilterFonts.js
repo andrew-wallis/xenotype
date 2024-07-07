@@ -5,6 +5,18 @@ function sortAndFilterFonts(fonts, filter, sort) {
     fonts = fonts.filter(font => filter.classification.includes(font.superclass));
   }
 
+  if(filter.subclassification.length > 0) {
+    fonts = fonts.filter(font => filter.subclassification.includes(font.classification));
+  }
+
+  if(filter.vibe.length > 0) {
+    fonts = fonts.filter(font => filter.vibe.includes(font.vibe));
+  }
+
+  if(filter.licence.length > 0) {
+    fonts = fonts.filter(font => filter.licence.includes(font.distribution));
+  }
+ 
   let sortFonts = Object.entries(fonts);
 
   if(sort === "Rating") {
