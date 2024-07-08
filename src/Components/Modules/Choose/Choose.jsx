@@ -78,7 +78,7 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
 
 
   return (
-    <div className="bg-red-500">
+    <div className="">
       <div className="max-w-[68rem] mx-auto">
         <div className="flex justify-between mb-16">
           <button onClick={(e) => {e.preventDefault(); setShowFilters(!showFilters)}} className="rounded-full py-2 px-4 uppercase tracking-wider text-xs leading-4 font-bold bg-gray-100">Filters</button>

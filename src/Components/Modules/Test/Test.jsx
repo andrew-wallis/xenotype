@@ -83,7 +83,7 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
 
 
   return (
-    <div className="bg-blue-500">
+    <div className="">
       <div className="max-w-[68rem] mx-auto">
         <style>
           @import url('{primaryFontStylesheet}')

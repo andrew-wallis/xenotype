@@ -119,7 +119,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
   }
 
   return (
-    <div className="bg-green-500">
+    <div className="">
       <div className="max-w-[68rem] mx-auto flex justify-between mb-16">
         <a className="relative pl-5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => {e.preventDefault(); changeModule("Choose")}}>
           <div className="inline-block rotate-90 p-px absolute top-0 left-0">
