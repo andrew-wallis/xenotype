@@ -39,22 +39,13 @@ function App({data}) {
   return (
     <div className="flex flex-col h-screen">
       <header className="w-full max-w-[68rem] mx-auto my-16 relative">
-        {(activeModule === "Pair" || activeModule === "Test") && 
-          <a className="absolute pl-5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>
-            <div className="inline-block rotate-90 p-px absolute top-0 left-0">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
-              </svg>
-            </div>
-            Back
-          </a>
-        }
+        <div className="absolute uppercase tracking-wider font-bold text-center leading-5">UX<span className="font-medium">Type</span></div>
         <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
       </header>
       <TransitionGroup className="flex-1 overflow-y-auto">
         <CSSTransition 
           key={activeModule}
-          timeout={300}
+          timeout={3000}
           classNames={`slide-${direction}`}
           nodeRef={
             activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef

@@ -119,7 +119,17 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
   }
 
   return (
-    <>
+    <div className="bg-green-500">
+      <div className="max-w-[68rem] mx-auto flex justify-between mb-16">
+        <a className="relative pl-5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => {e.preventDefault(); changeModule("Choose")}}>
+          <div className="inline-block rotate-90 p-px absolute top-0 left-0">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
+            </svg>
+          </div>
+          Back
+        </a>
+      </div>
       <div className="mb-12">
         <Swiper 
           slidesPerView={2} 
@@ -164,7 +174,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
           </div>
         </a>
       </div>
-    </>
+    </div>
   );
 }
 
