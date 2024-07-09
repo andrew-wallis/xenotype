@@ -71,16 +71,6 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
     }
   }
 
-  
-  // Local functions
-
-  function handleBack(e) {
-    e.preventDefault();
-    setActivePrimaryFont(pairingPrimaryFont);
-    setActiveSecondaryFont(pairingSecondaryFont);
-    changeModule("Pair");
-  }
-
 
   return (
     <div className="">
@@ -89,16 +79,6 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
           @import url('{primaryFontStylesheet}')
           @import url('{secondaryFontStylesheet}')
         </style>
-        <div className="flex justify-between mb-16">
-          <a className="relative pl-5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => {e.preventDefault(); changeModule("Pair")}}>
-            <div className="inline-block rotate-90 p-px absolute top-0 left-0">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
-              </svg>
-            </div>
-            Back
-          </a>
-        </div>
         <div className="flex">
           <aside className="w-64 mr-16">
             <div className="mb-12">

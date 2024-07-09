@@ -120,16 +120,6 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
 
   return (
     <div className="">
-      <div className="max-w-[68rem] mx-auto flex justify-between mb-16">
-        <a className="relative pl-5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => {e.preventDefault(); changeModule("Choose")}}>
-          <div className="inline-block rotate-90 p-px absolute top-0 left-0">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
-            </svg>
-          </div>
-          Back
-        </a>
-      </div>
       <div className="mb-12">
         <Swiper 
           slidesPerView={2} 
@@ -165,9 +155,9 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         </Swiper>
       </div>
       <div className="flex justify-center">
-        <a onClick={(e) => {e.preventDefault(); testPairing()}} className="inline-block relative rounded-full py-2.5 pl-5 pr-10 bg-gray-100 uppercase tracking-wider text-sm leading-5 font-bold" href="#">
+        <a onClick={(e) => {e.preventDefault(); testPairing()}} className="inline-block relative rounded-full py-2.5 pl-5 pr-10 bg-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-5 font-bold" href="#">
           Test This Pairing
-          <div className="p-px absolute top-2.5 right-2.5 -rotate-90">
+          <div className="p-px absolute top-2.5 right-2.5 -rotate-90 text-gray-800 dark:text-gray-300">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
             </svg>

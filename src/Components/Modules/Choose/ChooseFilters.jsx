@@ -7,7 +7,7 @@ function ChooseFilters({filter, handleFilter}) {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="mb-2 uppercase tracking-wider text-xs leading-5 font-bold">Classification</h2>
+        <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Classification</h2>
         <ChooseFilter filterKey="classification" value="Sans" filter={filter} handleFilter={handleFilter} />
           {filter["classification"].includes("Sans") && 
             <div className="ml-2">
@@ -28,14 +28,14 @@ function ChooseFilters({filter, handleFilter}) {
         <ChooseFilter filterKey="classification" value="Mono" filter={filter} handleFilter={handleFilter} />
       </div>
       <div className="mb-8">
-        <h2 className="mb-2 uppercase tracking-wider text-xs leading-5 font-bold">Vibe</h2>
+        <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Vibe</h2>
         <ChooseFilter filterKey="vibe" value="Clean" filter={filter} handleFilter={handleFilter} />
         <ChooseFilter filterKey="vibe" value="Friendly" filter={filter} handleFilter={handleFilter} />
         <ChooseFilter filterKey="vibe" value="Classy" filter={filter} handleFilter={handleFilter} />
         <ChooseFilter filterKey="vibe" value="Technical" filter={filter} handleFilter={handleFilter} />
       </div>
       <div className="mb-8">
-        <h2 className="mb-2 uppercase tracking-wider text-xs leading-5 font-bold">Licence</h2>
+        <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Licence</h2>
         <ChooseFilter filterKey="licence" value="Google" filter={filter} handleFilter={handleFilter} />
         <ChooseFilter filterKey="licence" value="Adobe" filter={filter} handleFilter={handleFilter} />
       </div>
