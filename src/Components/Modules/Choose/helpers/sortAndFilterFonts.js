@@ -10,7 +10,7 @@ function sortAndFilterFonts(fonts, filter, sort) {
   }
 
   if(filter.vibe.length > 0) {
-    fonts = fonts.filter(font => filter.vibe.includes(font.vibe));
+    fonts = fonts.filter(font => filter.vibe.includes(font.Vibe));
   }
 
   if(filter.licence.length > 0) {
