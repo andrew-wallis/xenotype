@@ -1,30 +1,15 @@
-/**
- * Uses an algorithm to find pairings to the current font
- * Called from BrowseFont
- * @param { object } font 
- * @param { object } data 
- * @returns { object } Array of suggested fonts
- */
+import _ from "lodash";
 
 function findPairings(font, fonts) {
 
   let matchingFamily = [];
   let matchingPairing = [];
-
-  let fontList = fonts;
+  let matchingOther = [];
+  
+  let fontList = _.cloneDeep(fonts);
   const thisFont = font;
 
-  // Remove this font from array
-  fontList = fontList.filter(font => font.id !== thisFont.id);
-
-  // Extract matching family
-  if(thisFont.family) {
-    matchingFamily = fontList.filter(font => font.family === thisFont.family);
-    fontList = fontList.filter(font => !matchingFamily.includes(font));
-  }
-
   let superclassOrder = []; 
-  
   switch(thisFont.superclass) {
     case "Sans":
       superclassOrder = ["Serif", "Slab", "Mono", "Sans"];
@@ -40,47 +25,58 @@ function findPairings(font, fonts) {
       break;
   }
 
-  const superclassIndex = {};
-  superclassOrder.forEach((superclass, index) => {
-    superclassIndex[superclass] = index;
-  });
+  fontList = fontList.filter(font => font.id !== thisFont.id);
+
+  function sortBySuperclassThenRating(a, b) {
+    const indexA = superclassOrder.indexOf(a.superclass);
+    const indexB = superclassOrder.indexOf(b.superclass);
+
+    if (indexA !== indexB) {
+      return indexA - indexB;
+    }
+
+    return b.Rating - a.Rating;
+  }
+
+  if(thisFont.family) {
+    matchingFamily = fontList.filter(font => font.family === thisFont.family).sort((a, b) => {
+      return sortBySuperclassThenRating(a, b);
+    });
+    fontList = fontList.filter(font => !matchingFamily.includes(font));
+  }
 
   if(thisFont.pairing) {
     const pairings = thisFont.pairing.split(';');
 
-    matchingPairing = fontList.filter(font => {
-      return pairings.includes(font.subclass) && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= 0.06;
-    }).sort((a, b) => {
-      const indexA = superclassIndex[a.superclass];
-      const indexB = superclassIndex[b.superclass];
-  
-      if (indexA !== indexB) {
-          return indexA - indexB;
-      }
-  
-      return b.Rating - a.Rating;
-    });
+    for(let i = 0; i <= 1; i += 0.06) {
+      const thisMatch = fontList.filter(font => {
+        return pairings.includes(font.subclass) && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) > i && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= (i + 0.06);
+      }).sort((a, b) => {
+        return sortBySuperclassThenRating(a, b);
+      });
 
-  } else {
+      matchingPairing = matchingPairing.concat(thisMatch);
+    }
 
-    matchingPairing = fontList.filter(font => {
-      return Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= 0.06;
-    }).sort((a, b) => {
-      const indexA = superclassIndex[a.superclass];
-      const indexB = superclassIndex[b.superclass];
-  
-      if (indexA !== indexB) {
-          return indexA - indexB;
-      }
-  
-      return b.Rating - a.Rating;
-    });
-
+    fontList = fontList.filter(font => !matchingPairing.includes(font));
   }
+
+  superclassOrder.forEach((superclass) => {
+    for(let i = 0; i <= 1; i += 0.06) {
+      const thisMatch = fontList.filter(font => {
+        return font.superclass === superclass && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) > i && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= (i + 0.06);
+      }).sort((a, b) => {
+        return sortBySuperclassThenRating(a, b);
+      });
+
+      matchingOther = matchingOther.concat(thisMatch);
+    }
+  });
 
   const sortedFonts = [
     ...matchingFamily,
-    ...matchingPairing
+    ...matchingPairing,
+    ...matchingOther
   ]
 
   return sortedFonts;
