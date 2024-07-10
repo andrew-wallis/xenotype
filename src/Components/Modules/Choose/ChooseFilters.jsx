@@ -23,6 +23,7 @@ function Checkboxs({filter, handleFilter}) {
               <Checkbox id="subclassification" value="Transitional" callback={handleFilter} checked={filter["subclassification"].includes("Transitional") ? true : false} />
               <Checkbox id="subclassification" value="Modern" callback={handleFilter} checked={filter["subclassification"].includes("Modern") ? true : false} />
               <Checkbox id="subclassification" value="Contemporary" callback={handleFilter} checked={filter["subclassification"].includes("Contemporary") ? true : false} />
+              <Checkbox id="subclassification" value="Slab" callback={handleFilter} checked={filter["subclassification"].includes("Slab") ? true : false} />
             </div>
           }
         <Checkbox id="classification" value="Mono" callback={handleFilter} checked={filter["classification"].includes("Mono") ? true : false}/>
