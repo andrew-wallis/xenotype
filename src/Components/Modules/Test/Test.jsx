@@ -4,6 +4,7 @@ import findPairings from "../../../utils/findPairings";
 import TestSample from "./TestSample";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
 import getStylesheet from "./helpers/getStylesheet";
+import Button from "../../Elements/Button";
 
 
 function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont}) {
@@ -46,10 +47,16 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
   }, [allPairings]);
 
   useEffect(() => {
-    if(Object.keys(pairingPrimaryFont).length !== 0 && Object.keys(pairingSecondaryFont).length !== 0) {
-      setStyles(getStylesheet(pairingPrimaryFont, pairingSecondaryFont));
+    if(Object.keys(pairingPrimaryFont).length !== 0) {
       setPrimaryFontStylesheet(getFontStylesheet(pairingPrimaryFont, ["rg"]));
+    }
+
+    if(Object.keys(pairingSecondaryFont).length !== 0) {
       setSecondaryFontStylesheet(getFontStylesheet(pairingSecondaryFont, ["rg"]));
+    }
+
+    if(Object.keys(pairingPrimaryFont).length !== 0) {
+      setStyles(getStylesheet(pairingPrimaryFont, pairingSecondaryFont));
     }
   }, [pairingPrimaryFont, pairingSecondaryFont]);
 
@@ -71,6 +78,10 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
     }
   }
 
+  const handleFindPairings = () => {
+    setPairingSecondaryFont(allPairings[0]);
+  }
+
 
   return (
     <div className="">
@@ -87,9 +98,12 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
               ))}
             </div>
             <div className="mb-12">
-              {pairings.map((font, index) => (
+              {Object.keys(pairingSecondaryFont).length !== 0 && pairings.map((font, index) => (
                 <TestSample key={index} font={font} activeFont={pairingSecondaryFont} sampleText={sampleText} chooseFont={chooseSecondaryFont} />
               ))}
+              {Object.keys(pairingSecondaryFont).length === 0 && 
+                <Button callback={handleFindPairings}>Find Pairings</Button>
+              }
             </div>
           </aside>
           <main className="flex-1">

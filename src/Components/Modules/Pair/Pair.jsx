@@ -93,6 +93,12 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
     changeModule("Test");
   }
 
+  function skipPairing() {
+    setActivePrimaryFont(pairingPrimaryFont);
+    setActiveSecondaryFont({});
+    changeModule("Test");
+  }
+
   function handleSlideChangeAlternatives(swiper) {
     if(alternatives.length > 0) {
       setPairingPrimaryFont(alternatives[swiper.activeIndex]);
@@ -155,8 +161,11 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
           ))}
         </Swiper>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-6">
         <CTA callback={testPairing}>Test This Pairing</CTA>
+      </div>
+      <div className="flex justify-center">
+        <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={skipPairing}>Skip Pairing</a>
       </div>
     </div>
   );

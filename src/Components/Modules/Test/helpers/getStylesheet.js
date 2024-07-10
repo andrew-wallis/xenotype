@@ -3,6 +3,8 @@ import getFontFamily from "../../../../utils/getFontFamily";
 
 function getStylesheet(pairingPrimaryFont, pairingSecondaryFont) {
 
+  const setSecondaryFont = Object.keys(pairingSecondaryFont).length !== 0 ? pairingSecondaryFont : pairingPrimaryFont;
+
   const updateStyles = {
     h1: {
       fontFamily: getFontFamily(pairingPrimaryFont, "rg"),
@@ -20,8 +22,8 @@ function getStylesheet(pairingPrimaryFont, pairingSecondaryFont) {
       lineHeight: 1.2
     },
     p: {
-      fontFamily: getFontFamily(pairingSecondaryFont, "rg"),
-      fontSize: `${1.125 / pairingSecondaryFont.adjust}rem`,
+      fontFamily: getFontFamily(setSecondaryFont, "rg"),
+      fontSize: `${1.125 / setSecondaryFont.adjust}rem`,
       lineHeight: 1.5
     }
   }
