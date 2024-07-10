@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 import ChooseSample from "./ChooseSample";
 import ChooseFilters from "./ChooseFilters";
+import updateFilters from "./helpers/updateFilters";
 
 function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont, changeModule, showFilters, sort}) {
-
 
 
   //  React Hooks
@@ -31,36 +31,7 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
   }
 
   const handleFilter = (term, key) => {
-    const updatefilter = {...filter};
-
-    if(!updatefilter[key].includes(term)) {
-      updatefilter[key].push(term);
-    } else {
-      const filterIndex = updatefilter[key].indexOf(term);
-      updatefilter[key].splice(filterIndex, 1);
-
-      if(term === "Sans") {
-        const sansSubclass = ["Humanist", "Grotesque", "Geometric"];
-        sansSubclass.forEach(subTerm => {
-          const subTermIndex = updatefilter.subclassification.indexOf(subTerm);
-          if(subTermIndex !== -1) {
-            updatefilter.subclassification.splice(filterIndex, 1);
-          }
-        });
-      }
-
-      if(term === "Serif") {
-        const sansSubclass = ["Old Style", "Transitional", "Modern", "Contemporary"];
-        sansSubclass.forEach(subTerm => {
-          const subTermIndex = updatefilter.subclassification.indexOf(subTerm);
-          if(subTermIndex !== -1) {
-            updatefilter.subclassification.splice(filterIndex, 1);
-          }
-        });
-      }
-    }
-
-    setFilter(updatefilter);
+    setFilter(updateFilters(filter, term, key));
   }
 
 
@@ -76,7 +47,7 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
               />
             }
           </aside>
-          <main className="flex-1 transition-[width] duration-300 grid grid-cols-3 gap-9">
+          <main className="flex-1 transition-[width] duration-300 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
             {sortedFonts.map(([fontKey, font]) => (
               <ChooseSample key={fontKey} font={font} sampleText={sampleText} chooseFont={chooseFont} />
             ))}

@@ -27,7 +27,7 @@ function ChooseSample({font, sampleText, chooseFont}) {
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
-      <div className="mb-1" style={{...fontNameStyles}}>{font.label}</div>
+      <div className="mb-1 opacity-90" style={{...fontNameStyles}}>{font.label}</div>
       <div style={{...fontSampleStyles}}>{sampleText}</div>
     </a>
   );

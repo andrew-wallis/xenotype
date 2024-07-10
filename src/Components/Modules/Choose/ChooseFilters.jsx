@@ -1,6 +1,6 @@
-import ChooseFilter from "./ChooseFilter";
+import Checkbox from "../../Elements/Checkbox";
 
-function ChooseFilters({filter, handleFilter}) {
+function Checkboxs({filter, handleFilter}) {
 
   console.log(filter);
 
@@ -8,39 +8,39 @@ function ChooseFilters({filter, handleFilter}) {
     <div>
       <div className="mb-8">
         <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Classification</h2>
-        <ChooseFilter filterKey="classification" value="Sans" filter={filter} handleFilter={handleFilter} />
+        <Checkbox id="classification" value="Sans" callback={handleFilter} checked={filter["classification"].includes("Sans") ? true : false} />
           {filter["classification"].includes("Sans") && 
             <div className="ml-2">
-              <ChooseFilter filterKey="subclassification" value="Humanist" filter={filter} handleFilter={handleFilter} />
-              <ChooseFilter filterKey="subclassification" value="Grotesque" filter={filter} handleFilter={handleFilter} />
-              <ChooseFilter filterKey="subclassification" value="Geometric" filter={filter} handleFilter={handleFilter} />
+              <Checkbox id="subclassification" value="Humanist" callback={handleFilter} checked={filter["subclassification"].includes("Humanist") ? true : false}/>
+              <Checkbox id="subclassification" value="Grotesque" callback={handleFilter} checked={filter["subclassification"].includes("Grotesque") ? true : false}/>
+              <Checkbox id="subclassification" value="Geometric" callback={handleFilter} checked={filter["subclassification"].includes("Geometric") ? true : false}/>
             </div>
           }
-        <ChooseFilter filterKey="classification" value="Serif" filter={filter} handleFilter={handleFilter} />
+        <Checkbox id="classification" value="Serif" callback={handleFilter} checked={filter["classification"].includes("Serif") ? true : false}/>
           {filter["classification"].includes("Serif") && 
             <div className="ml-2">
-              <ChooseFilter filterKey="subclassification" value="Old Style" filter={filter} handleFilter={handleFilter} />
-              <ChooseFilter filterKey="subclassification" value="Transitional" filter={filter} handleFilter={handleFilter} />
-              <ChooseFilter filterKey="subclassification" value="Modern" filter={filter} handleFilter={handleFilter} />
-              <ChooseFilter filterKey="subclassification" value="Contemporary" filter={filter} handleFilter={handleFilter} />
+              <Checkbox id="subclassification" value="Old Style" callback={handleFilter} checked={filter["subclassification"].includes("Old Style") ? true : false}/>
+              <Checkbox id="subclassification" value="Transitional" callback={handleFilter} checked={filter["subclassification"].includes("Transitional") ? true : false} />
+              <Checkbox id="subclassification" value="Modern" callback={handleFilter} checked={filter["subclassification"].includes("Modern") ? true : false} />
+              <Checkbox id="subclassification" value="Contemporary" callback={handleFilter} checked={filter["subclassification"].includes("Contemporary") ? true : false} />
             </div>
           }
-        <ChooseFilter filterKey="classification" value="Mono" filter={filter} handleFilter={handleFilter} />
+        <Checkbox id="classification" value="Mono" callback={handleFilter} checked={filter["classification"].includes("Mono") ? true : false}/>
       </div>
       <div className="mb-8">
         <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Vibe</h2>
-        <ChooseFilter filterKey="vibe" value="Clean" filter={filter} handleFilter={handleFilter} />
-        <ChooseFilter filterKey="vibe" value="Friendly" filter={filter} handleFilter={handleFilter} />
-        <ChooseFilter filterKey="vibe" value="Classy" filter={filter} handleFilter={handleFilter} />
-        <ChooseFilter filterKey="vibe" value="Technical" filter={filter} handleFilter={handleFilter} />
+        <Checkbox id="vibe" value="Clean" callback={handleFilter} checked={filter["vibe"].includes("Clean") ? true : false}/>
+        <Checkbox id="vibe" value="Friendly" callback={handleFilter} checked={filter["vibe"].includes("Friendly") ? true : false}/>
+        <Checkbox id="vibe" value="Classy" callback={handleFilter} checked={filter["vibe"].includes("Classy") ? true : false}/>
+        <Checkbox id="vibe" value="Technical" callback={handleFilter} checked={filter["vibe"].includes("Technical") ? true : false} />
       </div>
       <div className="mb-8">
         <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Licence</h2>
-        <ChooseFilter filterKey="licence" value="Google" filter={filter} handleFilter={handleFilter} />
-        <ChooseFilter filterKey="licence" value="Adobe" filter={filter} handleFilter={handleFilter} />
+        <Checkbox id="licence" value="Google" callback={handleFilter} checked={filter["licence"].includes("Google") ? true : false}/>
+        <Checkbox id="licence" value="Adobe" callback={handleFilter} checked={filter["licence"].includes("Adobe") ? true : false}/>
       </div>
     </div>
   );
 }
 
-export default ChooseFilters;
+export default Checkboxs;

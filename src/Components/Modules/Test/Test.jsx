@@ -6,7 +6,7 @@ import getFontStylesheet from "../../../utils/getFontStylesheet";
 import getStylesheet from "./helpers/getStylesheet";
 
 
-function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
+function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont}) {
 
   
   // React Hooks
@@ -101,7 +101,6 @@ function Test({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
               <h3 style={{ ...styles.h3}} className="mt-9 mb-6 font-semibold">Future Trends and Innovations</h3>
               <p style={{ ...styles.p}} className="my-6">Looking ahead, the landscape of web and software design is set to evolve dramatically with the advent of new technologies and methodologies. Innovations such as artificial intelligence, augmented reality, and quantum computing are poised to revolutionize how designers approach their craft. In this new paradigm, quick prototyping and iterative testing will become even more critical. Moreover, designers will need to stay adept with numerical analysis tools to measure user engagement and performance metrics accurately. Embracing these trends will not only enhance the designer's toolkit but also elevate the user experience to new heights, making each interaction more engaging and effective.</p>
             </div>
-
           </main>
         </div>
       </div>

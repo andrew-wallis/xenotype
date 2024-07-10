@@ -4,6 +4,9 @@ import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./App.css";
+import Button from "./Components/Elements/Button";
+import Select from "./Components/Elements/Select";
+import BackLink from "./Components/Elements/BackLink";
 
 function App({data}) {
 
@@ -17,7 +20,7 @@ function App({data}) {
 
   const [activePrimaryFont, setActivePrimaryFont] = useState({});
   const [activeSecondaryFont, setActiveSecondaryFont] = useState({});
-  const [sampleText, setSampleText] = useState("handgloves & AETHERS");
+  const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
 
   const [activeModule, setActiveModule] = useState("Choose");
   const [nextModule, setNextModule] = useState(null);
@@ -70,11 +73,11 @@ function App({data}) {
     setNextModule(module);
   }
 
-
-  // Local Functions
+  const handleToggleFilters = () => {
+    setShowFilters(!showFilters);
+  }
   
-  function handleBack(e) {
-    e.preventDefault();
+  const handleBack = () => {
     changeModule(activeModule === "Pair" ? "Choose" : "Pair");
   }
 
@@ -88,31 +91,14 @@ function App({data}) {
       <div className="w-full max-w-[68rem] mx-auto mb-16">
         {activeModule === "Choose" && 
           <div className="flex justify-between">
-            <button onClick={(e) => {e.preventDefault(); setShowFilters(!showFilters)}} className="rounded-full py-2.5 px-5 uppercase tracking-wider text-sm leading-5 font-bold bg-gray-100 dark:bg-gray-900">Filters</button>
-            <div className="relative">
-              <div className="p-px absolute top-2.5 right-3.5 text-gray-800 dark:text-gray-300">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
-                </svg>
-              </div>
-              <label htmlFor="sort" className="sr-only">Filter</label>
-              <select className="appearance-none rounded-full py-2.5 pr-10 pl-5 bg-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-5 font-bold" id="sort" value={sort} onChange={(e) => setSort(e.target.value)}>
-                {sortOptions.map((sortOption) => (
-                  <option key={sortOption} value={sortOption}>{sortOption}</option>
-                ))}
-              </select>
-            </div>
+            <Button callback={handleToggleFilters}>
+              Filters
+            </Button>
+            <Select label="Filter" id="filter" value={sort} callback={setSort} options={sortOptions} />
           </div>
         }
         {(activeModule === "Pair" || activeModule === "Test") &&
-          <a className="relative pl-5 py-2.5 block uppercase tracking-wider font-bold text-sm leading-5" href="#" onClick={(e) => handleBack(e)}>
-          <div className="inline-block rotate-90 p-px absolute top-2.5 left-0 text-gray-800 dark:text-gray-300">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 10L12 6H4L8 10Z" fill="currentColor"/>
-            </svg>
-          </div>
-          Back
-        </a>
+          <BackLink callback={handleBack} />
         }
       </div>
       <TransitionGroup className="flex-1 overflow-y-auto overflow-x-hidden relative">
