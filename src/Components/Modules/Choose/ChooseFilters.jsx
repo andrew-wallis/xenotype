@@ -30,9 +30,9 @@ function Checkboxs({filter, handleFilter}) {
       </div>
       <div className="mb-8">
         <h2 className="mb-2 uppercase tracking-wider text-sm leading-5 font-bold">Vibe</h2>
-        <Checkbox id="vibe" value="Clean" callback={handleFilter} checked={filter["vibe"].includes("Clean") ? true : false}/>
-        <Checkbox id="vibe" value="Friendly" callback={handleFilter} checked={filter["vibe"].includes("Friendly") ? true : false}/>
-        <Checkbox id="vibe" value="Classy" callback={handleFilter} checked={filter["vibe"].includes("Classy") ? true : false}/>
+        <Checkbox id="vibe" value="Neutral" callback={handleFilter} checked={filter["vibe"].includes("Neutral") ? true : false}/>
+        <Checkbox id="vibe" value="Quirky" callback={handleFilter} checked={filter["vibe"].includes("Quirky") ? true : false}/>
+        <Checkbox id="vibe" value="Elegant" callback={handleFilter} checked={filter["vibe"].includes("Elegant") ? true : false}/>
         <Checkbox id="vibe" value="Technical" callback={handleFilter} checked={filter["vibe"].includes("Technical") ? true : false} />
       </div>
       <div className="mb-8">
