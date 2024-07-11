@@ -21,11 +21,14 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
 
+  const [pairing, setPairing] = useState(Object.keys(activeSecondaryFont).length !== 0 ? true : false );
+
   const [pairingPrimaryFont, setPairingPrimaryFont] = useState({});
   const [pairingSecondaryFont, setPairingSecondaryFont] = useState({});
 
   const [primaryFontStylesheet, setPrimaryFontStylesheet] = useState(null);
   const [secondaryFontStylesheet, setSecondaryFontStylesheet] = useState(null);
+  
 
   const [styles, setStyles] = useState({});
 
@@ -36,13 +39,13 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
 
   useEffect(() => {
     setAlternativesIndex(0);
-    setAlternatives(allAlternatives.slice(0, alternativesIndex + 4));
+    setAlternatives(allAlternatives);
     setPairingPrimaryFont(activePrimaryFont);
   }, [allAlternatives]);
 
   useEffect(() => {
     setPairingsIndex(allPairings.indexOf(activeSecondaryFont));
-    setPairings(allPairings.slice(0, pairingsIndex > 4 ? pairingsIndex : 4));
+    setPairings(allPairings);
     setPairingSecondaryFont(activeSecondaryFont);
   }, [allPairings]);
 
@@ -51,14 +54,20 @@ function Test({fonts, sampleText, activePrimaryFont, setActivePrimaryFont, activ
       setPrimaryFontStylesheet(getFontStylesheet(pairingPrimaryFont, ["rg"]));
     }
 
-    if(Object.keys(pairingSecondaryFont).length !== 0) {
+    if(pairing && Object.keys(pairingSecondaryFont).length !== 0) {
       setSecondaryFontStylesheet(getFontStylesheet(pairingSecondaryFont, ["rg"]));
-    }
-
-    if(Object.keys(pairingPrimaryFont).length !== 0) {
-      setStyles(getStylesheet(pairingPrimaryFont, pairingSecondaryFont));
+    } else {
+      setSecondaryFontStylesheet("nostyle");
     }
   }, [pairingPrimaryFont, pairingSecondaryFont]);
+
+  useEffect(() => {
+    if(primaryFontStylesheet && secondaryFontStylesheet) {
+      setStyles(getStylesheet(pairingPrimaryFont, pairingSecondaryFont));
+    }
+  }, [primaryFontStylesheet, secondaryFontStylesheet]);
+
+  console.log(primaryFontStylesheet, secondaryFontStylesheet);
 
   const choosePrimaryFont = (font) => {
     if(font !== pairingPrimaryFont) {
