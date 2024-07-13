@@ -42,9 +42,7 @@ function App({data}) {
   }, [chosenFont]);
 
   useEffect(() => {
-    if(allPairings.length > 0 && Object.keys(secondaryFont).length === 0) {
-      setSecondaryFont(allPairings[0]);
-    }
+    setSecondaryFont(allPairings[0]);
   }, [allPairings]);
 
 

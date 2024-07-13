@@ -4,28 +4,30 @@ import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
 import Article from "./templates/Article";
 
-
 function Test() {
 
-  
   // React Hooks
 
   const context = useContext(AppContext);
 
-  const [alternativesIndex, setAlternativesIndex] = useState(null);
-  const [pairingsIndex, setPairingsIndex] = useState(null);
+  const [alternativesIndex, setAlternativesIndex] = useState(0);
+  const [pairingsIndex, setPairingsIndex] = useState(0);
 
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
 
+  console.log(alternativesIndex, pairingsIndex);
+
   useEffect(() => {
-    setAlternatives(context.allAlternatives.slice(0, alternativesIndex + 4));
-    setAlternativesIndex(alternatives.indexOf(context.primaryFont));
+    setAlternativesIndex(context.allAlternatives.indexOf(context.primaryFont));
+    console.log(alternativesIndex);
+    setAlternatives(context.allAlternatives.slice(alternativesIndex > 4 ? alternativesIndex : 0, alternativesIndex + 4));
   }, [context.allAlternatives]);
 
   useEffect(() => {
-    setPairings(context.allPairings.slice(0, pairingsIndex + 4));
-    setPairingsIndex(pairings.indexOf(context.secondaryFont));
+    setPairingsIndex(context.allPairings.indexOf(context.secondaryFont));
+    console.log(pairingsIndex);
+    setPairings(context.allPairings.slice(pairingsIndex > 4 ? pairingsIndex : 0, pairingsIndex + 4));
   }, [context.allPairings]);
 
   const choosePrimaryFont = (font) => {
@@ -34,8 +36,6 @@ function Test() {
       setAlternativesIndex(alternatives.indexOf(font));
     } else {
       context.setChosenFont(font);
-      setAlternativesIndex(alternatives.indexOf(context.primaryFont));
-      setPairingsIndex(pairings.indexOf(context.secondaryFont));
     }
   }
 
@@ -46,8 +46,6 @@ function Test() {
     } else {
       context.setChosenFont(font);
       setDefaultPairing();
-      setAlternativesIndex(alternatives.indexOf(context.primaryFont));
-      setPairingsIndex(pairings.indexOf(context.secondaryFont));
     }
   }
 

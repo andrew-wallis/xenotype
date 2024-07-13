@@ -1,7 +1,7 @@
 import { useContext } from "react";
+import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
-import { AppContext } from "../../../../App";
 
 function Article() {
 

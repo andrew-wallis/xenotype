@@ -1,21 +1,18 @@
 import { useEffect, useState, useRef, useContext } from "react";
-import PairSample from "./PairSample";
-
+import { AppContext } from "../../../App";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
+import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
-import { AppContext } from "../../../App";
-
 
 function Pair() {
-
 
   // React Hooks
 
   const context = useContext(AppContext);
 
-  const [alternativesIndex, setAlternativesIndex] = useState(null);
-  const [pairingsIndex, setPairingsIndex] = useState(null);
+  const [alternativesIndex, setAlternativesIndex] = useState(0);
+  const [pairingsIndex, setPairingsIndex] = useState(0);
 
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
@@ -24,7 +21,7 @@ function Pair() {
   const pairingsSwiperRef = useRef(null);
 
   useEffect(() => {
-    setAlternativesIndex(context.allPairings.indexOf(context.primaryFont));
+    setAlternativesIndex(context.allAlternatives.indexOf(context.primaryFont));
     setAlternatives(context.allAlternatives.slice(0, alternativesIndex + 4));
   }, [context.allAlternatives]);
 
@@ -67,8 +64,6 @@ function Pair() {
       setPairingsIndex(pairings.indexOf(font));
     } else {
       context.setChosenFont(font);
-      setAlternativesIndex(null);
-      setPairingsIndex(null);
     }
   }
 

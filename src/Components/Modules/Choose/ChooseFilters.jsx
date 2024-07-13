@@ -2,8 +2,6 @@ import Checkbox from "../../Elements/Checkbox";
 
 function Checkboxs({filter, handleFilter}) {
 
-  console.log(filter);
-
   return (
     <div>
       <div className="mb-8">

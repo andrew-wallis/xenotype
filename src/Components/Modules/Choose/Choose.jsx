@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
+import { AppContext } from "../../../App";
 import ChooseSample from "./ChooseSample";
 import ChooseFilters from "./ChooseFilters";
 import updateFilters from "./helpers/updateFilters";
-import { AppContext } from "../../../App";
+import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 
 function Choose({showFilters, sort}) {
   
-
   //  React Hooks
 
   const context = useContext(AppContext);
@@ -35,7 +34,6 @@ function Choose({showFilters, sort}) {
   const handleFilter = (term, key) => {
     setFilter(updateFilters(filter, term, key));
   }
-
 
   return (
     <div className="">
