@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 import ChooseSample from "./ChooseSample";
 import ChooseFilters from "./ChooseFilters";
 import updateFilters from "./helpers/updateFilters";
+import { AppContext } from "../../../App";
 
-function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont, changeModule, showFilters, sort}) {
-
+function Choose({showFilters, sort}) {
+  
 
   //  React Hooks
+
+  const context = useContext(AppContext);
 
   const [sortedFonts, setSortedFonts] = useState([]);
   const [filter, setFilter] = useState({
@@ -18,16 +21,15 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
   });
 
   useEffect(() => {
-    setSortedFonts(sortAndFilterFonts(fonts, filter, sort));
-  }, [fonts, filter, sort]);
+    setSortedFonts(sortAndFilterFonts(context.fonts, filter, sort));
+  }, [context.fonts, filter, sort]);
 
 
   // Functions
 
   const chooseFont = (font) => {
-    setActivePrimaryFont(font);
-    setActiveSecondaryFont({});
-    changeModule("Pair");
+    context.setChosenFont(font);
+    context.changeModule("Pair");
   }
 
   const handleFilter = (term, key) => {
@@ -40,16 +42,13 @@ function Choose({fonts, sampleText, setActivePrimaryFont, setActiveSecondaryFont
       <div className="max-w-[68rem] mx-auto">
         <div className="flex">
           <aside className={`transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-4" : "w-0 mr-0"} `}>
-            {showFilters && 
-              <ChooseFilters 
-                filter={filter}
-                handleFilter={handleFilter}
-              />
+            {showFilters &&
+              <ChooseFilters filter={filter} handleFilter={handleFilter} />
             }
           </aside>
           <main className="flex-1 transition-[width] duration-300 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
             {sortedFonts.map(([fontKey, font]) => (
-              <ChooseSample key={fontKey} font={font} sampleText={sampleText} chooseFont={chooseFont} />
+              <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
             ))}
           </main>
         </div>

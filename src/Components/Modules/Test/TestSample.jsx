@@ -1,7 +1,7 @@
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
 
-function TestSample({font, activeFont, sampleText, chooseFont}) {
+function TestSample({font, activeFont, chooseFont}) {
 
   const wrapperStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -18,12 +18,15 @@ function TestSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   return (
-    <a href="#" className={`block mb-3 font-semibold ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <>
       <style>
-        @import url('{getFontStylesheet(font, ["rg"])}')
+        @import url('{getFontStylesheet(font, ["rg"])}');
       </style>
+      <a href="#" className={`block mb-3 font-semibold ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
       <div style={{...fontNameStyles}}>{font.label}</div>
     </a>
+    </>
+
   );
 }
 

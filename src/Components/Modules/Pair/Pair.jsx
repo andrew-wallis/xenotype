@@ -1,20 +1,18 @@
-import { useEffect, useState, useRef } from "react";
-import findAlternatives from "../../../utils/findAlternatives";
-import findPairings from "../../../utils/findPairings";
+import { useEffect, useState, useRef, useContext } from "react";
 import PairSample from "./PairSample";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import CTA from "../../Elements/CTA";
+import { AppContext } from "../../../App";
 
 
-function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrimaryFont, activeSecondaryFont, setActiveSecondaryFont}) {
+function Pair() {
 
 
   // React Hooks
 
-  const [allAlternatives, setAllAlternatives] = useState([]);
-  const [allPairings, setAllPairings] = useState([]);
+  const context = useContext(AppContext);
 
   const [alternativesIndex, setAlternativesIndex] = useState(null);
   const [pairingsIndex, setPairingsIndex] = useState(null);
@@ -24,29 +22,16 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
 
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
-  
-  const [pairingPrimaryFont, setPairingPrimaryFont] = useState({});
-  const [pairingSecondaryFont, setPairingSecondaryFont] = useState({});
 
   useEffect(() => {
-    setAllAlternatives(findAlternatives(activePrimaryFont, fonts));
-    setAllPairings(findPairings(activePrimaryFont, fonts));
-  }, [activePrimaryFont]);
+    setAlternativesIndex(context.allPairings.indexOf(context.primaryFont));
+    setAlternatives(context.allAlternatives.slice(0, alternativesIndex + 4));
+  }, [context.allAlternatives]);
 
   useEffect(() => {
-    setAlternativesIndex(0);
-    setAlternatives(allAlternatives.slice(0, alternativesIndex + 4));
-    setPairingPrimaryFont(activePrimaryFont);
-  }, [allAlternatives]);
-
-  useEffect(() => {
-
-    const isSecondaryFontActive = (Object.keys(activeSecondaryFont).length > 0 && allPairings.includes(activeSecondaryFont)) ? true : false;
-
-    setPairingsIndex(isSecondaryFontActive ? allPairings.indexOf(activeSecondaryFont) : 0);
-    setPairings(allPairings.slice(0, pairingsIndex + 4));
-    setPairingSecondaryFont(isSecondaryFontActive ? activeSecondaryFont : allPairings[0]);
-  }, [allPairings]);
+    setPairingsIndex(context.allPairings.indexOf(context.secondaryFont));
+    setPairings(context.allPairings.slice(0, pairingsIndex + 4));
+  }, [context.allPairings]);
 
   useEffect(() => {
     if(alternativesSwiperRef.current) {
@@ -64,64 +49,61 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
   // Functions
 
   const choosePrimaryFont = (font) => {
-    if(font !== pairingPrimaryFont) {
-      setPairingPrimaryFont(font);
+    if(font !== context.primaryFont) {
+      context.setPrimaryFont(font);
       setAlternativesIndex(alternatives.indexOf(font));
     } else {
-      if(activePrimaryFont === font) {
+      if(context.chosenFont === font) {
         testPairing();
       } else {
-        setActivePrimaryFont(font); 
+        context.setChosenFont(font);
       }
     }
   }
 
   const chooseSecondaryFont = (font) => {
-    if(font !== pairingSecondaryFont) {
-      setPairingSecondaryFont(font);
+    if(font !== context.secondaryFont) {
+      context.setSecondaryFont(font);
       setPairingsIndex(pairings.indexOf(font));
     } else {
-      setActivePrimaryFont(font);
-      setPairingSecondaryFont({});
+      context.setChosenFont(font);
+      setAlternativesIndex(null);
       setPairingsIndex(null);
     }
   }
 
   function testPairing() {
-    setActivePrimaryFont(pairingPrimaryFont);
-    setActiveSecondaryFont(pairingSecondaryFont);
-    changeModule("Test");
+    context.changeModule("Test");
   }
 
   function skipPairing() {
-    setActivePrimaryFont(pairingPrimaryFont);
-    setActiveSecondaryFont({});
-    changeModule("Test");
+    context.setSecondaryFont(context.primaryFont);
+    context.changeModule("Test");
   }
 
   function handleSlideChangeAlternatives(swiper) {
     if(alternatives.length > 0) {
-      setPairingPrimaryFont(alternatives[swiper.activeIndex]);
+      context.setPrimaryFont(alternatives[swiper.activeIndex]);
     }
   }
 
   function handleSlideChangePairings(swiper) {
     if(pairings.length > 0) {
-      setPairingSecondaryFont(pairings[swiper.activeIndex]);
+      context.setSecondaryFont(pairings[swiper.activeIndex]);
     }
   }
 
   function handleReachEndAlternatives() {
     setAlternatives((prev) => [
       ...prev,
-      ...allAlternatives.slice(prev.length, prev.length + 4)
+      ...context.allAlternatives.slice(prev.length, prev.length + 4)
     ]);
   }
 
   function handleReachEndPairings() {
     setPairings((prev) => [
       ...prev,
-      ...allPairings.slice(prev.length, prev.length + 4)
+      ...context.allPairings.slice(prev.length, prev.length + 4)
     ]);
   }
 
@@ -139,7 +121,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         >
           {alternatives.map((font, index) => (
             <SwiperSlide key={index}>
-              <PairSample font={font} activeFont={pairingPrimaryFont} sampleText={sampleText} chooseFont={choosePrimaryFont} />
+              <PairSample font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -156,7 +138,7 @@ function Pair({fonts, sampleText, changeModule, activePrimaryFont, setActivePrim
         >
           {pairings.map((font, index) => (
             <SwiperSlide key={index}>
-              <PairSample font={font} activeFont={pairingSecondaryFont} sampleText={sampleText} chooseFont={chooseSecondaryFont} />
+              <PairSample font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
             </SwiperSlide>
           ))}
         </Swiper>

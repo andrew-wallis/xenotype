@@ -18,7 +18,6 @@ function sortAndFilterFonts(fonts, filter, sort) {
   }
  
   let sortFonts = Object.entries(fonts);
-  console.log(sort);
 
   if(sort === "Rating") {
     sortFonts = sortFonts.sort((a, b) => b[1].Rating - a[1].Rating);
