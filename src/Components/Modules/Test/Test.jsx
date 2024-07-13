@@ -10,30 +10,22 @@ function Test() {
 
   const context = useContext(AppContext);
 
-  const [alternativesIndex, setAlternativesIndex] = useState(0);
-  const [pairingsIndex, setPairingsIndex] = useState(0);
-
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
 
-  console.log(alternativesIndex, pairingsIndex);
-
   useEffect(() => {
-    setAlternativesIndex(context.allAlternatives.indexOf(context.primaryFont));
-    console.log(alternativesIndex);
-    setAlternatives(context.allAlternatives.slice(alternativesIndex > 4 ? alternativesIndex : 0, alternativesIndex + 4));
+    const index = context.allAlternatives.indexOf(context.primaryFont);
+    setAlternatives(context.allAlternatives.slice(0, index + 4));
   }, [context.allAlternatives]);
 
   useEffect(() => {
-    setPairingsIndex(context.allPairings.indexOf(context.secondaryFont));
-    console.log(pairingsIndex);
-    setPairings(context.allPairings.slice(pairingsIndex > 4 ? pairingsIndex : 0, pairingsIndex + 4));
+    const index = context.allPairings.indexOf(context.secondaryFont);
+    setPairings(context.allPairings.slice(0, index + 4));
   }, [context.allPairings]);
 
   const choosePrimaryFont = (font) => {
     if(font !== context.primaryFont) {
       context.setPrimaryFont(font);
-      setAlternativesIndex(alternatives.indexOf(font));
     } else {
       context.setChosenFont(font);
     }
@@ -42,7 +34,6 @@ function Test() {
   const chooseSecondaryFont = (font) => {
     if(font !== context.secondaryFont) {
       context.setSecondaryFont(font);
-      setPairingsIndex(pairings.indexOf(font));
     } else {
       context.setChosenFont(font);
       setDefaultPairing();

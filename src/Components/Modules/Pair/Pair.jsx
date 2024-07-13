@@ -21,13 +21,15 @@ function Pair() {
   const pairingsSwiperRef = useRef(null);
 
   useEffect(() => {
-    setAlternativesIndex(context.allAlternatives.indexOf(context.primaryFont));
-    setAlternatives(context.allAlternatives.slice(0, alternativesIndex + 4));
+    const index = context.allAlternatives.indexOf(context.primaryFont);
+    setAlternativesIndex(index);
+    setAlternatives(context.allAlternatives.slice(0, index + 4));
   }, [context.allAlternatives]);
 
   useEffect(() => {
-    setPairingsIndex(context.allPairings.indexOf(context.secondaryFont));
-    setPairings(context.allPairings.slice(0, pairingsIndex + 4));
+    const index = context.allPairings.indexOf(context.secondaryFont);
+    setPairingsIndex(index);
+    setPairings(context.allPairings.slice(0, index + 4));
   }, [context.allPairings]);
 
   useEffect(() => {
