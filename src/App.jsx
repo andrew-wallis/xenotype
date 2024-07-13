@@ -88,7 +88,6 @@ function App({data}) {
   // Functions
 
   const changeModule = (module) => {
-
     if((activeModule === "Choose") || (activeModule === "Pair" && module === "Test")) {
       setDirection("forward");
     } else if((activeModule === "Pair" && module === "Test") || (activeModule === "Test")) {
