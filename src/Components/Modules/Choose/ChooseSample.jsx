@@ -23,12 +23,14 @@ function ChooseSample({font, sampleText, chooseFont}) {
   }
 
   return (
-    <a href="#" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <a href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
-      <div className="mb-1 opacity-90" style={{...fontNameStyles}}>{font.label}</div>
-      <div style={{...fontSampleStyles}}>{sampleText}</div>
+      <div className="mb-1 opacity-90 whitespace-nowrap" style={{...fontNameStyles}}>{font.label}</div>
+      <div className="whitespace-nowrap text-black text-gradient" style={{...fontSampleStyles}}>
+        {sampleText}
+      </div>
     </a>
   );
 }

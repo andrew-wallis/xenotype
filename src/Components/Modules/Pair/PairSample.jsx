@@ -23,12 +23,12 @@ function PairSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   return (
-    <a href="#" className={`shrink-0 ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <a href="#" className={`select-none overflow-hidden shrink-0 ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
-      <div className="mb-2 font-semibold" style={{...fontNameStyles}}>{font.label}</div>
-      <div style={{...fontSampleStyles}}>{sampleText}</div>
+      <div className="mb-2 opacity-90 whitespace-nowrap" style={{...fontNameStyles}}>{font.label}</div>
+      <div className="whitespace-nowrap text-black text-gradient" style={{...fontSampleStyles}}>{sampleText}</div>
     </a>
   );
 }

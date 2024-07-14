@@ -132,7 +132,7 @@ function App({data}) {
       <header className="w-full max-w-[68rem] mx-auto my-16 relative">
         <div className="absolute uppercase tracking-wider font-bold text-center leading-5">UX<span className="font-medium">Type</span></div>
         <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
-        <button onClick={toggleDarkMode} className="absolute top-0 right-0 uppercase tracking-wider font-medium text-sm leading-5">{isDarkMode ? "Light" : "Dark"}</button>
+        <button onClick={toggleDarkMode} className="absolute top-0 right-0 uppercase tracking-wider font-medium text-sm leading-5 select-none">{isDarkMode ? "Light" : "Dark"}</button>
       </header>
       <div className="w-full max-w-[68rem] mx-auto mb-16">
         {activeModule === "Choose" && 
