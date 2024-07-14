@@ -44,10 +44,12 @@ function Choose({showFilters, sort}) {
               <ChooseFilters filter={filter} handleFilter={handleFilter} />
             }
           </aside>
-          <main className="flex-1 transition-[width] duration-300 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
-            {sortedFonts.map(([fontKey, font]) => (
-              <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
-            ))}
+          <main className="flex-1 transition-[width] duration-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
+              {sortedFonts.map(([fontKey, font]) => (
+                <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
+              ))}
+            </div>
           </main>
         </div>
       </div>

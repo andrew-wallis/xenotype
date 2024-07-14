@@ -28,7 +28,7 @@ function PairSample({font, activeFont, sampleText, chooseFont}) {
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
       <div className="mb-2 opacity-90 whitespace-nowrap" style={{...fontNameStyles}}>{font.label}</div>
-      <div className="whitespace-nowrap text-black text-gradient" style={{...fontSampleStyles}}>{sampleText}</div>
+      <div className="whitespace-nowrap text-white dark:text-black text-gradient" style={{...fontSampleStyles}}>{sampleText}</div>
     </a>
   );
 }
