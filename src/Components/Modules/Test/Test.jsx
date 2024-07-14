@@ -12,6 +12,8 @@ function Test() {
 
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
+  const [alternativesScroll, setAlternativesScroll] = useState(true);
+  const [pairingsScroll, setPairingsScroll] = useState(true);
 
   useEffect(() => {
     const index = context.allAlternatives.indexOf(context.primaryFont);
@@ -25,6 +27,37 @@ function Test() {
   
   const alternativesRef = useRef(null);
   const pairingsRef = useRef(null);
+
+
+  useEffect(() => {
+    if (alternatives.length > 0 && alternativesScroll) {
+      const index = alternatives.findIndex(font => font === context.primaryFont);
+      if (index >= 0 && alternativesRef.current) {
+        const { clientHeight } = pairingsRef.current;
+        const targetPosition = (index) * 33.5;
+        console.log(targetPosition);
+        if(targetPosition > (clientHeight)) {
+          alternativesRef.current.scrollTo(0, targetPosition - 21);
+        }
+      }
+      setAlternativesScroll(false);
+    }
+  }, [alternatives]);
+
+  useEffect(() => {
+    if (pairings.length > 0 && pairingsScroll) {
+      const index = pairings.findIndex(font => font === context.secondaryFont);
+      if (index >= 0 && pairingsRef.current) {
+        const { clientHeight } = pairingsRef.current;
+        const targetPosition = (index) * 33.5;
+        console.log(targetPosition);
+        if(targetPosition > (clientHeight)) {
+          pairingsRef.current.scrollTo(0, targetPosition - 21);
+        }
+      }
+      setPairingsScroll(false);
+    }
+  }, [pairings]);
 
 
   // Functions
@@ -52,7 +85,6 @@ function Test() {
 
   const handleAlternativesScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = alternativesRef.current;
-    console.log(scrollTop, scrollHeight, clientHeight);
     if(scrollTop + clientHeight >= scrollHeight - 5) {
       const newItems = context.allAlternatives.slice(alternatives.length, alternatives.length + 4);
       setAlternatives((prevItems) => [...prevItems, ...newItems] );
