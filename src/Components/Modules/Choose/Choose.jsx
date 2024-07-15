@@ -12,6 +12,7 @@ function Choose({showFilters, sort}) {
   const context = useContext(AppContext);
 
   const [sortedFonts, setSortedFonts] = useState([]);
+  const [displayFont, setDisplayFonts] = useState([]);
   const [filter, setFilter] = useState({
     classification: [],
     subclassification: [],
@@ -22,6 +23,10 @@ function Choose({showFilters, sort}) {
   useEffect(() => {
     setSortedFonts(sortAndFilterFonts(context.fonts, filter, sort));
   }, [context.fonts, filter, sort]);
+
+  useEffect(() => {
+    setDisplayFonts(sortedFonts.slice(0, 200));
+  }, [sortedFonts]);
 
 
   // Functions
@@ -44,9 +49,9 @@ function Choose({showFilters, sort}) {
               <ChooseFilters filter={filter} handleFilter={handleFilter} />
             }
           </aside>
-          <main className="flex-1 transition-[width] duration-300">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden transition-[width] duration-300">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
-              {sortedFonts.map(([fontKey, font]) => (
+              {displayFont.map(([fontKey, font]) => (
                 <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
               ))}
             </div>
