@@ -28,7 +28,6 @@ function Test() {
   const alternativesRef = useRef(null);
   const pairingsRef = useRef(null);
 
-
   useEffect(() => {
     if (alternatives.length > 0 && alternativesScroll) {
       const index = alternatives.findIndex(font => font === context.primaryFont);

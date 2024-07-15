@@ -9,7 +9,7 @@ function Select({label, id, value, callback, options}) {
       </div>
       <label htmlFor={id} className="sr-only">{label}</label>
       <select 
-        className="appearance-none rounded-full py-2.5 pr-10 pl-5 bg-transparent bg-gradient-to-b from-gray-100/80 to-gray-100 dark:from-gray-900 dark:to-gray-900/80 uppercase tracking-wider text-sm leading-5 font-bold" 
+        className="appearance-none rounded-full py-2.5 pr-10 pl-5 bg-transparent bg-gradient-to-b from-gray-100/80 to-gray-100 dark:from-gray-900 dark:to-gray-900/80 uppercase tracking-wider text-sm leading-5 font-bold select-none" 
         id={id} 
         value={value} 
         onChange={(e) => callback(e.target.value)}
