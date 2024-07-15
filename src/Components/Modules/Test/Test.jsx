@@ -110,14 +110,14 @@ function Test() {
   return (
     <div className="w-full flex overflow-hidden max-w-[68rem] mx-auto">
       <aside className="w-64 mr-4">
-        <div className="mb-12 overflow-y-auto h-32" ref={alternativesRef} onScroll={handleAlternativesScroll}>
+        <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={alternativesRef} onScroll={handleAlternativesScroll}>
           {alternatives.map((font, index) => (
             <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
           ))}
         </div>
         {(context.pairing) && 
           <>
-            <div className="mb-12 overflow-y-auto h-32" ref={pairingsRef} onScroll={handlePairingsScroll}>
+            <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={pairingsRef} onScroll={handlePairingsScroll}>
               {pairings.map((font, index) => (
                 <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
               ))}
@@ -133,7 +133,7 @@ function Test() {
           </div>
         }
       </aside>
-      <main className="overflow-y-auto flex-1">
+      <main className="overflow-y-auto flex-1 custom-scrollbar">
         <Article />
       </main>
     </div>
