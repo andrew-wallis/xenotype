@@ -9,7 +9,7 @@ function TestSample({font, activeFont, chooseFont}) {
 
   const fontNameStyles = {
     fontSize: `${1 / font.adjust}rem`,
-    lineHeight: "1.2"
+    lineHeight: "1.2rem"
   }
 
   function handleClick(e) {

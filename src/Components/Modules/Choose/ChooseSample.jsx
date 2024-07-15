@@ -9,12 +9,12 @@ function ChooseSample({font, sampleText, chooseFont}) {
 
   const fontNameStyles = {
     fontSize: `${1 / font.adjust}rem`,
-    lineHeight: "1.2"
+    lineHeight: "1.2rem"
   }
 
   const fontSampleStyles = {
     fontSize: `${1.5 / font.adjust}rem`,
-    lineHeight: "1.2"
+    lineHeight: "1.8rem"
   }
 
   function handleClick(e) {

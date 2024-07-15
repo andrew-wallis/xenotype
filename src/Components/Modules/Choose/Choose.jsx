@@ -51,7 +51,7 @@ function Choose({showFilters, sort}) {
   }
 
   return (
-    <div className="flex overflow-hidden w-full max-w-[68rem]mx-auto">
+    <div className="flex overflow-hidden w-full max-w-[68rem] mx-auto">
       <aside className={`custom-scrollbar overflow-y-auto transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-6 px-4" : "w-0 mr-0"} `}>
         {showFilters &&
           <ChooseFilters filter={filter} handleFilter={handleFilter} />

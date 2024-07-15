@@ -132,12 +132,12 @@ function App({data}) {
 
   return (
     <div className="flex flex-col h-screen w-screen">
-      <header className="w-full max-w-[68rem] px-4 mx-auto my-16 relative">
+      <header className="w-full max-w-[68rem] px-4 mx-auto my-12 md:my-16 relative">
         <div className="absolute uppercase tracking-wider font-bold text-center leading-5">UX<span className="font-medium">Type</span></div>
         <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
         <button onClick={toggleDarkMode} className="absolute top-0 right-4 uppercase tracking-wider font-medium text-sm leading-5 select-none">{isDarkMode ? "Light" : "Dark"}</button>
       </header>
-      <div className="w-full max-w-[68rem] px-4 mx-auto mb-16">
+      <div className="w-full max-w-[68rem] px-4 mx-auto mb-12 md:mb-16">
         {activeModule === "Choose" && 
           <div className="flex justify-between">
             <Button callback={handleToggleFilters}>

@@ -12,25 +12,25 @@ function Article() {
   const title = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
     fontSize: `${3 / context.primaryFont.adjust}rem`,
-    lineHeight: 1.2
+    lineHeight: "3.6rem"
   }
 
   const heading = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
     fontSize: `${2 / context.primaryFont.adjust}rem`,
-    lineHeight: 1.2
+    lineHeight: "2.4rem"
   }
 
   const subheading = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
     fontSize: `${1.5 / context.primaryFont.adjust}rem`,
-    lineHeight: 1.2
+    lineHeight: "1.8rem"
   }
 
   const paragraph = {
     fontFamily: getFontFamily(pairingFont, "rg"),
     fontSize: `${1.125 / pairingFont.adjust}rem`,
-    lineHeight: 1.5
+    lineHeight: "1.7rem"
   }
 
   return (

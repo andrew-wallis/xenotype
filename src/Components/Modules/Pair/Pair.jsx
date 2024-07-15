@@ -17,6 +17,8 @@ function Pair() {
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
 
@@ -44,6 +46,21 @@ function Pair() {
     }
   }, [pairingsIndex]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    const handleMediaQueryChange = (e) => {
+      setIsMobile(e.matches);
+    }
+
+    handleMediaQueryChange(mediaQuery);
+
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaQueryChange);
+    }
+  }, []);
 
   // Functions
 
@@ -109,8 +126,8 @@ function Pair() {
     <div className="">
       <div className="mb-12">
         <Swiper 
-          slidesPerView={3} 
-          spaceBetween={72} 
+          slidesPerView={isMobile ? 2 : 3} 
+          spaceBetween={isMobile ? 16 : 72} 
           centeredSlides={true} 
           grabCursor={true} 
           onReachEnd={handleReachEndAlternatives}
@@ -126,8 +143,8 @@ function Pair() {
       </div>
       <div className="mb-12">
         <Swiper 
-          slidesPerView={3} 
-          spaceBetween={72} 
+          slidesPerView={isMobile ? 2 : 3} 
+          spaceBetween={isMobile ? 16 : 72} 
           centeredSlides={true} 
           grabCursor={true} 
           onReachEnd={handleReachEndPairings}

@@ -106,8 +106,8 @@ function Test() {
   }
 
   return (
-    <div className="w-full flex overflow-hidden max-w-[68rem] px-4 mx-auto">
-      <aside className="w-64 mr-4">
+    <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto">
+      <aside className="hidden md:block w-64 mr-4">
         <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={alternativesRef} onScroll={handleAlternativesScroll}>
           {alternatives.map((font, index) => (
             <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
@@ -131,7 +131,7 @@ function Test() {
           </div>
         }
       </aside>
-      <main className="overflow-y-auto flex-1 custom-scrollbar">
+      <main className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
         <Article />
       </main>
     </div>
