@@ -32,7 +32,7 @@ function Test() {
     if (alternatives.length > 0 && alternativesScroll) {
       const index = alternatives.findIndex(font => font === context.primaryFont);
       if (index >= 0 && alternativesRef.current) {
-        const { clientHeight } = pairingsRef.current;
+        const { clientHeight } = alternativesRef.current;
         const targetPosition = (index) * 33.5;
         console.log(targetPosition);
         if(targetPosition > (clientHeight)) {
@@ -65,7 +65,7 @@ function Test() {
     if(font !== context.primaryFont) {
       context.setPrimaryFont(font);
     } else {
-      context.setChosenFont(font);
+      chooseFont(font);
     }
   }
 
@@ -73,13 +73,22 @@ function Test() {
     if(font !== context.secondaryFont) {
       context.setSecondaryFont(font);
     } else {
-      context.setChosenFont(font);
-      setDefaultPairing();
+      chooseFont(font);
     }
   }
 
-  const setDefaultPairing = () => {
-    context.setSecondaryFont(context.allPairings[0]);
+  const chooseFont = (font) => {
+    context.setChosenFont(font);
+    alternativesRef.current.scrollTo(0, 0);
+    pairingsRef.current.scrollTo(0, 0);
+  }
+
+  const enablePairings = () => {
+    context.setPairing(true);
+  }
+
+  const disablePairing = () => {
+    context.setPairing(false);
   }
 
   const handleAlternativesScroll = () => {
@@ -108,14 +117,23 @@ function Test() {
                 <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
               ))}
             </div>
-            <div className="mb-12 overflow-y-auto h-32" ref={pairingsRef} onScroll={handlePairingsScroll}>
-              {(context.primaryFont !== context.secondaryFont) && pairings.map((font, index) => (
-                <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
-              ))}
-              {(context.primaryFont === context.secondaryFont) &&
-                <Button callback={setDefaultPairing}>Find Pairings</Button>
-              }
-            </div>
+            {(context.pairing) && 
+              <>
+                <div className="mb-12 overflow-y-auto h-32" ref={pairingsRef} onScroll={handlePairingsScroll}>
+                  {pairings.map((font, index) => (
+                    <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
+                  ))}
+                </div>
+                <div className="flex justify-center">
+                  <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Skip Pairing</a>
+                </div>
+              </>
+            }
+            {(!context.pairing) &&
+              <div className="flex justify-center">
+                <Button callback={enablePairings}>Find Pairings</Button>
+              </div>
+            }
           </aside>
           <main className="flex-1">
             <Article />

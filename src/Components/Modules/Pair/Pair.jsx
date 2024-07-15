@@ -70,11 +70,12 @@ function Pair() {
   }
 
   function testPairing() {
+    context.setPairing(true);
     context.changeModule("Test");
   }
 
   function skipPairing() {
-    context.setSecondaryFont(context.primaryFont);
+    context.setPairing(false);
     context.changeModule("Test");
   }
 

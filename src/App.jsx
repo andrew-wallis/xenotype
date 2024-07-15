@@ -32,6 +32,7 @@ function App({data}) {
   const [allAlternatives, setAllAlternatives] = useState([]);
   const [allPairings, setAllPairings] = useState([]);
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
+  const [pairing, setPairing] = useState(true);
 
   useEffect(() => {
     if(Object.keys(chosenFont).length > 0) {
@@ -123,6 +124,8 @@ function App({data}) {
     setSecondaryFont,
     allAlternatives,
     allPairings,
+    pairing,
+    setPairing,
     sampleText,
     changeModule
   }
