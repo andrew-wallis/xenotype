@@ -109,7 +109,7 @@ function Pair() {
     <div className="">
       <div className="mb-12">
         <Swiper 
-          slidesPerView={2} 
+          slidesPerView={3} 
           spaceBetween={72} 
           centeredSlides={true} 
           grabCursor={true} 
@@ -124,9 +124,9 @@ function Pair() {
           ))}
         </Swiper>
       </div>
-      <div className="mb-16">
+      <div className="mb-12">
         <Swiper 
-          slidesPerView={2} 
+          slidesPerView={3} 
           spaceBetween={72} 
           centeredSlides={true} 
           grabCursor={true} 

@@ -33,3 +33,12 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-300;
 }
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-800;
+  border-radius: 8px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-700;
+}

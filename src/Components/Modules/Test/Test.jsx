@@ -33,8 +33,7 @@ function Test() {
       const index = alternatives.findIndex(font => font === context.primaryFont);
       if (index >= 0 && alternativesRef.current) {
         const { clientHeight } = alternativesRef.current;
-        const targetPosition = (index) * 33.5;
-        console.log(targetPosition);
+        const targetPosition = index * 33.5;
         if(targetPosition > (clientHeight)) {
           alternativesRef.current.scrollTo(0, targetPosition - 21);
         }
@@ -48,8 +47,7 @@ function Test() {
       const index = pairings.findIndex(font => font === context.secondaryFont);
       if (index >= 0 && pairingsRef.current) {
         const { clientHeight } = pairingsRef.current;
-        const targetPosition = (index) * 33.5;
-        console.log(targetPosition);
+        const targetPosition = index * 33.5;
         if(targetPosition > (clientHeight)) {
           pairingsRef.current.scrollTo(0, targetPosition - 21);
         }
@@ -108,7 +106,7 @@ function Test() {
   }
 
   return (
-    <div className="w-full flex overflow-hidden max-w-[68rem] mx-auto">
+    <div className="w-full flex overflow-hidden max-w-[68rem] px-4 mx-auto">
       <aside className="w-64 mr-4">
         <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={alternativesRef} onScroll={handleAlternativesScroll}>
           {alternatives.map((font, index) => (

@@ -13,7 +13,7 @@ function PairSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   const fontSampleStyles = {
-    fontSize: `${2.5 / font.adjust}rem`,
+    fontSize: `${2 / font.adjust}rem`,
     lineHeight: "1.2"
   }
 

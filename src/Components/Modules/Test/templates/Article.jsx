@@ -7,6 +7,8 @@ function Article() {
 
   const context = useContext(AppContext);
 
+  const pairingFont = context.pairing ? context.secondaryFont : context.primaryFont;
+
   const title = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
     fontSize: `${3 / context.primaryFont.adjust}rem`,
@@ -26,8 +28,8 @@ function Article() {
   }
 
   const paragraph = {
-    fontFamily: getFontFamily(context.secondaryFont, "rg"),
-    fontSize: `${1.125 / context.secondaryFont.adjust}rem`,
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${1.125 / pairingFont.adjust}rem`,
     lineHeight: 1.5
   }
 

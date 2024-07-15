@@ -51,14 +51,14 @@ function Choose({showFilters, sort}) {
   }
 
   return (
-    <div className="flex overflow-hidden max-w-[68rem] mx-auto">
-      <aside className={`custom-scrollbar overflow-y-auto transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-6" : "w-0 mr-0"} `}>
+    <div className="flex overflow-hidden w-full max-w-[68rem]mx-auto">
+      <aside className={`custom-scrollbar overflow-y-auto transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-6 px-4" : "w-0 mr-0"} `}>
         {showFilters &&
           <ChooseFilters filter={filter} handleFilter={handleFilter} />
         }
       </aside>
       <main ref={chooseSamplesRef} onScroll={handleScroll} className="custom-scrollbar overflow-y-auto flex-1 transition-[width] duration-300">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 mr-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 px-4">
           {displayFont.map(([fontKey, font]) => (
             <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
           ))}
