@@ -151,7 +151,7 @@ function App({data}) {
         }
       </div>
       <AppContext.Provider value={contextValue}>
-        <TransitionGroup className="flex-1 overflow-y-auto overflow-x-hidden relative">
+        <TransitionGroup className="flex-1 overflow-hidden relative">
           <CSSTransition 
             key={activeModule}
             timeout={300}
@@ -160,7 +160,7 @@ function App({data}) {
               activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
             }
           >
-            <div className="absolute inset-0" ref={
+            <div className="absolute inset-0 overflow-hidden flex flex-col" ref={
               activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
             }>
               {activeModule === "Choose" && <Choose showFilters={showFilters} sort={sort} />}

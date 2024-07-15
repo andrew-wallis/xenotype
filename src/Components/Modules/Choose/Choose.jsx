@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import ChooseSample from "./ChooseSample";
 import ChooseFilters from "./ChooseFilters";
@@ -25,8 +25,10 @@ function Choose({showFilters, sort}) {
   }, [context.fonts, filter, sort]);
 
   useEffect(() => {
-    setDisplayFonts(sortedFonts.slice(0, 200));
+    setDisplayFonts(sortedFonts.slice(0, 24));
   }, [sortedFonts]);
+
+  const chooseSamplesRef = useRef(null);
 
 
   // Functions
@@ -40,24 +42,28 @@ function Choose({showFilters, sort}) {
     setFilter(updateFilters(filter, term, key));
   }
 
+  const handleScroll = () => {
+    const {scrollTop, scrollHeight, clientHeight} = chooseSamplesRef.current;
+    if(scrollTop + clientHeight >= scrollHeight - 5 ) {
+      const newItems = sortedFonts.slice(displayFont.length, displayFont.length + 12);
+      setDisplayFonts((prevItems) => [...prevItems, ...newItems]);
+    }
+  }
+
   return (
-    <div className="">
-      <div className="max-w-[68rem] mx-auto">
-        <div className="flex">
-          <aside className={`transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-4" : "w-0 mr-0"} `}>
-            {showFilters &&
-              <ChooseFilters filter={filter} handleFilter={handleFilter} />
-            }
-          </aside>
-          <main className="flex-1 overflow-y-auto overflow-x-hidden transition-[width] duration-300">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
-              {displayFont.map(([fontKey, font]) => (
-                <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
-              ))}
-            </div>
-          </main>
+    <div className="flex overflow-hidden max-w-[68rem] mx-auto">
+      <aside className={`overflow-y-auto transition-[width] duration-300 ease-out ${showFilters ? "w-40 mr-4" : "w-0 mr-0"} `}>
+        {showFilters &&
+          <ChooseFilters filter={filter} handleFilter={handleFilter} />
+        }
+      </aside>
+      <main ref={chooseSamplesRef} onScroll={handleScroll} className="overflow-y-auto flex-1 transition-[width] duration-300">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
+          {displayFont.map(([fontKey, font]) => (
+            <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
+          ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

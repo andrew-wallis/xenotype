@@ -7,8 +7,6 @@ function Article() {
 
   const context = useContext(AppContext);
 
-  const pairingFont = context.pairing ? context.secondaryFont : context.primaryFont;
-
   const title = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
     fontSize: `${3 / context.primaryFont.adjust}rem`,
@@ -28,13 +26,13 @@ function Article() {
   }
 
   const paragraph = {
-    fontFamily: getFontFamily(pairingFont, "rg"),
-    fontSize: `${1.125 / pairingFont.adjust}rem`,
+    fontFamily: getFontFamily(context.secondaryFont, "rg"),
+    fontSize: `${1.125 / context.secondaryFont.adjust}rem`,
     lineHeight: 1.5
   }
 
   return (
-    <div className="max-w-prose">
+    <div className="max-w-prose mx-auto">
       <style>
         @import url('{getFontStylesheet(context.primaryFont, ["rg"])}');
         @import url('{getFontStylesheet(context.secondaryFont, ["rg"])}');

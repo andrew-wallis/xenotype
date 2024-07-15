@@ -108,38 +108,34 @@ function Test() {
   }
 
   return (
-    <div className="">
-      <div className="max-w-[68rem] mx-auto">
-        <div className="flex">
-          <aside className="w-64 mr-16">
-            <div className="mb-12 overflow-y-auto h-32" ref={alternativesRef} onScroll={handleAlternativesScroll}>
-              {alternatives.map((font, index) => (
-                <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
+    <div className="w-full flex overflow-hidden max-w-[68rem] mx-auto">
+      <aside className="w-64 mr-4">
+        <div className="mb-12 overflow-y-auto h-32" ref={alternativesRef} onScroll={handleAlternativesScroll}>
+          {alternatives.map((font, index) => (
+            <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
+          ))}
+        </div>
+        {(context.pairing) && 
+          <>
+            <div className="mb-12 overflow-y-auto h-32" ref={pairingsRef} onScroll={handlePairingsScroll}>
+              {pairings.map((font, index) => (
+                <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
               ))}
             </div>
-            {(context.pairing) && 
-              <>
-                <div className="mb-12 overflow-y-auto h-32" ref={pairingsRef} onScroll={handlePairingsScroll}>
-                  {pairings.map((font, index) => (
-                    <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
-                  ))}
-                </div>
-                <div className="flex justify-center">
-                  <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Skip Pairing</a>
-                </div>
-              </>
-            }
-            {(!context.pairing) &&
-              <div className="flex justify-center">
-                <Button callback={enablePairings}>Find Pairings</Button>
-              </div>
-            }
-          </aside>
-          <main className="flex-1">
-            <Article />
-          </main>
-        </div>
-      </div>
+            <div className="flex justify-center">
+              <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Skip Pairing</a>
+            </div>
+          </>
+        }
+        {(!context.pairing) &&
+          <div className="flex justify-center">
+            <Button callback={enablePairings}>Find Pairings</Button>
+          </div>
+        }
+      </aside>
+      <main className="overflow-y-auto flex-1">
+        <Article />
+      </main>
     </div>
   );
 }
