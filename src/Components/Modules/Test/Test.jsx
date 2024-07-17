@@ -3,6 +3,8 @@ import { AppContext } from "../../../App";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
 import Article from "./templates/Article";
+import Login from "./templates/Login";
+import Product from "./templates/Product";
 
 function Test() {
 
@@ -131,8 +133,8 @@ function Test() {
           </div>
         }
       </aside>
-      <main className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
-        <Article />
+      <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
+        <Product />
       </main>
     </div>
   );

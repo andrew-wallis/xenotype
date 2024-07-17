@@ -26,19 +26,19 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-gray-200;
+  @apply bg-gray-100;
   border-radius: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-300;
+  @apply bg-gray-200;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-gray-800;
+  @apply bg-gray-900;
   border-radius: 8px;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-700;
+  @apply bg-gray-800;
 }
