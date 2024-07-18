@@ -5,6 +5,7 @@ import Button from "../../Elements/Button";
 import Article from "./templates/Article";
 import Login from "./templates/Login";
 import Product from "./templates/Product";
+import Landing from "./templates/Landing";
 
 function Test() {
 
@@ -109,7 +110,7 @@ function Test() {
 
   return (
     <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto">
-      <aside className="hidden md:block w-64 mr-4">
+      <aside className="hidden md:block w-48 mr-6 pr-4">
         <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={alternativesRef} onScroll={handleAlternativesScroll}>
           {alternatives.map((font, index) => (
             <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
@@ -134,7 +135,7 @@ function Test() {
         }
       </aside>
       <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
-        <Product />
+        <Landing />
       </main>
     </div>
   );

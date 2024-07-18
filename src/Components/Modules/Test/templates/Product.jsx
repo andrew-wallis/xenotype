@@ -102,9 +102,9 @@ function Product() {
           </div>
         ))}
       </div>
-      <div className="my-24 text-gray-800 dark:text-gray-200">
+      <div className="my-24">
         <div style={{...subtitle}} className="mb-8 text-center font-semibold">You May Also Like</div>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-4 gap-8 text-gray-800 dark:text-gray-200">
           {["Short Sleeve Oxford", "Long Sleeve Linen", "Short Sleeve Linen", "Long Sleeve Dress"].map((heading) => (
             <div>
               <div className="pt-[125%] bg-gray-100 dark:bg-gray-900 rounded-sm mb-4"></div>
