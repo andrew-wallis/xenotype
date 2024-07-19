@@ -2,10 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
-import Article from "./templates/Article";
-import Login from "./templates/Login";
-import Product from "./templates/Product";
 import Landing from "./templates/Landing";
+import TestTemplate from "./TestTemplate";
 
 function Test() {
 
@@ -135,7 +133,7 @@ function Test() {
         }
       </aside>
       <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
-        <Landing />
+        <TestTemplate />
       </main>
     </div>
   );

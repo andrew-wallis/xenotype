@@ -18,6 +18,7 @@ function App({data}) {
   // Variables
 
   const sortOptions = ["Rating", "A-Z"];
+  const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In"];
   const fonts = data.fonts;
 
 
@@ -52,6 +53,7 @@ function App({data}) {
   const [activeModule, setActiveModule] = useState("Choose");
   const [nextModule, setNextModule] = useState(null);
   const [direction, setDirection] = useState("forward");
+  const [template, setTemplate] = useState(templates[0]);
 
   const chooseRef = useRef(null);
   const pairRef = useRef(null);
@@ -127,7 +129,8 @@ function App({data}) {
     pairing,
     setPairing,
     sampleText,
-    changeModule
+    changeModule,
+    template
   }
 
   return (
@@ -147,7 +150,18 @@ function App({data}) {
           </div>
         }
         {(activeModule === "Pair" || activeModule === "Test") &&
-          <BackLink callback={handleBack} />
+          <div className="flex">
+            <div className="w-48 mr-6 pr-4">
+              <BackLink callback={handleBack} />
+            </div>
+            {activeModule === "Test" &&
+              <ul className="flex gap-12 py-2.5">
+                {templates.map((thisTemplate) => (
+                  <li><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
+                ))}
+              </ul>
+            }
+          </div>
         }
       </div>
       <AppContext.Provider value={contextValue}>

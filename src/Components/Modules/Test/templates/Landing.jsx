@@ -86,7 +86,7 @@ function Landing() {
           {title: "Reduce stress", text: "Stay organized and focused, reducing daily stress and overwhelm."}
         ].map((benefit) => (
           <div>
-            <div className="w-[4.5rem] h-[4.5rem] rounded-full bg-gray-100 mb-4"></div>
+            <div className="w-[4.5rem] h-[4.5rem] rounded-full bg-gray-100 dark:bg-gray-900 mb-4"></div>
             <div style={{...subheading}} className="mb-4 font-semibold">{benefit.title}</div>
             <div style={{...feature}}>{benefit.text}</div>
           </div>
@@ -109,16 +109,16 @@ function Landing() {
               <div className="mb-4" style={{...paragraph}}>{feature.text}</div>
               <div className="underline font-medium" style={{...link}}>Learn more</div>
             </div>
-            <div className="w-[400px] h-[320px] bg-gray-100"></div>
+            <div className="w-[400px] h-[320px] bg-gray-100 dark:bg-gray-900"></div>
           </div>
         ))}
       </div>
-      <div className="mb-40 bg-gray-100 py-24">
+      <div className="mb-40 bg-gray-100 dark:bg-gray-900 py-24">
         <div className="mx-auto mb-6 max-w-2xl font-semibold text-center" style={{...hero}}>Stay focused,<br/>get more done</div>
         <div className="mx-auto mb-8 max-w-2xl text-center" style={{...feature}}>Stay focused and get more done with our app. Simplify tasks, boost productivity, and achieve goals.</div>
         <div className="flex gap-2 mb-8 max-w-96 mx-auto">
           <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider">Get Started</div>
-          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider">Find Out More</div>
+          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-100 border border-gray-300 font-semibold uppercase tracking-wider">Find Out More</div>
         </div>
       </div>
       <div className="mb-40">
