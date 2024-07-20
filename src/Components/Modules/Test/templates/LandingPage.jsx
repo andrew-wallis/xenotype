@@ -3,7 +3,7 @@ import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 
-function Landing() {
+function LandingPage() {
 
   const context = useContext(AppContext);
 
@@ -48,7 +48,7 @@ function Landing() {
   const button = {
     fontFamily: getFontFamily(pairingFont, "rg"),
     fontSize: `${0.875 / pairingFont.adjust}rem`,
-    lineHeight: "3rem"
+    lineHeight: "1rem"
   }
 
   const label = {
@@ -74,8 +74,8 @@ function Landing() {
         <div className="mx-auto mb-6 max-w-2xl font-semibold text-center" style={{...title}}>Stay focused,<br/>get more done</div>
         <div className="mx-auto mb-8 max-w-2xl text-center" style={{...feature}}>Stay focused and get more done with our app. Simplify tasks, boost productivity, and achieve goals.</div>
         <div className="flex gap-2 mb-8 max-w-96 mx-auto">
-          <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider">Get Started</div>
-          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider">Find Out More</div>
+          <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider py-4">Get Started</div>
+          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider py-4">Find Out More</div>
         </div>
       </div>
       <div className="grid grid-cols-4 gap-8 mb-40">
@@ -117,8 +117,8 @@ function Landing() {
         <div className="mx-auto mb-6 max-w-2xl font-semibold text-center" style={{...hero}}>Stay focused,<br/>get more done</div>
         <div className="mx-auto mb-8 max-w-2xl text-center" style={{...feature}}>Stay focused and get more done with our app. Simplify tasks, boost productivity, and achieve goals.</div>
         <div className="flex gap-2 mb-8 max-w-96 mx-auto">
-          <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider">Get Started</div>
-          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-100 border border-gray-300 font-semibold uppercase tracking-wider">Find Out More</div>
+          <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider py-4">Get Started</div>
+          <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider py-4">Find Out More</div>
         </div>
       </div>
       <div className="mb-40">
@@ -165,4 +165,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default LandingPage;

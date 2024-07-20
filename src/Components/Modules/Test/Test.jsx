@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
-import Landing from "./templates/Landing";
 import TestTemplate from "./TestTemplate";
 
 function Test() {

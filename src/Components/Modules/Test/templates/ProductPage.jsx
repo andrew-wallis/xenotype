@@ -3,7 +3,7 @@ import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 
-function Product() {
+function ProductPage() {
 
   const context = useContext(AppContext);
 
@@ -42,7 +42,7 @@ function Product() {
   const button = {
     fontFamily: getFontFamily(pairingFont, "rg"),
     fontSize: `${0.875 / pairingFont.adjust}rem`,
-    lineHeight: "3rem"
+    lineHeight: "1rem"
   }
 
   return (
@@ -76,8 +76,8 @@ function Product() {
             <div className="rounded-lg bg-gray-100 dark:bg-gray-900/50 w-12 h-12 flex justify-center items-center">XL</div>
           </div>
           <div className="flex gap-2 mb-8">
-            <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider">Add To Bag</div>
-            <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider">Buy It Now</div>
+            <div style={{...button}} className="flex-1 text-center rounded-full bg-black dark:text-black dark:bg-gray-200 text-white font-semibold uppercase tracking-wider py-4">Add To Bag</div>
+            <div style={{...button}} className="flex-1 text-center rounded-full text-gray-800 dark:text-gray-300 border border-gray-300 font-semibold uppercase tracking-wider py-4">Buy It Now</div>
           </div>
           <div className="mb-4">
             <div style={{...text}} className="font-semibold mb-1 text-gray-800 dark:text-gray-300">Free Shipping</div>
@@ -118,4 +118,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default ProductPage;

@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import ArticleText from "./templates/ArticleText";
-import Landing from "./templates/Landing";
 import { AppContext } from "../../../App";
-import Product from "./templates/Product";
-import LoginScreen from "./templates/LoginScreen";
+import ArticlePage from "./templates/ArticlePage";
+import LandingPage from "./templates/LandingPage";
+import ProductPage from "./templates/ProductPage";
+import LoginPage from "./templates/LoginPage";
 
 function TestTemplate() {
 
@@ -13,13 +13,13 @@ function TestTemplate() {
 
   switch(context.template) {
     case "Article":
-      return <ArticleText />
+      return <ArticlePage />
     case "Landing Page":
-      return <Landing />
+      return <LandingPage />
     case "Product Page":
-      return <Product />
+      return <ProductPage />
     case "Log In":
-      return <LoginScreen />
+      return <LoginPage />
   }
 }
 

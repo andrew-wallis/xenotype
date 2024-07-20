@@ -19,7 +19,8 @@ function App({data}) {
 
   const sortOptions = ["Rating", "A-Z"];
   const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In"];
-  const fonts = data.fonts;
+  const fontBlacklist = ["Bebas Neue Pro", "Obviously Variable", "Termina", "Oswald"];
+  const fonts = data.fonts.filter(font => !fontBlacklist.includes(font.label));
 
 
   // React Hooks

@@ -3,7 +3,7 @@ import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 
-function LoginScreen() {
+function LoginPage() {
 
   const context = useContext(AppContext);
 
@@ -68,4 +68,4 @@ function LoginScreen() {
   );
 }
 
-export default LoginScreen;
+export default LoginPage;

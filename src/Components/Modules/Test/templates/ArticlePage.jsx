@@ -3,7 +3,7 @@ import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 
-function ArticleText() {
+function ArticlePage() {
 
   const context = useContext(AppContext);
 
@@ -92,4 +92,4 @@ function ArticleText() {
   );
 }
 
-export default ArticleText;
+export default ArticlePage;
