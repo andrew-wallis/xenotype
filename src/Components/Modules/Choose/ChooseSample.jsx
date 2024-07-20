@@ -9,12 +9,12 @@ function ChooseSample({font, sampleText, chooseFont}) {
 
   const fontNameStyles = {
     fontSize: `${1 / font.adjust}rem`,
-    lineHeight: "1.2rem"
+    lineHeight: `${1 / font.adjust}rem`
   }
 
   const fontSampleStyles = {
     fontSize: `${1.5 / font.adjust}rem`,
-    lineHeight: "1.8rem"
+    lineHeight: `${1.5 / font.adjust}rem`
   }
 
   function handleClick(e) {
@@ -27,8 +27,8 @@ function ChooseSample({font, sampleText, chooseFont}) {
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
-      <div className="mb-1 opacity-90 whitespace-nowrap" style={{...fontNameStyles}}>{font.label}</div>
-      <div className="whitespace-nowrap text-black text-gradient" style={{...fontSampleStyles}}>
+      <div className="mb-1 opacity-90 whitespace-nowrap flex items-center h-5" style={{...fontNameStyles}}>{font.label}</div>
+      <div className="whitespace-nowrap text-black text-gradient pb-1 flex items-center h-8" style={{...fontSampleStyles}}>
         {sampleText}
       </div>
     </a>

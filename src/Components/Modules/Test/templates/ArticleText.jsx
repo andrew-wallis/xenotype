@@ -11,14 +11,14 @@ function ArticleText() {
 
   const title = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${3 / context.primaryFont.adjust}rem`,
-    lineHeight: "3.6rem"
+    fontSize: `${2.25 / context.primaryFont.adjust}rem`,
+    lineHeight: "2.25rem"
   }
 
   const heading = {
     fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${2 / context.primaryFont.adjust}rem`,
-    lineHeight: "2.4rem"
+    fontSize: `${1.5 / context.primaryFont.adjust}rem`,
+    lineHeight: "1.75rem"
   }
 
   const subheading = {
@@ -27,24 +27,67 @@ function ArticleText() {
     lineHeight: "1.8rem"
   }
 
-  const paragraph = {
+  const lede = {
     fontFamily: getFontFamily(pairingFont, "rg"),
     fontSize: `${1.125 / pairingFont.adjust}rem`,
     lineHeight: "1.7rem"
   }
 
+  const paragraph = {
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${1 / pairingFont.adjust}rem`,
+    lineHeight: "1.5rem"
+  }
+
+  const small = {
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${0.875 / pairingFont.adjust}rem`,
+    lineHeight: "1rem"
+  }
+
+  const quote = {
+    fontFamily: getFontFamily(context.primaryFont, "rg"),
+    fontSize: `${1.125 / pairingFont.adjust}rem`,
+    lineHeight: "1.7rem"
+  }
+
+  const caption = {
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${0.75 / pairingFont.adjust}rem`,
+    lineHeight: "0.875rem"
+  }
+
   return (
-    <div className="max-w-prose mx-auto">
+    <div className="max-w-xl mx-auto">
       <style>
         @import url('{getFontStylesheet(context.primaryFont, ["rg"])}');
         @import url('{getFontStylesheet(context.secondaryFont, ["rg"])}');
       </style>
-      <h1 style={{ ...title}} className="mb-12 font-semibold">The Art and Science of Web and Software Design</h1>
-      <p style={{ ...paragraph}} className="my-6">Designing intuitive and engaging web and software interfaces requires a unique blend of creativity and analytical thinking. A designer must ensure that every pixel and element is aligned perfectly, creating a harmonious visual experience. Quick feedback loops, zigzag patterns in user testing, and the ability to adapt to new challenges are essential. The ultimate goal is to craft an interface that enables users to accomplish tasks efficiently and enjoyably, whether they're inputting data in a web form or navigating through complex software features. Understanding user behavior is crucial, as is the ability to quickly iterate on designs based on feedback and testing.</p>
-      <h2 style={{ ...heading}} className="mt-12 mb-9 font-semibold">Balancing Aesthetics and Functionality</h2>
-      <p style={{ ...paragraph}} className="my-6">In the realm of web and software design, striking the perfect balance between aesthetics and functionality is imperative. An interface that is visually appealing can significantly enhance the user experience, yet it must also function seamlessly across different devices and screen sizes. Designers often utilize a mix of fonts, color palettes, and graphical elements to create a distinctive look, while ensuring that every element serves a purpose. Features like responsive design, keyboard shortcuts, and accessible navigation are integral, allowing users to interact with the software in a way that feels natural and intuitive.</p>
-      <h3 style={{ ...subheading}} className="mt-9 mb-6 font-semibold">Future Trends and Innovations</h3>
-      <p style={{ ...paragraph}} className="my-6">Looking ahead, the landscape of web and software design is set to evolve dramatically with the advent of new technologies and methodologies. Innovations such as artificial intelligence, augmented reality, and quantum computing are poised to revolutionize how designers approach their craft. In this new paradigm, quick prototyping and iterative testing will become even more critical. Moreover, designers will need to stay adept with numerical analysis tools to measure user engagement and performance metrics accurately. Embracing these trends will not only enhance the designer's toolkit but also elevate the user experience to new heights, making each interaction more engaging and effective.</p>
+      <h1 style={{ ...title}} className="mb-8 font-semibold">Font Trends in 2024</h1>
+      <p style={{...lede}} className="mb-4 font-medium">2024 sees fonts as dynamic tools, shaping design trends and reflecting digital evolution.</p>
+      <ul className="flex gap-4 text-gray-800 dark:text-gray-300 mb-8" style={{...small}}>
+        <li>Emily Jones</li>
+        <li>4 April 2024</li>
+      </ul>
+      <div className="pt-[50%] bg-gray-100 dark:bg-gray-900/50 mb-2"></div>
+      <div style={{...caption}} className="text-right mb-8 opacity-80"><span className="opacity-80">Photo by</span> Brands&People <span className="opacity-80">on</span> Unsplash</div>
+      <p style={{ ...paragraph}} className="my-6">Typography has always been a crucial element in design, influencing how  information is perceived and communicated. In recent years, we've witnessed significant shifts in font preferences, driven by advancements in technology and changing design philosophies. As we navigate through 2024, the world of fonts is embracing innovation and experimentation like never before. Let's explore the prominent font trends defining this year.</p>
+      <h2 style={{ ...heading}} className="mt-9 mb-6 font-semibold">Minimalist Fonts</h2>
+      <p style={{ ...paragraph}} className="my-6">In 2024, the mantra "less is more" echoes throughout the design realm, manifesting in the prevalence of minimalist fonts. Embracing simplicity, these typefaces exude elegance and clarity, offering a timeless appeal across various platforms. With clean lines and ample white space, minimalist fonts enhance readability while maintaining a sense of sophistication. From sleek sans-serifs to refined serifs, designers are harnessing the power of simplicity to create visually striking compositions that resonate with modern audiences.</p>
+      <blockquote className="px-6 my-6 italic text-gray-800 dark:text-gray-300" style={{...quote}}>“In a world cluttered with information, minimalist fonts offer a breath of fresh air, allowing content to shine with clarity and elegance.”</blockquote>
+      <p style={{ ...paragraph}} className="my-6">The rise of minimalist fonts can be attributed to their versatility and adaptability across different mediums. Whether adorning a sleek website interface or gracing the pages of a printed publication, these fonts seamlessly integrate with diverse design elements, fostering a harmonious visual experience. By prioritizing legibility and aesthetic refinement  minimalist fonts empower brands to communicate their message effectively while leaving a lasting impression on their audience.</p>
+      <p style={{ ...paragraph}} className="my-6">As we navigate the digital age, minimalist fonts serve as a beacon of simplicity in a sea of complexity, guiding us towards a more refined and visually engaging future.</p>
+      <h2 style={{ ...heading}} className="mt-9 mb-6 font-semibold">Variable Fonts</h2>
+      <p style={{ ...paragraph}} className="my-6">Enter the era of dynamic typography with the advent of variable fonts, revolutionizing the way we perceive and utilize typefaces. Offering unprecedented flexibility, variable fonts encapsulate a spectrum of styles within a single font file, allowing designers to tailor typography with precision and fluidity. From adjusting weight and width to fine-tuning optical size, the possibilities are limitless, enabling seamless adaptation across various screen sizes and devices.</p>
+      <blockquote className="px-6 my-6 italic text-gray-800 dark:text-gray-300" style={{...quote}}>“Variable fonts usher in a new era of typographic versatility, empowering designers to craft dynamic compositions with unparalleled precision and fluidity.”</blockquote>
+      <p style={{ ...paragraph}} className="my-6">With the growing demand for responsive design, variable fonts emerge as a game-changer, streamlining the optimization process without compromising visual integrity. By eliminating the need for multiple font files, these adaptable typefaces enhance performance and accessibility, ensuring a consistent user experience across diverse digital platforms. From enhancing readability on mobile devices to optimizing loading times on web pages, variable fonts pave the way for a more accessible and inclusive digital landscape.</p>
+      <p style={{ ...paragraph}} className="my-6">As technology continues to evolve, variable fonts stand at the forefront of typographic innovation, reshaping the way we interact with content in the digital sphere.</p>
+      <h2 style={{ ...heading}} className="mt-9 mb-6 font-semibold">Experimental Typography</h2>
+      <p style={{ ...paragraph}} className="my-6">In the avant-garde realm of design, experimental typography reigns supreme, pushing the boundaries of conventional aesthetics and challenging the status quo. Embracing bold forms, vibrant colors, and unconventional layouts, experimental typography captivates the imagination, sparking dialogue and evoking emotion. From typographic illusions to kinetic typography, designers are harnessing the power of experimentation to create immersive experiences that captivate and inspire.</p>
+      <blockquote className="px-6 my-6 italic text-gray-800 dark:text-gray-300" style={{...quote}}>“Experimental typography defies expectations, inviting audiences on a journey of visual exploration and discovery, where creativity knows no bounds.”</blockquote>
+      <p style={{ ...paragraph}} className="my-6">Fuelled by innovation and artistic expression, experimental typography transcends traditional constraints, blurring the lines between art and design. By embracing risk-taking and pushing the limits of typographic expression, designers breathe life into static content, transforming words into dynamic visual narratives that resonate with audiences on a deeper level. From interactive installations to multimedia presentations, experimental typography offers a glimpse into the boundless possibilities of creative expression in the digital age.</p>
+      <p style={{ ...paragraph}} className="my-6">As we embrace the spirit of experimentation, experimental typography serves as a catalyst for innovation, paving the way for new forms of visual storytelling and creative expression.</p>
+      <p style={{ ...paragraph}} className="my-6">In the dynamic landscape of design, fonts serve as the cornerstone of visual communication, shaping the way we perceive and interact with content. As we traverse the typography trends of 2024, from the elegant simplicity of minimalist fonts to the dynamic versatility of variable fonts and the daring experimentation of avant-garde typography, one thing remains clear: the power of typography to captivate, inspire, and evoke emotion knows no bounds. As we embark on this typographic journey, let us embrace the endless possibilities of creative expression, forging a path towards a more vibrant and visually engaging future.</p>
     </div>
   );
 }
