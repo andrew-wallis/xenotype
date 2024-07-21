@@ -14,6 +14,7 @@ function Test() {
   const [pairings, setPairings] = useState([]);
   const [alternativesScroll, setAlternativesScroll] = useState(true);
   const [pairingsScroll, setPairingsScroll] = useState(true);
+  const [swap, setSwap] = useState(false);
 
   useEffect(() => {
     const index = context.allAlternatives.indexOf(context.primaryFont);
@@ -121,7 +122,7 @@ function Test() {
               ))}
             </div>
             <div className="flex justify-center">
-              <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Skip Pairing</a>
+              <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Stop Pairing</a>
             </div>
           </>
         }

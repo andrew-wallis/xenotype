@@ -35,6 +35,7 @@ function App({data}) {
   const [allPairings, setAllPairings] = useState([]);
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
   const [pairing, setPairing] = useState(true);
+  const [swap, setSwap] = useState(false);
 
   useEffect(() => {
     if(Object.keys(chosenFont).length > 0) {
@@ -109,6 +110,10 @@ function App({data}) {
     changeModule(activeModule === "Pair" ? "Choose" : "Pair");
   }
 
+  const handleSwap = () => {
+    setSwap(!swap);
+  }
+
   const toggleDarkMode = () => {
     setIsDarkMode(prevMode => {
       const newMode = !prevMode;
@@ -131,7 +136,9 @@ function App({data}) {
     setPairing,
     sampleText,
     changeModule,
-    template
+    template,
+    swap,
+    setSwap
   }
 
   return (
@@ -144,7 +151,7 @@ function App({data}) {
       <div className="w-full max-w-[68rem] px-4 mx-auto mb-12 md:mb-16">
         {activeModule === "Choose" && 
           <div className="flex justify-between">
-            <Button callback={handleToggleFilters}>
+            <Button callback={handleToggleFilters} active={showFilters}>
               Filters
             </Button>
             <Select label="Filter" id="filter" value={sort} callback={setSort} options={sortOptions} />
@@ -156,11 +163,17 @@ function App({data}) {
               <BackLink callback={handleBack} />
             </div>
             {activeModule === "Test" &&
-              <ul className="flex gap-12 py-2.5">
-                {templates.map((thisTemplate) => (
-                  <li><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
-                ))}
-              </ul>
+              <div className="flex justify-between w-full">
+                <ul className="flex gap-12 py-2.5">
+                  {templates.map((thisTemplate) => (
+                    <li><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
+                  ))}
+                </ul>
+                <div className="shrink-0">
+                  <Button callback={handleSwap} active={swap}>Swap Fonts</Button>
+                </div>
+              </div>
+
             }
           </div>
         }

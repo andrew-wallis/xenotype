@@ -7,23 +7,24 @@ function ArticlePage() {
 
   const context = useContext(AppContext);
 
-  const pairingFont = context.pairing ? context.secondaryFont : context.primaryFont;
+  const thisFont = context.swap ? context.secondaryFont : context.primaryFont;
+  const pairingFont = (!context.pairing || context.swap) ? context.primaryFont : context.secondaryFont;
 
   const title = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${2.25 / context.primaryFont.adjust}rem`,
+    fontFamily: getFontFamily(thisFont, "rg"),
+    fontSize: `${2.25 / thisFont.adjust}rem`,
     lineHeight: "2.25rem"
   }
 
   const heading = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${1.5 / context.primaryFont.adjust}rem`,
+    fontFamily: getFontFamily(thisFont, "rg"),
+    fontSize: `${1.5 / thisFont.adjust}rem`,
     lineHeight: "1.75rem"
   }
 
   const subheading = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${1.5 / context.primaryFont.adjust}rem`,
+    fontFamily: getFontFamily(thisFont, "rg"),
+    fontSize: `${1.5 / thisFont.adjust}rem`,
     lineHeight: "1.8rem"
   }
 
@@ -46,7 +47,7 @@ function ArticlePage() {
   }
 
   const quote = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
+    fontFamily: getFontFamily(pairingFont, "rg"),
     fontSize: `${1.125 / pairingFont.adjust}rem`,
     lineHeight: "1.7rem"
   }

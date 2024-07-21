@@ -7,11 +7,12 @@ function ProductPage() {
 
   const context = useContext(AppContext);
 
-  const pairingFont = context.pairing ? context.secondaryFont : context.primaryFont;
+  const thisFont = context.swap ? context.secondaryFont : context.primaryFont;
+  const pairingFont = (!context.pairing || context.swap) ? context.primaryFont : context.secondaryFont;
 
   const title = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
-    fontSize: `${2.25 / context.primaryFont.adjust}rem`,
+    fontFamily: getFontFamily(thisFont, "rg"),
+    fontSize: `${2.25 / thisFont.adjust}rem`,
     lineHeight: "2.5rem"
   }
 
@@ -22,7 +23,7 @@ function ProductPage() {
   }
 
   const subtitle = {
-    fontFamily: getFontFamily(context.primaryFont, "rg"),
+    fontFamily: getFontFamily(thisFont, "rg"),
     fontSize: `${1.25 / pairingFont.adjust}rem`,
     lineHeight: "1.5rem"
   }
