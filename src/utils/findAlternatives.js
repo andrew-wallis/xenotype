@@ -23,7 +23,26 @@ function findAlternatives(font, fonts) {
     const subclass = thisFont.subclass;
     matchingSubclass = fontList.filter(font => {
       return subclass.includes(font.subclass);
-    }).sort((a, b) => b.Rating - a.Rating);
+    });
+
+    matchingSubclass.forEach((font) => {
+      font.score = 0;
+
+      font.score += parseInt(font.Rating);
+
+      if(Math.abs(thisFont.character - font.character) <= 2) {
+        font.score += 25;
+      }
+  
+      if(thisFont.Vibe ===font.Vibe) {
+        font.score += 25;
+      }
+    });
+
+    matchingSubclass.sort((a ,b) => { 
+      return b.score - a.score;
+    });
+
     fontList = fontList.filter(font => !matchingSubclass.includes(font));
   }
 
@@ -31,7 +50,26 @@ function findAlternatives(font, fonts) {
     const thisClass = thisFont.classification;
     matchingClass = fontList.filter(font => {
       return thisClass.includes(font.classification);
-    }).sort((a, b) => b.Rating - a.Rating);
+    });
+
+    matchingClass.forEach((font) => {
+      font.score = 0;
+
+      font.score += parseInt(font.Rating);
+
+      if(Math.abs(thisFont.character - font.character) <= 2) {
+        font.score += 25;
+      }
+  
+      if(thisFont.Vibe ===font.Vibe) {
+        font.score += 25;
+      }
+    });
+
+    matchingClass.sort((a ,b) => { 
+      return b.score - a.score;
+    });
+    
     fontList = fontList.filter(font => !matchingClass.includes(font));
   }
 

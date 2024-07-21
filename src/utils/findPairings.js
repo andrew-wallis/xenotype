@@ -24,8 +24,24 @@ function findPairings(font, fonts) {
     for(let i = 0; i <= 1; i += 0.06) {
       const thisMatch = fontList.filter(font => {
         return pairings.includes(font.subclass) && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) > i && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= (i + 0.06);
-      }).sort((a, b) => {
-        return b.Rating - a.Rating;
+      });
+
+      thisMatch.forEach((font) => {
+        font.score = 0;
+
+        font.score += parseInt(font.Rating);
+  
+        if(thisFont.character > font.character) {
+          font.score += 25;
+        }
+    
+        if(thisFont.Vibe ===font.Vibe) {
+          font.score += 25;
+        }
+      });
+
+      thisMatch.sort((a ,b) => { 
+        return b.score - a.score;
       });
 
       matchingPairing = matchingPairing.concat(thisMatch);
@@ -37,8 +53,24 @@ function findPairings(font, fonts) {
   for(let i = 0; i <= 1; i += 0.06) {
     const thisMatch = fontList.filter(font => {
       return font.subclass !== thisFont.subclass && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) > i && Math.abs(parseFloat(font.xheight) - parseFloat(thisFont.xheight)) <= (i + 0.06);
-    }).sort((a, b) => {
-      return b.Rating - a.Rating;
+    });
+
+    thisMatch.forEach((font) => {
+      font.score = 0;
+
+      font.score += parseInt(font.Rating);
+
+      if(thisFont.character > font.character) {
+        font.score += 25;
+      }
+  
+      if(thisFont.Vibe ===font.Vibe) {
+        font.score += 25;
+      }
+    });
+
+    thisMatch.sort((a ,b) => { 
+      return b.score - a.score;
     });
 
     matchingOther = matchingOther.concat(thisMatch);
@@ -49,6 +81,10 @@ function findPairings(font, fonts) {
     ...matchingPairing,
     ...matchingOther
   ]
+  
+  sortedFonts.forEach((font) => {
+    console.log(`${font.label}: ${font.score} ${font.Rating}`);
+  })
 
   return sortedFonts;
 

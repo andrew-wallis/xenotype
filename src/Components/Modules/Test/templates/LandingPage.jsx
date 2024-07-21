@@ -57,13 +57,6 @@ function LandingPage() {
     lineHeight: "1rem"
   }
 
-  const link = {
-    fontFamily: getFontFamily(pairingFont, "rg"),
-    fontSize: `${1.125 / pairingFont.adjust}rem`,
-    lineHeight: "1.25rem"
-  }
-
-
   return (
     <div className="">
       <style>
@@ -107,7 +100,7 @@ function LandingPage() {
             <div className="flex-1 flex flex-col justify-center">
               <div className="mb-6 font-semibold" style={{...heading}}>{feature.title}</div>
               <div className="mb-4" style={{...paragraph}}>{feature.text}</div>
-              <div className="underline font-medium" style={{...link}}>Learn more</div>
+              <div className="underline font-medium" style={{...paragraph}}>Learn more</div>
             </div>
             <div className="w-[400px] h-[320px] bg-gray-100 dark:bg-gray-900"></div>
           </div>
