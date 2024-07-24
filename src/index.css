@@ -42,3 +42,7 @@
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-800;
 }
+
+.font-sample:hover > .info-link {
+  display: block;
+}

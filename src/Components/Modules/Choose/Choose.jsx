@@ -5,7 +5,7 @@ import ChooseFilters from "./ChooseFilters";
 import updateFilters from "./helpers/updateFilters";
 import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 
-function Choose({showFilters, sort}) {
+function Choose({showFilters, sort, setAboutFont, setShowModal}) {
   
   //  React Hooks
 
@@ -60,7 +60,7 @@ function Choose({showFilters, sort}) {
       <main ref={chooseSamplesRef} onScroll={handleScroll} className="custom-scrollbar overflow-y-auto flex-1 transition-[width] duration-300">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 px-4">
           {displayFont.map(([fontKey, font]) => (
-            <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} />
+            <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} setAboutFont={setAboutFont} setShowModal={setShowModal} />
           ))}
         </div>
       </main>

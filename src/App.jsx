@@ -9,6 +9,7 @@ import Select from "./Components/Elements/Select";
 import BackLink from "./Components/Elements/BackLink";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
+import About from "./Components/Modules/About/About";
 
 export const AppContext = createContext();
 
@@ -19,7 +20,7 @@ function App({data}) {
 
   const sortOptions = ["Rating", "A-Z"];
   const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In"];
-  const fontBlacklist = ["Bebas Neue Pro", "Obviously Variable", "Termina", "Oswald"];
+  const fontBlacklist = ["Bebas Neue Pro", "Obviously Variable", "Termina", "Questa", "Questa Sans", "Questa Grande", "Questa Slab", "Eurostile", "Tablet Gothic"];
   const fonts = data.fonts.filter(font => !fontBlacklist.includes(font.label));
 
 
@@ -30,12 +31,14 @@ function App({data}) {
   const [chosenFont, setChosenFont] = useState({});
   const [primaryFont, setPrimaryFont] = useState({});
   const [secondaryFont, setSecondaryFont] = useState({});
+  const [aboutFont, setAboutFont] = useState({});
 
   const [allAlternatives, setAllAlternatives] = useState([]);
   const [allPairings, setAllPairings] = useState([]);
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
   const [pairing, setPairing] = useState(true);
   const [swap, setSwap] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if(Object.keys(chosenFont).length > 0) {
@@ -122,6 +125,11 @@ function App({data}) {
     })
   }
 
+  const closeModal = () => {
+    setAboutFont({});
+    setShowModal(false);
+  }
+
   const contextValue = {
     fonts,
     chosenFont,
@@ -138,11 +146,13 @@ function App({data}) {
     changeModule,
     template,
     swap,
-    setSwap
+    setSwap,
+    aboutFont,
+    setAboutFont
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen">
+    <div className="flex flex-col h-screen w-screen relative">
       <header className="w-full max-w-[68rem] px-4 mx-auto my-12 md:my-16 relative">
         <div className="absolute uppercase tracking-wider font-bold text-center leading-5">UX<span className="font-medium">Type</span></div>
         <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
@@ -191,12 +201,21 @@ function App({data}) {
             <div className="absolute inset-0 overflow-hidden flex flex-col" ref={
               activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
             }>
-              {activeModule === "Choose" && <Choose showFilters={showFilters} sort={sort} />}
+              {activeModule === "Choose" && <Choose showFilters={showFilters} sort={sort} setAboutFont={setAboutFont} setShowModal={setShowModal}/>}
               {activeModule === "Pair" && <Pair />}
               {activeModule === "Test" && <Test />}
             </div>
           </CSSTransition>
         </TransitionGroup>
+        <>
+          <div className={`fixed inset-0 z-20 flex items-center justify-center py-16 transform transition-all duration-300 ${showModal ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"}`}>
+            <div className="h-full bg-white  max-w-3xl mx-auto">
+              {Object.keys(aboutFont).length > 0 && <About font={aboutFont} closeModal={closeModal} />}
+            </div>
+          </div>
+          <div className={`fixed inset-0 z-10 bg-black transition-opacity duration-300 ${showModal ? "opacity-50 translate-y-0" : "opacity-0 -translate-y-full"}`}>
+          </div>
+        </>
       </AppContext.Provider>
     </div>
   )
