@@ -4,7 +4,7 @@ import getFontStylesheet from "../../../utils/getFontStylesheet";
 import { AppContext } from "../../../App";
 import Button from "../../Elements/Button";
 
-function About({font, closeModal}) {
+function About({font, closeModal, sites}) {
 
   const context = useContext(AppContext);
 
@@ -105,6 +105,13 @@ function About({font, closeModal}) {
     })
   }
 
+  function getUsage() {
+    const usages = font.usage.split(";");
+    return usages.map((usage) => (
+      <li>{usage}</li>
+    ))
+  }
+
   function getDesigners() {
     const designers = font.designer.split(";");
     return designers.join(", ");
@@ -114,9 +121,19 @@ function About({font, closeModal}) {
 
   function getInUse() {
     const examples = font.inuse.split(";");
-    return examples.map((example) => (
-      <li className="text-sm leading-4 mb-1" key={example}>{example}</li>
-    ))
+    return examples.map((example) => {
+      const urlObj = sites.find((site) => site.website === example);
+      const url = urlObj ? urlObj.url : null;
+      return (
+        <li className="text-sm leading-4 mb-1" key={example}>
+          {url ? (
+            <a href={`https://www.${url}`} target="_blank" rel="noopener noreferrer">{example}</a>
+          ) : (
+            example
+          )}
+        </li>
+      )
+    })
   }
 
   return (
@@ -132,7 +149,7 @@ function About({font, closeModal}) {
           </a>
         </div>
         <div className="flex justify-between">
-          <h2 className="font-semibold" style={{...headingStyles}}>{font.label}</h2>
+          <h2 className="font-semibold stylistic-alternates" style={{...headingStyles}}>{font.label}</h2>
           <Button callback={tryFont}>Try It Out </Button>
         </div>
       </header>
@@ -142,11 +159,26 @@ function About({font, closeModal}) {
         </ul>
         <div className="grid grid-cols-3 gap-8">
           <div className="col-span-2 text-sm leading-5">
-            <p className="mb-8">{font.notes}</p>
-            <h3 className="uppercase font-bold tracking-wider mb-3">What They Say</h3>
-            <p>{font.about.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+            <p className="mb-8">{font.history}</p>
+            {font.usage &&
+              <p className="mb-8">{font.usage}</p>
+            }
+            {font.whattheysay && 
+              <>
+                <h3 className="uppercase font-bold tracking-wider mb-3">What They Say</h3>
+                <p className="italic">{font.whattheysay.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+              </>
+            }
           </div>
           <div>
+            {font.inuse && 
+              <div className="bg-gray-100/50 p-4 mb-8">
+                <h2 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">{font.label} In Use</h2>
+                <ul>
+                  {getInUse()}
+                </ul>
+              </div>
+            }
             <div className="bg-gray-100/50 p-4 mb-8">
               <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Designer</h3>
               <p className="text-sm leading-4 mb-4">{getDesigners()}</p>
@@ -157,14 +189,6 @@ function About({font, closeModal}) {
               <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Classification</h3>
               <p className="text-sm leading-4 mb-4">{`${font.superclass} / ${font.classification}`}</p>
             </div>
-            {font.inuse && 
-              <div>
-                <h2 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">{font.label} In Use</h2>
-                <ul>
-                  {getInUse()}
-                </ul>
-              </div>
-            }
           </div>
         </div>
       </div>

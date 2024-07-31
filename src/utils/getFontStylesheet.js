@@ -37,6 +37,8 @@ function getFontStylesheet(font, widths) {
       const getName = (width !== "rg" ? `${font.name} ${_.capitalize(width)}` : font.name);
   
       stylesheets.push(`https://fonts.googleapis.com/css2?family=${getName.replace(/\s+/g, '+')}:${weightVar}@${processedArray.join(";")}&display=block`);
+      //                https://fonts.googleapis.com/css2?family=Karla                          :ital,wght   @0,200..800;1,200..800&display=block
+      //                https://fonts.googleapis.com/css2?family=Bricolage+Grotesque            :opsz,wght   @12..96,200..800&display=swap" rel="stylesheet">
     })
 
 

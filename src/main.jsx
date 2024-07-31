@@ -7,7 +7,8 @@ import { fetchGameData } from './utils/fetchGameData.js';
 async function renderApp() {
 
   const csvFiles = [
-    'fonts'
+    'fonts',
+    'sites'
   ];
   const appData = await fetchGameData(csvFiles);
 
