@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AppContext } from "../../../App";
+import { WindowContext } from "../../../Window";
 import ArticlePage from "./templates/ArticlePage";
 import LandingPage from "./templates/LandingPage";
 import ProductPage from "./templates/ProductPage";
@@ -10,7 +10,7 @@ function TestTemplate() {
 
   // React Hooks
 
-  const context = useContext(AppContext);
+  const context = useContext(WindowContext);
 
   switch(context.template) {
     case "Article":

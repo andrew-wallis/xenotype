@@ -1,7 +1,7 @@
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
 
-function ChooseSample({font, sampleText, chooseFont, setAboutFont, setShowModal}) {
+function ChooseSample({font, sampleText, chooseFont, setModal}) {
 
   const wrapperStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -54,8 +54,9 @@ function ChooseSample({font, sampleText, chooseFont, setAboutFont, setShowModal}
 
   function showAbout(e) {
     e.preventDefault();
-    setShowModal(true);
-    setAboutFont(font);
+    setModal({
+      label: font.label
+    })
   }
 
   return (

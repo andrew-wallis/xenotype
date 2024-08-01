@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { AppContext } from "../../../App";
+import { WindowContext } from "../../../Window";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
 import TestTemplate from "./TestTemplate";
@@ -9,7 +9,7 @@ function Test() {
 
   // React Hooks
 
-  const context = useContext(AppContext);
+  const context = useContext(WindowContext);
 
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);

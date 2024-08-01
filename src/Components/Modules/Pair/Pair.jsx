@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
-import { AppContext } from "../../../App";
+import { WindowContext } from "../../../Window";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import PairSample from "./PairSample";
@@ -9,7 +9,7 @@ function Pair() {
 
   // React Hooks
 
-  const context = useContext(AppContext);
+  const context = useContext(WindowContext);
 
   const [alternativesIndex, setAlternativesIndex] = useState(0);
   const [pairingsIndex, setPairingsIndex] = useState(0);
