@@ -25,7 +25,8 @@ function Choose({showFilters, sort, setModal}) {
   }, [context.fonts, filter, sort]);
 
   useEffect(() => {
-    setDisplayFonts(sortedFonts.slice(0, 24));
+    //setDisplayFonts(sortedFonts.slice(0, 24));
+    setDisplayFonts(sortedFonts);
   }, [sortedFonts]);
 
   const chooseSamplesRef = useRef(null);
@@ -43,11 +44,11 @@ function Choose({showFilters, sort, setModal}) {
   }
 
   const handleScroll = () => {
-    const {scrollTop, scrollHeight, clientHeight} = chooseSamplesRef.current;
-    if(scrollTop + clientHeight >= scrollHeight - 5 ) {
-      const newItems = sortedFonts.slice(displayFont.length, displayFont.length + 12);
-      setDisplayFonts((prevItems) => [...prevItems, ...newItems]);
-    }
+    // const {scrollTop, scrollHeight, clientHeight} = chooseSamplesRef.current;
+    // if(scrollTop + clientHeight >= scrollHeight - 5 ) {
+    //   const newItems = sortedFonts.slice(displayFont.length, displayFont.length + 12);
+    //   setDisplayFonts((prevItems) => [...prevItems, ...newItems]);
+    // }
   }
 
   return (
