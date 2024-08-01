@@ -1,12 +1,8 @@
-import { useContext } from "react";
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
-import { AppContext } from "../../../App";
 import Button from "../../Elements/Button";
 
-function About({font, closeModal, sites}) {
-
-  const context = useContext(AppContext);
+function About({font, closeModal, sites, setChosenFont, changeModule}) {
 
   const headingStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -22,8 +18,8 @@ function About({font, closeModal, sites}) {
 
   const tryFont = () => {
     closeModal();
-    context.setChosenFont(font);
-    context.changeModule("Pair");
+    setChosenFont(font);
+    changeModule("Pair");
   }
 
   function getFontLabel(weight) {

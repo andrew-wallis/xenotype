@@ -3,6 +3,7 @@ import { AppContext } from "../../../App";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
 import TestTemplate from "./TestTemplate";
+import CTA from "../../Elements/CTA";
 
 function Test() {
 
@@ -14,7 +15,6 @@ function Test() {
   const [pairings, setPairings] = useState([]);
   const [alternativesScroll, setAlternativesScroll] = useState(true);
   const [pairingsScroll, setPairingsScroll] = useState(true);
-  const [swap, setSwap] = useState(false);
 
   useEffect(() => {
     const index = context.allAlternatives.indexOf(context.primaryFont);
@@ -64,7 +64,7 @@ function Test() {
     if(font !== context.primaryFont) {
       context.setPrimaryFont(font);
     } else {
-      chooseFont(font);
+      //chooseFont(font);
     }
   }
 
@@ -72,7 +72,7 @@ function Test() {
     if(font !== context.secondaryFont) {
       context.setSecondaryFont(font);
     } else {
-      chooseFont(font);
+      //chooseFont(font);
     }
   }
 
@@ -88,6 +88,11 @@ function Test() {
 
   const disablePairing = () => {
     context.setPairing(false);
+    context.setSwap(false);
+  }
+
+  const handleSwap = () => {
+    context.setSwap(!context.swap);
   }
 
   const handleAlternativesScroll = () => {
@@ -108,29 +113,33 @@ function Test() {
 
   return (
     <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto">
-      <aside className="hidden md:block w-48 mr-6 pr-4">
-        <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={alternativesRef} onScroll={handleAlternativesScroll}>
-          {alternatives.map((font, index) => (
-            <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
-          ))}
+      <aside className="hidden md:block w-56 mr-6 pr-4">
+        <div className="flex gap-4 mb-8 text-gray-800">
+          {context.pairing ?
+            <>
+              <a href="#" className="uppercase tracking-wider font-bold text-xs leading-none" onClick={(e) => {e.preventDefault; disablePairing()}}>Stop Pairing</a>            
+              <a href="#" className={`uppercase tracking-wider font-bold text-xs leading-none ${context.swap ? "opacity-100" : "opacity-70"}`} onClick={(e) => {e.preventDefault; handleSwap()}}>Swap</a>
+            </> :
+             <a href="#" className="uppercase tracking-wider font-bold text-xs leading-none" onClick={(e) => {e.preventDefault; enablePairings()}}>Find Pairings</a> 
+          }
         </div>
-        {(context.pairing) && 
-          <>
-            <div className="mb-12 overflow-y-auto h-32 custom-scrollbar" ref={pairingsRef} onScroll={handlePairingsScroll}>
-              {pairings.map((font, index) => (
-                <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={disablePairing}>Stop Pairing</a>
-            </div>
-          </>
-        }
-        {(!context.pairing) &&
-          <div className="flex justify-center">
-            <Button callback={enablePairings}>Find Pairings</Button>
+        <div className={`flex flex-col`}>
+          <div className={`mb-8 overflow-y-auto custom-scrollbar h-32`} ref={alternativesRef} onScroll={handleAlternativesScroll}>
+            {alternatives.map((font, index) => (
+              <TestSample key={index} font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
+            ))}
           </div>
-        }
+          {(context.pairing) && 
+              <div className="mb-8 overflow-y-auto h-32 custom-scrollbar" ref={pairingsRef} onScroll={handlePairingsScroll}>
+                {pairings.map((font, index) => (
+                  <TestSample key={index} font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
+                ))}
+              </div>
+          }
+        </div>
+        <div className="">
+          <CTA>{context.pairing ? "Get These Fonts" : "Get This Font"}</CTA>
+        </div>
       </aside>
       <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
         <TestTemplate />

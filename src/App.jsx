@@ -9,7 +9,7 @@ import Select from "./Components/Elements/Select";
 import BackLink from "./Components/Elements/BackLink";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
-import About from "./Components/Modules/About/About";
+import Modal from "./Components/Modules/Modal/Modal";
 
 export const AppContext = createContext();
 
@@ -112,10 +112,6 @@ function App({data}) {
     changeModule(activeModule === "Pair" ? "Choose" : "Pair");
   }
 
-  const handleSwap = () => {
-    setSwap(!swap);
-  }
-
   const toggleDarkMode = () => {
     setIsDarkMode(prevMode => {
       const newMode = !prevMode;
@@ -178,11 +174,7 @@ function App({data}) {
                     <li><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
                   ))}
                 </ul>
-                <div className="shrink-0">
-                  <Button callback={handleSwap} active={swap}>Swap Fonts</Button>
-                </div>
               </div>
-
             }
           </div>
         }
@@ -206,16 +198,8 @@ function App({data}) {
             </div>
           </CSSTransition>
         </TransitionGroup>
-        <>
-          <div className={`fixed inset-0 z-20 flex items-center justify-center py-16 transform transition-all duration-300 ${showModal ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"}`}>
-            <div className="h-full bg-white  max-w-3xl mx-auto">
-              {Object.keys(aboutFont).length > 0 && <About font={aboutFont} closeModal={closeModal} sites={data.sites} />}
-            </div>
-          </div>
-          <div className={`fixed inset-0 z-10 bg-black transition-opacity duration-300 ${showModal ? "opacity-50 translate-y-0" : "opacity-0 -translate-y-full"}`}>
-          </div>
-        </>
       </AppContext.Provider>
+      <Modal showModal={showModal} aboutFont={aboutFont} closeModal={closeModal} sites={data.sites} />
     </div>
   )
 }

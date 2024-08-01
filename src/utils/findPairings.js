@@ -1,14 +1,14 @@
 import _ from "lodash";
 
 function findPairings(font, fonts) {
-
+  
   let matchingFamily = [];
   let matchingPairing = [];
   let matchingOther = [];
   
   let fontList = _.cloneDeep(fonts);
   const thisFont = font;
-
+  
   fontList = fontList.filter(font => font.id !== thisFont.id);
 
   if(thisFont.family) {
@@ -81,10 +81,6 @@ function findPairings(font, fonts) {
     ...matchingPairing,
     ...matchingOther
   ]
-  
-  sortedFonts.forEach((font) => {
-    console.log(`${font.label}: ${font.score} ${font.Rating}`);
-  })
 
   return sortedFonts;
 

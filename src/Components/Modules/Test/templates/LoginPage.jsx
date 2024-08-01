@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
+import getFonts from "./helpers/getFonts";
 
 function LoginPage() {
 
   const context = useContext(AppContext);
-
-  const thisFont = context.swap ? context.secondaryFont : context.primaryFont;
-  const pairingFont = (!context.pairing || context.swap) ? context.primaryFont : context.secondaryFont;
+  const [thisFont, pairingFont] = getFonts(context);
 
   const title = {
     fontFamily: getFontFamily(thisFont, "rg"),

@@ -32,7 +32,7 @@ function Pair() {
     const index = context.allPairings.indexOf(context.secondaryFont);
     setPairingsIndex(index);
     setPairings(context.allPairings.slice(0, index + 4));
-  }, [context.allPairings]);
+  }, [context.allPairings, context.secondaryFont]);
 
   useEffect(() => {
     if(alternativesSwiperRef.current) {
@@ -69,11 +69,11 @@ function Pair() {
       context.setPrimaryFont(font);
       setAlternativesIndex(alternatives.indexOf(font));
     } else {
-      if(context.chosenFont === font) {
-        testPairing();
-      } else {
-        context.setChosenFont(font);
-      }
+      // if(context.chosenFont === font) {
+      //   testPairing();
+      // } else {
+      //   context.setChosenFont(font);
+      // }
     }
   }
 
@@ -82,7 +82,7 @@ function Pair() {
       context.setSecondaryFont(font);
       setPairingsIndex(pairings.indexOf(font));
     } else {
-      context.setChosenFont(font);
+      // context.setChosenFont(font);
     }
   }
 

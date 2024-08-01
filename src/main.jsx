@@ -12,8 +12,6 @@ async function renderApp() {
   ];
   const appData = await fetchGameData(csvFiles);
 
-  console.log(appData);
-
   ReactDOM.createRoot(document.getElementById('root')).render(
   
     <React.StrictMode>

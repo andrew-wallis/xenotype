@@ -23,7 +23,7 @@ function PairSample({font, activeFont, sampleText, chooseFont}) {
   }
 
   return (
-    <a href="#" className={`select-none overflow-hidden shrink-0 ${font !== activeFont ? "opacity-60" : ""}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <a href="#" className={`select-none overflow-hidden shrink-0 ${font !== activeFont ? "opacity-60" : "cursor-grab"}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
