@@ -1,8 +1,8 @@
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
-import Button from "../../Elements/Button";
+import CTA from "../../Elements/CTA";
 
-function About({font, closeModal, sites, setChosenFont, changeModule}) {
+function About({font, action, close, sites}) {
 
   const headingStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -17,9 +17,8 @@ function About({font, closeModal, sites, setChosenFont, changeModule}) {
   }
 
   const tryFont = () => {
-    closeModal();
-    setChosenFont(font);
-    changeModule("Pair");
+    close();
+    action(font);
   }
 
   function getFontLabel(weight) {
@@ -139,14 +138,14 @@ function About({font, closeModal, sites, setChosenFont, changeModule}) {
       </style>
       <header className="shrink-0 mb-12">
         <div className="flex justify-end mb-8">
-          <a href="#" onClick={(e) => {e.preventDefault(); closeModal()}} className="h-4 w-4 flex justify-center items-center">
+          <a href="#" onClick={(e) => {e.preventDefault(); close()}} className="h-4 w-4 flex justify-center items-center">
             <span className="absolute bg-black h-[1.5px] w-3 rotate-45"></span>
             <span className="absolute bg-black h-[1.5px] w-3 -rotate-45"></span>
           </a>
         </div>
         <div className="flex justify-between">
           <h2 className="font-semibold stylistic-alternates" style={{...headingStyles}}>{font.label}</h2>
-          <Button callback={tryFont}>Try It Out </Button>
+          <CTA callback={tryFont}>Try It Out </CTA>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto custom-scrollbar pr-4">

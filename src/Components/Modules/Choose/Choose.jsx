@@ -1,15 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { WindowContext } from "../../../Window";
+import { AppContext } from "../../../App";
 import ChooseSample from "./ChooseSample";
 import ChooseFilters from "./ChooseFilters";
 import updateFilters from "./helpers/updateFilters";
 import sortAndFilterFonts from "./helpers/sortAndFilterFonts";
 
-function Choose({showFilters, sort, setModal}) {
+function Choose({showFilters, sort}) {
   
   //  React Hooks
 
-  const context = useContext(WindowContext);
+  const context = useContext(AppContext);
 
   const [sortedFonts, setSortedFonts] = useState([]);
   const [displayFont, setDisplayFonts] = useState([]);
@@ -61,7 +61,7 @@ function Choose({showFilters, sort, setModal}) {
       <main ref={chooseSamplesRef} onScroll={handleScroll} className="custom-scrollbar overflow-y-auto flex-1 transition-[width] duration-300">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 px-4">
           {displayFont.map(([fontKey, font]) => (
-            <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} setModal={setModal} />
+            <ChooseSample key={fontKey} font={font} sampleText={context.sampleText} chooseFont={chooseFont} setModal={context.setModal} />
           ))}
         </div>
       </main>

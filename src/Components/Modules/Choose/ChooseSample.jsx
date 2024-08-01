@@ -55,7 +55,9 @@ function ChooseSample({font, sampleText, chooseFont, setModal}) {
   function showAbout(e) {
     e.preventDefault();
     setModal({
-      label: font.label
+      type: "About",
+      content: font,
+      action: chooseFont
     })
   }
 

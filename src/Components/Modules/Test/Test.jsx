@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { WindowContext } from "../../../Window";
+import { AppContext } from "../../../App";
 import TestSample from "./TestSample";
 import Button from "../../Elements/Button";
 import TestTemplate from "./TestTemplate";
@@ -9,7 +9,7 @@ function Test() {
 
   // React Hooks
 
-  const context = useContext(WindowContext);
+  const context = useContext(AppContext);
 
   const [alternatives, setAlternatives] = useState([]);
   const [pairings, setPairings] = useState([]);
@@ -95,6 +95,17 @@ function Test() {
     context.setSwap(!context.swap);
   }
 
+  const getFonts = () => {
+    context.setModal({
+      type: "GetFonts",
+      content: {
+        primaryFont: context.primaryFont,
+        secondaryFont: context.secondaryFont
+      }
+    })
+  }
+  
+
   const handleAlternativesScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = alternativesRef.current;
     if(scrollTop + clientHeight >= scrollHeight - 5) {
@@ -138,7 +149,7 @@ function Test() {
           }
         </div>
         <div className="">
-          <CTA>{context.pairing ? "Get These Fonts" : "Get This Font"}</CTA>
+          <CTA callback={getFonts}>{context.pairing ? "Get These Fonts" : "Get This Font"}</CTA>
         </div>
       </aside>
       <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">

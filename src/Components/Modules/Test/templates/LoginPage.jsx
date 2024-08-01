@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { WindowContext } from "../../../../Window";
+import { AppContext } from "../../../../App";
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 import getFonts from "./helpers/getFonts";
 
 function LoginPage() {
 
-  const context = useContext(WindowContext);
+  const context = useContext(AppContext);
   const [thisFont, pairingFont] = getFonts(context);
 
   const title = {

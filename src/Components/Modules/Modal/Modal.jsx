@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import About from "../About/About"
+import About from "../About/About";
+import "./Modal.css"
+import GetFonts from "../GetFonts/GetFonts";
 
-function Modal({modal, setModal}) {
+
+function Modal({modal, setModal, data}) {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -13,26 +16,31 @@ function Modal({modal, setModal}) {
     }
   }, [modal]);
 
+  const closeModal = () => {
+
+    setShowModal(false);
+
+    setTimeout(() => {
+      setModal({});
+    }, 300);
+    
+  }
 
   return (
     <>
-      <div id="modal" className={`fixed inset-0 z-20 flex items-center justify-center py-16 transform transition-all duration-1000 ${showModal ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"}`}>
-        <div className="h-full bg-white w-full max-w-3xl mx-auto">
-          <div className="flex justify-end mb-8">
-            <a href="#" onClick={(e) => {e.preventDefault(); setModal({})}} className="h-4 w-4 flex justify-center items-center">
-              <span className="absolute bg-black h-[1.5px] w-3 rotate-45"></span>
-              <span className="absolute bg-black h-[1.5px] w-3 -rotate-45"></span>
-            </a>
-          </div>
-          {/* {Object.keys(aboutFont).length > 0 && <About font={aboutFont} closeModal={closeModal} sites={sites} />} */}
-
-          {showModal && modal.label}
+      <div className={`fixed inset-0 z-20 flex items-center justify-center py-16 transition-all duration-300 ease-out ${showModal ? "translate-y-0" : "-translate-y-full"}`}>
+        <div className={`h-full bg-white w-full max-w-3xl mx-auto`}>
+          {(modal && modal.type === "About") &&
+            <About font={modal.content} action={modal.action} close={closeModal} sites={data.sites} />
+          }
+          {(modal && modal.type === "GetFonts") &&
+            <GetFonts content={modal.content} close={closeModal} />
+          }
         </div>
       </div>
-      <div id="modalOverlay" className={`fixed inset-0 z-10 bg-black transition-opacity duration-1000 ${showModal ? "opacity-50 translate-y-0" : "opacity-0 -translate-y-full"}`}>
-      </div>
+      <div className={`fixed inset-0 z-10 bg-black duration-300 transition-opacity ease-out ${showModal ? "translate-y-0 opacity-50" : "-translate-y-full opacity-0"}`}></div>
     </>
-  );
+  )
 };
 
 export default Modal;
