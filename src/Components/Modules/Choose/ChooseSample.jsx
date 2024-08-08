@@ -1,7 +1,8 @@
+import { forwardRef } from "react";
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
 
-function ChooseSample({font, sampleText, chooseFont, setModal}) {
+const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) => {
 
   const wrapperStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -63,7 +64,7 @@ function ChooseSample({font, sampleText, chooseFont, setModal}) {
 
   return (
     <div className="relative font-sample">
-      <a href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+      <a ref={ref} href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
         <style>
           @import url('{getFontStylesheet(font, ["rg"])}')
         </style>
@@ -77,6 +78,6 @@ function ChooseSample({font, sampleText, chooseFont, setModal}) {
       </div>
     </div>
   );
-}
+});
 
 export default ChooseSample;

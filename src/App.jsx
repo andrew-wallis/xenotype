@@ -10,6 +10,7 @@ import BackLink from "./Components/Elements/BackLink";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
 import Modal from "./Components/Modules/Modal/Modal";
+import sortAndFilterFonts from "./utils/sortAndFilterFonts";
 
 export const AppContext = createContext();
 
@@ -21,34 +22,41 @@ function App({data}) {
   const sortOptions = ["Rating", "A-Z"];
   const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In"];
   const fonts = data.fonts.filter(font => font.status !== "REMOVE");
-
+  const defaultFont = data.fonts.find(font => font.name === "Inter");
 
   // React Hooks
 
   // Fonts and lists
 
-  const [chosenFont, setChosenFont] = useState({});
-  const [primaryFont, setPrimaryFont] = useState({});
+  const [primaryFont, setPrimaryFont] = useState(defaultFont);
   const [secondaryFont, setSecondaryFont] = useState({});
-
-  const [allAlternatives, setAllAlternatives] = useState([]);
-  const [allPairings, setAllPairings] = useState([]);
+  const [alternatives, setAlternatives] = useState([]);
+  const [pairings, setPairings] = useState([]);
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
   const [pairing, setPairing] = useState(true);
   const [swap, setSwap] = useState(false);
 
+  const [filter, setFilter] = useState({
+    classification: [],
+    subclassification: [],
+    vibe: [],
+    licence: []
+  });
+
+  const [showFilters, setShowFilters] = useState(false);
+  const [sort, setSort] = useState(sortOptions[0]);
+  const [sortedFonts, setSortedFonts] = useState(sortAndFilterFonts(data.fonts, filter, sort));
+
   useEffect(() => {
-    if(Object.keys(chosenFont).length > 0) {
-      setAllAlternatives(findAlternatives(chosenFont, fonts));
-      setAllPairings(findPairings(chosenFont, fonts));
-      setPrimaryFont(chosenFont);
+    if(Object.keys(primaryFont).length > 0) {
+      setAlternatives(findAlternatives(primaryFont, fonts));
+      setPairings(findPairings(primaryFont, fonts));
     }
-  }, [chosenFont]);
+  }, [primaryFont]);
 
   useEffect(() => {
-    setSecondaryFont(allPairings[0]);
-  }, [allPairings]);
-
+    setSortedFonts(sortAndFilterFonts(data.fonts, filter, sort));
+  }, [filter, sort]);
 
   // Navigation
 
@@ -68,12 +76,6 @@ function App({data}) {
       setNextModule(null);
     }
   }, [nextModule]);
-
-
-  // Sort and filters
-
-  const [showFilters, setShowFilters] = useState(false);
-  const [sort, setSort] = useState(sortOptions[0]);
 
 
   // Dark mode
@@ -120,15 +122,13 @@ function App({data}) {
   }
 
   const contextValue = {
-    fonts,
-    chosenFont,
-    setChosenFont,
     primaryFont,
     setPrimaryFont,
     secondaryFont,
     setSecondaryFont,
-    allAlternatives,
-    allPairings,
+    sortedFonts,
+    alternatives,
+    pairings,
     pairing,
     setPairing,
     sampleText,
@@ -164,7 +164,7 @@ function App({data}) {
               <div className="flex justify-between w-full">
                 <ul className="flex gap-12 py-2.5">
                   {templates.map((thisTemplate) => (
-                    <li><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
+                    <li key={thisTemplate}><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
                   ))}
                 </ul>
               </div>
@@ -185,7 +185,7 @@ function App({data}) {
             <div className="absolute inset-0 overflow-hidden flex flex-col" ref={
               activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
             }>
-              {activeModule === "Choose" && <Choose showFilters={showFilters} sort={sort} setModal={setModal}/>}
+              {activeModule === "Choose" && <Choose showFilters={showFilters} filter={filter} setFilter={setFilter} sort={sort} setModal={setModal}/>}
               {activeModule === "Pair" && <Pair />}
               {activeModule === "Test" && <Test />}
             </div>

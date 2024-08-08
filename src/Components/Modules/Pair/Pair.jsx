@@ -11,6 +11,10 @@ function Pair() {
 
   const context = useContext(AppContext);
 
+  if(Object.keys(context.secondaryFont).length === 0 && Object.keys(context.pairings).length > 0) {
+    context.setSecondaryFont(context.pairings[0]);
+  }
+
   const [alternativesIndex, setAlternativesIndex] = useState(0);
   const [pairingsIndex, setPairingsIndex] = useState(0);
 
@@ -23,16 +27,16 @@ function Pair() {
   const pairingsSwiperRef = useRef(null);
 
   useEffect(() => {
-    const index = context.allAlternatives.indexOf(context.primaryFont);
+    const index = context.alternatives.indexOf(context.primaryFont);
     setAlternativesIndex(index);
-    setAlternatives(context.allAlternatives.slice(0, index + 4));
-  }, [context.allAlternatives]);
+    setAlternatives(context.alternatives.slice(0, index + 4));
+  }, [context.alternatives]);
 
   useEffect(() => {
-    const index = context.allPairings.indexOf(context.secondaryFont);
+    const index = context.pairings.indexOf(context.secondaryFont);
     setPairingsIndex(index);
-    setPairings(context.allPairings.slice(0, index + 4));
-  }, [context.allPairings, context.secondaryFont]);
+    setPairings(context.pairings.slice(0, index + 4));
+  }, [context.pairings, context.secondaryFont]);
 
   useEffect(() => {
     if(alternativesSwiperRef.current) {
@@ -68,12 +72,6 @@ function Pair() {
     if(font !== context.primaryFont) {
       context.setPrimaryFont(font);
       setAlternativesIndex(alternatives.indexOf(font));
-    } else {
-      // if(context.chosenFont === font) {
-      //   testPairing();
-      // } else {
-      //   context.setChosenFont(font);
-      // }
     }
   }
 
@@ -81,8 +79,6 @@ function Pair() {
     if(font !== context.secondaryFont) {
       context.setSecondaryFont(font);
       setPairingsIndex(pairings.indexOf(font));
-    } else {
-      // context.setChosenFont(font);
     }
   }
 
@@ -111,14 +107,14 @@ function Pair() {
   function handleReachEndAlternatives() {
     setAlternatives((prev) => [
       ...prev,
-      ...context.allAlternatives.slice(prev.length, prev.length + 4)
+      ...context.alternatives.slice(prev.length, prev.length + 4)
     ]);
   }
 
   function handleReachEndPairings() {
     setPairings((prev) => [
       ...prev,
-      ...context.allPairings.slice(prev.length, prev.length + 4)
+      ...context.pairings.slice(prev.length, prev.length + 4)
     ]);
   }
 

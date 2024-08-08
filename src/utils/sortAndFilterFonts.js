@@ -1,6 +1,6 @@
 function sortAndFilterFonts(fonts, filter, sort) {
   delete fonts.columns;
-
+  
   if(filter.classification.length > 0) {
     fonts = fonts.filter(font => filter.classification.includes(font.superclass));
   }
@@ -17,15 +17,15 @@ function sortAndFilterFonts(fonts, filter, sort) {
     fonts = fonts.filter(font => filter.licence.includes(font.distribution));
   }
  
-  let sortFonts = Object.entries(fonts);
+  let sortedFonts = [...fonts];
 
   if(sort === "Rating") {
-    sortFonts = sortFonts.sort((a, b) => b[1].Rating - a[1].Rating);
+    sortedFonts = sortedFonts.sort((a, b) => b.Rating - a.Rating);
   } else if(sort === "A-Z") {
-    sortFonts = sortFonts.sort((a, b) => a[1].label.localeCompare(b[1].label));
+    sortedFonts = sortedFonts.sort((a, b) => a.label.localeCompare(b.label));
   }
 
-  return sortFonts;
+  return sortedFonts;
 
 }
 
