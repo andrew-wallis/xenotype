@@ -49,7 +49,8 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap
       type: "GetFonts",
       content: {
         primaryFont: context.primaryFont,
-        secondaryFont: context.secondaryFont
+        secondaryFont: context.pairing ? context.secondaryFont : null,
+        sampleText: context.sampleText
       }
     })
   }

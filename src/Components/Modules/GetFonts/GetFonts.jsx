@@ -1,3 +1,5 @@
+import GetFontsSample from "./GetFontsSample";
+
 function GetFonts({content, close}) {
 
   return (
@@ -9,13 +11,12 @@ function GetFonts({content, close}) {
             <span className="absolute bg-black h-[1.5px] w-3 -rotate-45"></span>
           </a>
         </div>
-        <div className="flex justify-between">
-          Get These Fonts
-        </div>
+        <h1 className="uppercase tracking-wider font-black text-center leading-5">{content.secondaryFont ? "Get These Fonts" : "Get This Font"}</h1>
       </header>
-      <div className="flex-1">
-        {content.primaryFont.label}
-        {content.secondaryFont.label}
+      <div className="flex-1 flex justify-center gap-8">
+
+        <div className="w-1/2"><GetFontsSample font={content.primaryFont} sampleText={content.sampleText} /></div>
+        {content.secondaryFont && <div className="w-1/2"><GetFontsSample font={content.secondaryFont} sampleText={content.sampleText} /></div>}
       </div>
     </div>
   );
