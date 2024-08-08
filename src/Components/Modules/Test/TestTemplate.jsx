@@ -1,18 +1,14 @@
-import { useContext } from "react";
-import { AppContext } from "../../../App";
 import ArticlePage from "./templates/ArticlePage";
 import LandingPage from "./templates/LandingPage";
 import ProductPage from "./templates/ProductPage";
 import LoginPage from "./templates/LoginPage";
 import Dashboard from "./templates/Dashboard";
 
-function TestTemplate() {
+function TestTemplate({template}) {
 
   // React Hooks
 
-  const context = useContext(AppContext);
-
-  switch(context.template) {
+  switch(template) {
     case "Article":
       return <ArticlePage />
     case "Landing Page":

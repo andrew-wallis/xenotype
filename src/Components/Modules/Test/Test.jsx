@@ -4,7 +4,7 @@ import TestTemplate from "./TestTemplate";
 import CTA from "../../Elements/CTA";
 import TestSelect from "./TestSelect";
 
-function Test() {
+function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap, setModal, template, setPairing}) {
 
   // React Hooks
 
@@ -15,37 +15,37 @@ function Test() {
     if(ref.current) {
       ref.current.scrollTop = 0;
     }
-  }, [context.template]);
+  }, [template]);
 
   // Functions
 
   const choosePrimaryFont = (font) => {
     if(font !== context.primaryFont) {
-      context.setPrimaryFont(font);
+      setPrimaryFont(font);
     }
   }
 
   const chooseSecondaryFont = (font) => {
     if(font !== context.secondaryFont) {
-      context.setSecondaryFont(font);
+      setSecondaryFont(font);
     }
   }
 
   const enablePairings = () => {
-    context.setPairing(true);
+    setPairing(true);
   }
 
   const disablePairing = () => {
-    context.setPairing(false);
-    context.setSwap(false);
+    setPairing(false);
+    setSwap(false);
   }
 
   const handleSwap = () => {
-    context.setSwap(!context.swap);
+    setSwap(!context.swap);
   }
 
   const getFonts = () => {
-    context.setModal({
+    setModal({
       type: "GetFonts",
       content: {
         primaryFont: context.primaryFont,
@@ -67,9 +67,9 @@ function Test() {
           }
         </div>
         <div className={`flex flex-col`}>
-          <TestSelect fonts={context.alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
+          <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
           {(context.pairing) && 
-            <TestSelect fonts={context.pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
+            <TestSelect fonts={pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
           }
         </div>
         <div className="">
@@ -77,7 +77,7 @@ function Test() {
         </div>
       </aside>
       <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
-        <TestTemplate />
+        <TestTemplate template={template} />
       </main>
     </div>
   );

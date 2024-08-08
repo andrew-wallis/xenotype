@@ -5,21 +5,17 @@ import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
 import 'swiper/css';
 
-function Pair() {
+function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, changeModule, setPairing}) {
 
   // React Hooks
 
   const context = useContext(AppContext);
 
-  if(Object.keys(context.secondaryFont).length === 0 && Object.keys(context.pairings).length > 0) {
-    context.setSecondaryFont(context.pairings[0]);
-  }
-
   const [alternativesIndex, setAlternativesIndex] = useState(0);
   const [pairingsIndex, setPairingsIndex] = useState(0);
 
-  const [alternatives, setAlternatives] = useState([]);
-  const [pairings, setPairings] = useState([]);
+  const [sliderAlts, setSliderAlts] = useState([]);
+  const [sliderPairs, setSlidePairs] = useState([]);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -27,16 +23,16 @@ function Pair() {
   const pairingsSwiperRef = useRef(null);
 
   useEffect(() => {
-    const index = context.alternatives.indexOf(context.primaryFont);
+    const index = alternatives.indexOf(context.primaryFont);
     setAlternativesIndex(index);
-    setAlternatives(context.alternatives.slice(0, index + 4));
-  }, [context.alternatives]);
+    setSliderAlts(alternatives.slice(0, index + 4));
+  }, [alternatives]);
 
   useEffect(() => {
-    const index = context.pairings.indexOf(context.secondaryFont);
+    const index = pairings.indexOf(context.secondaryFont);
     setPairingsIndex(index);
-    setPairings(context.pairings.slice(0, index + 4));
-  }, [context.pairings, context.secondaryFont]);
+    setSlidePairs(pairings.slice(0, index + 4));
+  }, [pairings, context.secondaryFont]);
 
   useEffect(() => {
     if(alternativesSwiperRef.current) {
@@ -70,51 +66,51 @@ function Pair() {
 
   const choosePrimaryFont = (font) => {
     if(font !== context.primaryFont) {
-      context.setPrimaryFont(font);
-      setAlternativesIndex(alternatives.indexOf(font));
+      setPrimaryFont(font);
+      setAlternativesIndex(sliderAlts.indexOf(font));
     }
   }
 
   const chooseSecondaryFont = (font) => {
     if(font !== context.secondaryFont) {
-      context.setSecondaryFont(font);
-      setPairingsIndex(pairings.indexOf(font));
+      setSecondaryFont(font);
+      setPairingsIndex(sliderPairs.indexOf(font));
     }
   }
 
   function testPairing() {
-    context.setPairing(true);
-    context.changeModule("Test");
+    setPairing(true);
+    changeModule("Test");
   }
 
   function skipPairing() {
-    context.setPairing(false);
-    context.changeModule("Test");
+    setPairing(false);
+    changeModule("Test");
   }
 
   function handleSlideChangeAlternatives(swiper) {
-    if(alternatives.length > 0) {
-      context.setPrimaryFont(alternatives[swiper.activeIndex]);
+    if(sliderAlts.length > 0) {
+      setPrimaryFont(sliderAlts[swiper.activeIndex]);
     }
   }
 
   function handleSlideChangePairings(swiper) {
-    if(pairings.length > 0) {
-      context.setSecondaryFont(pairings[swiper.activeIndex]);
+    if(sliderPairs.length > 0) {
+      setSecondaryFont(sliderPairs[swiper.activeIndex]);
     }
   }
 
   function handleReachEndAlternatives() {
-    setAlternatives((prev) => [
+    setSliderAlts((prev) => [
       ...prev,
-      ...context.alternatives.slice(prev.length, prev.length + 4)
+      ...alternatives.slice(prev.length, prev.length + 4)
     ]);
   }
 
   function handleReachEndPairings() {
-    setPairings((prev) => [
+    setSlidePairs((prev) => [
       ...prev,
-      ...context.pairings.slice(prev.length, prev.length + 4)
+      ...pairings.slice(prev.length, prev.length + 4)
     ]);
   }
 
@@ -130,7 +126,7 @@ function Pair() {
           onSlideChange={handleSlideChangeAlternatives}
           onSwiper={(swiper) => (alternativesSwiperRef.current = swiper)}
         >
-          {alternatives.map((font, index) => (
+          {sliderAlts.map((font, index) => (
             <SwiperSlide key={index}>
               <PairSample font={font} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
             </SwiperSlide>
@@ -147,7 +143,7 @@ function Pair() {
           onSlideChange={handleSlideChangePairings}
           onSwiper={(swiper) => (pairingsSwiperRef.current = swiper)}
         >
-          {pairings.map((font, index) => (
+          {sliderPairs.map((font, index) => (
             <SwiperSlide key={index}>
               <PairSample font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
             </SwiperSlide>

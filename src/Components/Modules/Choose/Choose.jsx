@@ -4,7 +4,7 @@ import ChooseFilters from "./ChooseFilters";
 import ChooseSelect from "./ChooseSelect";
 import updateFilters from "./helpers/updateFilters";
 
-function Choose({showFilters, filter, setFilter}) {;
+function Choose({showFilters, filter, setFilter, sortedFonts, setModal, chooseFont}) {;
   
 
   //  React Hooks
@@ -13,10 +13,8 @@ function Choose({showFilters, filter, setFilter}) {;
 
   // Functions
 
-  const chooseFont = (font) => {
-    context.setPrimaryFont(font);
-    context.setSecondaryFont({});
-    context.changeModule("Pair");
+  const handleChooseFont = (font) => {
+    chooseFont(font);
   }
 
   const handleFilter = (term, key) => {
@@ -30,7 +28,7 @@ function Choose({showFilters, filter, setFilter}) {;
           <ChooseFilters filter={filter} handleFilter={handleFilter} />
         }
       </aside>
-      <ChooseSelect fonts={context.sortedFonts} activeFont={context.primaryFont} chooseFont={chooseFont} setModal={context.setModal} sampleText={context.sampleText} />
+      <ChooseSelect fonts={sortedFonts} activeFont={context.primaryFont} chooseFont={handleChooseFont} setModal={setModal} sampleText={context.sampleText} />
     </div>
   );
 }

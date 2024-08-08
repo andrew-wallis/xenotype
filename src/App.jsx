@@ -48,15 +48,14 @@ function App({data}) {
   const [sortedFonts, setSortedFonts] = useState(sortAndFilterFonts(data.fonts, filter, sort));
 
   useEffect(() => {
-    if(Object.keys(primaryFont).length > 0) {
-      setAlternatives(findAlternatives(primaryFont, fonts));
-      setPairings(findPairings(primaryFont, fonts));
-    }
-  }, [primaryFont]);
-
-  useEffect(() => {
     setSortedFonts(sortAndFilterFonts(data.fonts, filter, sort));
   }, [filter, sort]);
+
+  useEffect(() => {
+    if(Object.keys(pairings ).length > 0) {
+      setSecondaryFont(pairings[0]);
+    }
+  }, [pairings]);
 
   // Navigation
 
@@ -93,7 +92,14 @@ function App({data}) {
   }, [isDarkMode]);
 
 
-  // Functions
+  // Function
+
+  const chooseFont = (font) => {
+    setPrimaryFont(font);
+    setAlternatives(findAlternatives(font, fonts));
+    setPairings(findPairings(font, fonts));
+    changeModule("Pair");
+  }
 
   const changeModule = (module) => {
     if((activeModule === "Choose") || (activeModule === "Pair" && module === "Test")) {
@@ -126,17 +132,9 @@ function App({data}) {
     setPrimaryFont,
     secondaryFont,
     setSecondaryFont,
-    sortedFonts,
-    alternatives,
-    pairings,
     pairing,
-    setPairing,
     sampleText,
-    changeModule,
-    template,
-    swap,
-    setSwap,
-    setModal
+    swap
   }
 
   return (
@@ -185,9 +183,37 @@ function App({data}) {
             <div className="absolute inset-0 overflow-hidden flex flex-col" ref={
               activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
             }>
-              {activeModule === "Choose" && <Choose showFilters={showFilters} filter={filter} setFilter={setFilter} sort={sort} setModal={setModal}/>}
-              {activeModule === "Pair" && <Pair />}
-              {activeModule === "Test" && <Test />}
+              {activeModule === "Choose" && 
+                <Choose 
+                  sortedFonts={sortedFonts} 
+                  filter={filter} 
+                  setFilter={setFilter} 
+                  showFilters={showFilters} 
+                  setModal={setModal} 
+                  chooseFont={chooseFont}
+                />
+              }
+              {activeModule === "Pair" && 
+                <Pair 
+                  setPrimaryFont={setPrimaryFont} 
+                  setSecondaryFont={setSecondaryFont} 
+                  alternatives={alternatives} 
+                  pairings={pairings} 
+                  setPairing={setPairing}
+                  changeModule={changeModule} 
+                />
+              }
+              {activeModule === "Test" && 
+                <Test 
+                  setPrimaryFont={setPrimaryFont} 
+                  setSecondaryFont={setSecondaryFont} 
+                  alternatives={alternatives} 
+                  pairings={pairings}
+                  template={template}
+                  setSwap={setSwap} 
+                  setPairing={setPairing}
+                  setModal={setModal} 
+                />}
             </div>
           </CSSTransition>
         </TransitionGroup>
