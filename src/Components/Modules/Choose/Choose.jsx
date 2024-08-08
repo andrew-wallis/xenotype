@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../../App";
 import ChooseFilters from "./ChooseFilters";
-import updateFilters from "./helpers/updateFilters";
 import ChooseSelect from "./ChooseSelect";
+import updateFilters from "./helpers/updateFilters";
 
 function Choose({showFilters, filter, setFilter}) {;
   

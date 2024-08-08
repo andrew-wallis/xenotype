@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef, useContext } from "react";
-import { AppContext } from "../../../App";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
+import { AppContext } from "../../../App";
 import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
+import 'swiper/css';
 
 function Pair() {
 

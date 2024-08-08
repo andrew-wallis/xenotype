@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import ChooseSample from "./ChooseSample";
 import { useInView } from "react-intersection-observer";
+import ChooseSample from "./ChooseSample";
 
 function ChooseSelect({fonts, activeFont, chooseFont, setModal, sampleText}) {
 

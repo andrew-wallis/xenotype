@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AppContext } from "../../../App";
 import TestTemplate from "./TestTemplate";
 import CTA from "../../Elements/CTA";
@@ -9,6 +9,13 @@ function Test() {
   // React Hooks
 
   const context = useContext(AppContext);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if(ref.current) {
+      ref.current.scrollTop = 0;
+    }
+  }, [context.template]);
 
   // Functions
 
@@ -69,7 +76,7 @@ function Test() {
           <CTA callback={getFonts}>{context.pairing ? "Get These Fonts" : "Get This Font"}</CTA>
         </div>
       </aside>
-      <main  className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
+      <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
         <TestTemplate />
       </main>
     </div>
