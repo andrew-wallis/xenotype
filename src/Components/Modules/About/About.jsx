@@ -187,8 +187,6 @@ function About({font, action, close, sites}) {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

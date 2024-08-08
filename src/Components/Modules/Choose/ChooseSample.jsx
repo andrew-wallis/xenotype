@@ -62,7 +62,7 @@ function ChooseSample({font, sampleText, chooseFont, setModal}) {
   }
 
   return (
-    <div className="relative font-sample min-h-20">
+    <div className="relative font-sample">
       <a href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
         <style>
           @import url('{getFontStylesheet(font, ["rg"])}')

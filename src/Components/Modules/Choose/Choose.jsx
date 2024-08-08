@@ -20,17 +20,15 @@ function Choose({showFilters, sort}) {
     licence: []
   });
 
+  const chooseSamplesRef = useRef(null);
+
   useEffect(() => {
     setSortedFonts(sortAndFilterFonts(context.fonts, filter, sort));
   }, [context.fonts, filter, sort]);
 
   useEffect(() => {
-    //setDisplayFonts(sortedFonts.slice(0, 24));
-    setDisplayFonts(sortedFonts);
+    setDisplayFonts(sortedFonts.slice(0, 24));
   }, [sortedFonts]);
-
-  const chooseSamplesRef = useRef(null);
-
 
   // Functions
 
@@ -44,11 +42,11 @@ function Choose({showFilters, sort}) {
   }
 
   const handleScroll = () => {
-    // const {scrollTop, scrollHeight, clientHeight} = chooseSamplesRef.current;
-    // if(scrollTop + clientHeight >= scrollHeight - 5 ) {
-    //   const newItems = sortedFonts.slice(displayFont.length, displayFont.length + 12);
-    //   setDisplayFonts((prevItems) => [...prevItems, ...newItems]);
-    // }
+    const {scrollTop, scrollHeight, clientHeight} = chooseSamplesRef.current;
+    if(scrollTop + clientHeight >= scrollHeight - 5) {
+      const newItems = sortedFonts.slice(displayFont.length, displayFont.length + 12);
+      setDisplayFonts((prevItems) => [...prevItems, ...newItems]);
+    }
   }
 
   return (
