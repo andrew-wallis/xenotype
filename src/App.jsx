@@ -1,16 +1,16 @@
 import { createContext, useEffect, useRef, useState } from "react"
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Choose from "./Components/Modules/Choose/Choose";
 import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "./App.css";
+import Modal from "./Components/Modules/Modal/Modal";
+import BackLink from "./Components/Elements/BackLink";
 import Button from "./Components/Elements/Button";
 import Select from "./Components/Elements/Select";
-import BackLink from "./Components/Elements/BackLink";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
-import Modal from "./Components/Modules/Modal/Modal";
 import sortAndFilterFonts from "./utils/sortAndFilterFonts";
+import "./App.css";
 
 export const AppContext = createContext();
 
@@ -52,7 +52,7 @@ function App({data}) {
   }, [filter, sort]);
 
   useEffect(() => {
-    if(Object.keys(pairings ).length > 0) {
+    if(Object.keys(pairings).length > 0) {
       setSecondaryFont(pairings[0]);
     }
   }, [pairings]);
@@ -94,11 +94,16 @@ function App({data}) {
 
   // Function
 
-  const chooseFont = (font) => {
+  const handleChoose = (font) => {
     setPrimaryFont(font);
     setAlternatives(findAlternatives(font, fonts));
     setPairings(findPairings(font, fonts));
     changeModule("Pair");
+  }
+
+  const handlePair = (pair) => {
+    setPairing(pair);
+    changeModule("Test");
   }
 
   const changeModule = (module) => {
@@ -107,7 +112,6 @@ function App({data}) {
     } else if((activeModule === "Pair" && module === "Test") || (activeModule === "Test")) {
       setDirection("backward");
     }
-
     setNextModule(module);
   }
 
@@ -190,17 +194,16 @@ function App({data}) {
                   setFilter={setFilter} 
                   showFilters={showFilters} 
                   setModal={setModal} 
-                  chooseFont={chooseFont}
+                  handleChoose={handleChoose}
                 />
               }
               {activeModule === "Pair" && 
-                <Pair 
+                <Pair
                   setPrimaryFont={setPrimaryFont} 
                   setSecondaryFont={setSecondaryFont} 
                   alternatives={alternatives} 
-                  pairings={pairings} 
-                  setPairing={setPairing}
-                  changeModule={changeModule} 
+                  pairings={pairings}
+                  handlePair={handlePair}
                 />
               }
               {activeModule === "Test" && 
@@ -212,7 +215,7 @@ function App({data}) {
                   template={template}
                   setSwap={setSwap} 
                   setPairing={setPairing}
-                  setModal={setModal} 
+                  setModal={setModal}
                 />}
             </div>
           </CSSTransition>

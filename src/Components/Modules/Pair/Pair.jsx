@@ -5,7 +5,7 @@ import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
 import 'swiper/css';
 
-function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, changeModule, setPairing}) {
+function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair}) {
 
   // React Hooks
 
@@ -79,13 +79,11 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, changeM
   }
 
   function testPairing() {
-    setPairing(true);
-    changeModule("Test");
+    handlePair(true);
   }
 
   function skipPairing() {
-    setPairing(false);
-    changeModule("Test");
+    handlePair(false);
   }
 
   function handleSlideChangeAlternatives(swiper) {
