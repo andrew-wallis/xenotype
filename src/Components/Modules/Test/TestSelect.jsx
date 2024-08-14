@@ -34,10 +34,10 @@ function TestSelect({fonts, activeFont, sampleText, chooseFont}) {
         inline: 'nearest'
       })
     }
-  }, [activeFont]);
+  }, []);
 
   return (
-    <div className={`mb-8 overflow-y-auto custom-scrollbar h-32`}>
+    <div className={`overflow-y-auto custom-scrollbar h-32`}>
       {fonts.slice(0, itemsToShow).map((font, index) => (
         <TestSample key={index} font={font} activeFont={activeFont} sampleText={sampleText} chooseFont={chooseFont} ref={font === activeFont ? activeFontRef : null} />
       ))}

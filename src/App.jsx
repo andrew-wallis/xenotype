@@ -5,12 +5,12 @@ import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
 import Modal from "./Components/Modules/Modal/Modal";
 import BackLink from "./Components/Elements/BackLink";
-import Button from "./Components/Elements/Button";
-import Select from "./Components/Elements/Select";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
 import sortAndFilterFonts from "./utils/sortAndFilterFonts";
 import "./App.css";
+import Icon from "./Components/Elements/Icon";
+import ChooseFilters from "./Components/Modules/Filters/ChooseFilters";
 
 export const AppContext = createContext();
 
@@ -43,7 +43,14 @@ function App({data}) {
     licence: []
   });
 
-  const [showFilters, setShowFilters] = useState(false);
+  const [pairFilter, setPairFilter] = useState({
+    classification: [],
+    subclassification: [],
+    vibe: [],
+    licence: []
+  });
+
+  const [showFilters, setShowFilters] = useState(true);
   const [sort, setSort] = useState(sortOptions[0]);
   const [sortedFonts, setSortedFonts] = useState(sortAndFilterFonts(data.fonts, filter, sort));
 
@@ -114,10 +121,6 @@ function App({data}) {
     }
     setNextModule(module);
   }
-
-  const handleToggleFilters = () => {
-    setShowFilters(!showFilters);
-  }
   
   const handleBack = () => {
     changeModule(activeModule === "Pair" ? "Choose" : "Pair");
@@ -150,17 +153,20 @@ function App({data}) {
       </header>
       <div className="w-full max-w-[68rem] px-4 mx-auto mb-12 md:mb-16">
         {activeModule === "Choose" && 
-          <div className="flex justify-between">
-            <Button callback={handleToggleFilters} active={showFilters}>
-              Filters
-            </Button>
-            <Select label="Filter" id="filter" value={sort} callback={setSort} options={sortOptions} />
-          </div>
+          <ChooseFilters 
+            showFilters={showFilters} 
+            setShowFilters={setShowFilters} 
+            filter={filter}
+            setFilter={setFilter} 
+            sort={sort}
+            setSort={setSort}
+            sortOptions={sortOptions}
+          />
         }
         {(activeModule === "Pair" || activeModule === "Test") &&
           <div className="flex">
             <div className="w-48 mr-6 pr-4">
-              <BackLink callback={handleBack} />
+              <Icon icon="ArrowLeft" callback={handleBack} />
             </div>
             {activeModule === "Test" &&
               <div className="flex justify-between w-full">
@@ -175,6 +181,43 @@ function App({data}) {
         }
       </div>
       <AppContext.Provider value={contextValue}>
+        <div className="flex-1 overflow-hidden relative">
+          <div className="absolute inset-0 overflow-hidden flex flex-col">
+            {activeModule === "Choose" && 
+              <Choose 
+                sortedFonts={sortedFonts} 
+                filter={filter} 
+                setFilter={setFilter} 
+                showFilters={showFilters} 
+                setModal={setModal} 
+                handleChoose={handleChoose}
+              />
+            }
+            {activeModule === "Pair" && 
+              <Pair
+                setPrimaryFont={setPrimaryFont} 
+                setSecondaryFont={setSecondaryFont} 
+                alternatives={alternatives} 
+                pairings={pairings}
+                handlePair={handlePair}
+              />
+            }
+            {activeModule === "Test" && 
+              <Test 
+                setPrimaryFont={setPrimaryFont} 
+                setSecondaryFont={setSecondaryFont} 
+                alternatives={alternatives} 
+                pairings={pairings}
+                template={template}
+                setSwap={setSwap} 
+                setPairing={setPairing}
+                setModal={setModal}
+              />}
+          </div>
+        </div>
+      </AppContext.Provider>
+      
+{/*       <AppContext.Provider value={contextValue}>
         <TransitionGroup className="flex-1 overflow-hidden relative">
           <CSSTransition 
             key={activeModule}
@@ -220,7 +263,7 @@ function App({data}) {
             </div>
           </CSSTransition>
         </TransitionGroup>
-      </AppContext.Provider>
+      </AppContext.Provider> */}
       <Modal modal={modal} setModal={setModal} data={data} />
     </div>
   )

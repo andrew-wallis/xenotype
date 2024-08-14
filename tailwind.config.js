@@ -10,6 +10,10 @@ export default {
       'sans': '"Sofia Pro", sans-serif'
     },
     extend: {
+      spacing: {
+        "2.25": "0.5625rem",
+        "4.5": "1.125rem"
+      },
       colors: {
         "white": "#F5F5F5",
         "gray-100": "#EAEAEA",

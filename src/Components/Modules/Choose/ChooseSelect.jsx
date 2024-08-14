@@ -38,7 +38,7 @@ function ChooseSelect({fonts, activeFont, chooseFont, setModal, sampleText}) {
 
   return (
     <main className="custom-scrollbar overflow-y-auto flex-1 transition-[width] duration-300">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
         {fonts.slice(0, itemsToShow).map((font, index) => (
           <ChooseSample key={index} font={font} sampleText={sampleText} chooseFont={chooseFont} setModal={setModal} ref={font === activeFont ? activeFontRef : null}/>
         ))}

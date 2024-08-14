@@ -3,6 +3,8 @@ import { AppContext } from "../../../App";
 import TestTemplate from "./TestTemplate";
 import CTA from "../../Elements/CTA";
 import TestSelect from "./TestSelect";
+import ArrowIcon from "../../Elements/Icons/ArrowIcon";
+import Icon from "../../Elements/Icon";
 
 function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap, setModal, template, setPairing}) {
 
@@ -31,13 +33,12 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap
     }
   }
 
-  const enablePairings = () => {
-    setPairing(true);
-  }
-
-  const disablePairing = () => {
-    setPairing(false);
-    setSwap(false);
+  const handlePairing = () => {
+    if(context.pairing) {
+      setPairing(false);
+    } else {
+      setPairing(true);
+    }
   }
 
   const handleSwap = () => {
@@ -56,30 +57,39 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap
   }
 
   return (
-    <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto">
+    <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto relative">
       <aside className="hidden md:block w-56 mr-6 pr-4">
-        <div className="flex gap-4 mb-8 text-gray-800">
-          {context.pairing ?
-            <>
-              <a href="#" className="uppercase tracking-wider font-bold text-xs leading-none" onClick={(e) => {e.preventDefault; disablePairing()}}>Stop Pairing</a>            
-              <a href="#" className={`uppercase tracking-wider font-bold text-xs leading-none ${context.swap ? "opacity-100" : "opacity-70"}`} onClick={(e) => {e.preventDefault; handleSwap()}}>Swap</a>
-            </> :
-             <a href="#" className="uppercase tracking-wider font-bold text-xs leading-none" onClick={(e) => {e.preventDefault; enablePairings()}}>Find Pairings</a> 
-          }
-        </div>
         <div className={`flex flex-col`}>
           <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
-          {(context.pairing) && 
+          <div className="flex gap-2 mt-5 mb-8">
+            {!context.pairing ? 
+                <Icon icon="Unpair" callback={handlePairing} />
+              :
+              <>
+                <Icon icon="Pair" callback={handlePairing} />
+                <div className={`translate-rotate duration-300 ease-out ${context.swap ? "rotate-180" : ""} `}>
+                  <Icon icon="Swap" callback={handleSwap} />
+                </div>
+              </>
+            }
+          </div>
+          <div className="relative">
             <TestSelect fonts={pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
-          }
-        </div>
-        <div className="">
-          <CTA callback={getFonts}>{context.pairing ? "Get These Fonts" : "Get This Font"}</CTA>
+            {(!context.pairing) && <div className="absolute inset-0 bg-white opacity-80"></div>}
+          </div>
         </div>
       </aside>
       <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
         <TestTemplate template={template} />
       </main>
+      <div className="absolute bottom-12 left-4">
+        <a onClick={(e) => {e.preventDefault(); getFonts()}} className="inline-block relative rounded-full py-3 pl-6 pr-[14px] bg-gray-900 text-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-6 font-bold flex gap-[5px]" href="#">
+        {context.pairing ? "Get These Fonts" : "Get This Font"}
+          <div className="w-[14px] text-gray-300 dark:text-gray-700 flex items-center">
+            <ArrowIcon direction="Up" />
+          </div>
+        </a>
+      </div>
     </div>
   );
 }

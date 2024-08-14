@@ -63,7 +63,7 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
   }
 
   return (
-    <div className="relative font-sample">
+    <div className="relative font-sample relative">
       <a ref={ref} href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
         <style>
           @import url('{getFontStylesheet(font, ["rg"])}')
@@ -73,9 +73,11 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
           {sampleText}
         </div>
       </a>
-      <div className="text-xs leading-none text-gray-700 py-1">
-      <a className="" onClick={(e) => showAbout(e)} href="#">{`${getWeights()} ${getItalics()} About`}</a>
-      </div>
+      <a className="flex gap-[2px] py-2" onClick={(e) => showAbout(e)} href="#">
+        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+        <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+      </a>
     </div>
   );
 });

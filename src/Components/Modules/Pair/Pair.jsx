@@ -4,6 +4,7 @@ import { AppContext } from "../../../App";
 import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
 import 'swiper/css';
+import Icon from "../../Elements/Icon";
 
 function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair}) {
 
@@ -17,10 +18,16 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
   const [sliderAlts, setSliderAlts] = useState([]);
   const [sliderPairs, setSlidePairs] = useState([]);
 
+  const [pair, setPair] = useState(context.pairing);
+
   const [isMobile, setIsMobile] = useState(false);
 
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
+
+  useEffect(() => {
+    console.log('Pair state changed:', pair);
+  }, [pair]);
 
   useEffect(() => {
     const index = alternatives.indexOf(context.primaryFont);
@@ -79,11 +86,7 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
   }
 
   function testPairing() {
-    handlePair(true);
-  }
-
-  function skipPairing() {
-    handlePair(false);
+    handlePair(pair);
   }
 
   function handleSlideChangeAlternatives(swiper) {
@@ -93,7 +96,7 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
   }
 
   function handleSlideChangePairings(swiper) {
-    if(sliderPairs.length > 0) {
+    if(sliderPairs.length > 0 && pair) {
       setSecondaryFont(sliderPairs[swiper.activeIndex]);
     }
   }
@@ -110,6 +113,10 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
       ...prev,
       ...pairings.slice(prev.length, prev.length + 4)
     ]);
+  }
+
+  function handlePairToggle() {
+    setPair(!pair);
   }
 
   return (
@@ -132,27 +139,42 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
         </Swiper>
       </div>
       <div className="mb-12">
-        <Swiper 
-          slidesPerView={isMobile ? 2 : 3} 
-          spaceBetween={isMobile ? 16 : 72} 
-          centeredSlides={true} 
-          grabCursor={true} 
-          onReachEnd={handleReachEndPairings}
-          onSlideChange={handleSlideChangePairings}
-          onSwiper={(swiper) => (pairingsSwiperRef.current = swiper)}
-        >
-          {sliderPairs.map((font, index) => (
-            <SwiperSlide key={index}>
-              <PairSample font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className="relative">
+          <Swiper 
+            slidesPerView={isMobile ? 2 : 3} 
+            spaceBetween={isMobile ? 16 : 72} 
+            centeredSlides={true} 
+            grabCursor={true} 
+            allowTouchMove={true}
+            onReachEnd={handleReachEndPairings}
+            onSlideChange={handleSlideChangePairings}
+          >
+            {sliderPairs.map((font, index) => (
+              <SwiperSlide key={index}>
+                <PairSample font={font} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          {!pair && <div className="absolute inset-0 bg-white opacity-80 z-10"></div>}
+        </div>
+        <div className="mt-9 flex justify-center">
+          <div className="max-w-[calc((100%_-_9rem)_/_3)]  w-full">
+            <div className="flex gap-2">
+              {pair ? 
+                <Icon icon="Pair" callback={handlePairToggle} />
+                :
+                <Icon icon="Unpair" callback={handlePairToggle} />
+              }
+              <Icon icon="Filter" />
+            </div>
+          </div>
+
+        </div>
       </div>
       <div className="flex justify-center mb-6">
-        <CTA callback={testPairing}>Test This Pairing</CTA>
+        <CTA callback={testPairing}>Test</CTA>
       </div>
       <div className="flex justify-center">
-        <a href="#" className="underline font-medium uppercase tracking-wider text-sm leading-5" onClick={skipPairing}>Skip Pairing</a>
       </div>
     </div>
   );
