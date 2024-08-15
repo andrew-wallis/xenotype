@@ -1,5 +1,10 @@
-function sortAndFilterFonts(fonts, filter, sort) {
+function sortAndFilterFonts(fonts, filter, sort, search) {
+
   delete fonts.columns;
+
+  if(search) {
+    fonts = fonts.filter(font => font.name.includes(search));
+  }
   
   if(filter.classification.length > 0) {
     fonts = fonts.filter(font => filter.classification.includes(font.superclass));

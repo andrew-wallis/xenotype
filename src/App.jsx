@@ -4,7 +4,6 @@ import Choose from "./Components/Modules/Choose/Choose";
 import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
 import Modal from "./Components/Modules/Modal/Modal";
-import BackLink from "./Components/Elements/BackLink";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
 import sortAndFilterFonts from "./utils/sortAndFilterFonts";
@@ -35,6 +34,9 @@ function App({data}) {
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
   const [pairing, setPairing] = useState(true);
   const [swap, setSwap] = useState(false);
+  const [search, setSearch] = useState("");
+
+  console.log(search);
 
   const [filter, setFilter] = useState({
     classification: [],
@@ -50,13 +52,13 @@ function App({data}) {
     licence: []
   });
 
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
   const [sort, setSort] = useState(sortOptions[0]);
-  const [sortedFonts, setSortedFonts] = useState(sortAndFilterFonts(data.fonts, filter, sort));
+  const [sortedFonts, setSortedFonts] = useState(sortAndFilterFonts(data.fonts, filter, sort, search));
 
   useEffect(() => {
-    setSortedFonts(sortAndFilterFonts(data.fonts, filter, sort));
-  }, [filter, sort]);
+    setSortedFonts(sortAndFilterFonts(data.fonts, filter, sort, search));
+  }, [filter, sort, search]);
 
   useEffect(() => {
     if(Object.keys(pairings).length > 0) {
@@ -161,12 +163,14 @@ function App({data}) {
             sort={sort}
             setSort={setSort}
             sortOptions={sortOptions}
+            search={search}
+            setSearch={setSearch}
           />
         }
         {(activeModule === "Pair" || activeModule === "Test") &&
           <div className="flex">
             <div className="w-48 mr-6 pr-4">
-              <Icon icon="ArrowLeft" callback={handleBack} />
+              <Icon icon="ArrowLeft" callback={handleBack} label="Back" />
             </div>
             {activeModule === "Test" &&
               <div className="flex justify-between w-full">
@@ -200,6 +204,8 @@ function App({data}) {
                 alternatives={alternatives} 
                 pairings={pairings}
                 handlePair={handlePair}
+                filter={pairFilter}
+                setFilter={setPairFilter}
               />
             }
             {activeModule === "Test" && 
@@ -212,6 +218,8 @@ function App({data}) {
                 setSwap={setSwap} 
                 setPairing={setPairing}
                 setModal={setModal}
+                filter={pairFilter}
+                setFilter={setPairFilter}
               />}
           </div>
         </div>

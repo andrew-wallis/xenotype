@@ -47,3 +47,12 @@
   display: block;
 }
   
+
+
+.icon-label {
+  display: none;
+}
+
+.icon:hover > .icon-label {
+  display: flex;
+}

@@ -5,8 +5,9 @@ import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
 import 'swiper/css';
 import Icon from "../../Elements/Icon";
+import PairFilters from "../Filters/PairFilters";
 
-function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair}) {
+function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair, filter, setFilter}) {
 
   // React Hooks
 
@@ -24,6 +25,8 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
 
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
+
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     console.log('Pair state changed:', pair);
@@ -159,13 +162,17 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
         </div>
         <div className="mt-9 flex justify-center">
           <div className="max-w-[calc((100%_-_9rem)_/_3)]  w-full">
-            <div className="flex gap-2">
-              {pair ? 
-                <Icon icon="Pair" callback={handlePairToggle} />
-                :
-                <Icon icon="Unpair" callback={handlePairToggle} />
-              }
-              <Icon icon="Filter" />
+            <div className="flex gap-1">
+              <div className="p-1">
+                {pair ? 
+                  <Icon icon="Pair" label="Don't Pair" callback={handlePairToggle} />
+                  :
+                  <Icon icon="Unpair" label="Pair" callback={handlePairToggle} />
+                }
+              </div>
+
+              {/* {pair &&
+              <PairFilters showFilters={showFilters} setShowFilters={setShowFilters} filter={filter} setFilter={setFilter} /> } */}
             </div>
           </div>
 
