@@ -63,7 +63,7 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
     <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto relative">
       <aside className="hidden md:block w-56 mr-6 pr-4">
         <div className={`flex flex-col`}>
-          <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
+          <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} swap={swap} />
           <div className="flex gap-1 mt-5 mb-8">
             {context.pairing ? 
               <>
@@ -75,7 +75,7 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
             }
           </div>
           <div className="relative">
-            <TestSelect fonts={pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />
+            <TestSelect fonts={pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} swap={swap} />
             {(!context.pairing) && <div className="absolute inset-0 bg-white opacity-80"></div>}
           </div>
         </div>

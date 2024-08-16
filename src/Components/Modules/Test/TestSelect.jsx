@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import TestSample from "./TestSample";
 
-function TestSelect({fonts, activeFont, sampleText, chooseFont}) {
+function TestSelect({fonts, activeFont, sampleText, chooseFont, swap}) {
 
   // Variables
 
@@ -34,7 +34,7 @@ function TestSelect({fonts, activeFont, sampleText, chooseFont}) {
         inline: 'nearest'
       })
     }
-  }, []);
+  }, [swap]);
 
   return (
     <div className={`overflow-y-auto custom-scrollbar h-32`}>
