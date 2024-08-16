@@ -1,15 +1,14 @@
 import { createContext, useEffect, useRef, useState } from "react"
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Choose from "./Components/Modules/Choose/Choose";
 import Pair from "./Components/Modules/Pair/Pair";
 import Test from "./Components/Modules/Test/Test";
 import Modal from "./Components/Modules/Modal/Modal";
+import Filters from "./Components/Modules/Filters/Filters";
 import findAlternatives from "./utils/findAlternatives";
 import findPairings from "./utils/findPairings";
 import sortAndFilterFonts from "./utils/sortAndFilterFonts";
-import "./App.css";
 import Icon from "./Components/Elements/Icon";
-import ChooseFilters from "./Components/Modules/Filters/ChooseFilters";
+import "./App.css";
 
 export const AppContext = createContext();
 
@@ -33,19 +32,9 @@ function App({data}) {
   const [pairings, setPairings] = useState([]);
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
   const [pairing, setPairing] = useState(true);
-  const [swap, setSwap] = useState(false);
   const [search, setSearch] = useState("");
 
-  console.log(search);
-
   const [filter, setFilter] = useState({
-    classification: [],
-    subclassification: [],
-    vibe: [],
-    licence: []
-  });
-
-  const [pairFilter, setPairFilter] = useState({
     classification: [],
     subclassification: [],
     vibe: [],
@@ -61,7 +50,7 @@ function App({data}) {
   }, [filter, sort, search]);
 
   useEffect(() => {
-    if(Object.keys(pairings).length > 0) {
+    if(Object.keys(pairings).length > 0 && Object.keys(secondaryFont).length === 0) {
       setSecondaryFont(pairings[0]);
     }
   }, [pairings]);
@@ -70,13 +59,8 @@ function App({data}) {
 
   const [activeModule, setActiveModule] = useState("Choose");
   const [nextModule, setNextModule] = useState(null);
-  const [direction, setDirection] = useState("forward");
   const [template, setTemplate] = useState(templates[0]);
   const [modal, setModal] = useState({});
-
-  const chooseRef = useRef(null);
-  const pairRef = useRef(null);
-  const testRef = useRef(null);
 
   useEffect(() => {
     if(nextModule !== null) {
@@ -105,9 +89,19 @@ function App({data}) {
 
   const handleChoose = (font) => {
     setPrimaryFont(font);
+    setSecondaryFont({});
     setAlternatives(findAlternatives(font, fonts));
     setPairings(findPairings(font, fonts));
     changeModule("Pair");
+  }
+
+  const handleSwap = () => {
+    const prevPrimary = {...primaryFont};
+    const prevSecondary = {...secondaryFont};
+    setAlternatives(findAlternatives(prevSecondary, fonts));
+    setPairings(findPairings(prevSecondary, fonts, prevPrimary));
+    setPrimaryFont(prevSecondary);
+    setSecondaryFont(prevPrimary);
   }
 
   const handlePair = (pair) => {
@@ -116,11 +110,6 @@ function App({data}) {
   }
 
   const changeModule = (module) => {
-    if((activeModule === "Choose") || (activeModule === "Pair" && module === "Test")) {
-      setDirection("forward");
-    } else if((activeModule === "Pair" && module === "Test") || (activeModule === "Test")) {
-      setDirection("backward");
-    }
     setNextModule(module);
   }
   
@@ -142,8 +131,7 @@ function App({data}) {
     secondaryFont,
     setSecondaryFont,
     pairing,
-    sampleText,
-    swap
+    sampleText
   }
 
   return (
@@ -155,7 +143,7 @@ function App({data}) {
       </header>
       <div className="w-full max-w-[68rem] px-4 mx-auto mb-12 md:mb-16">
         {activeModule === "Choose" && 
-          <ChooseFilters 
+          <Filters 
             showFilters={showFilters} 
             setShowFilters={setShowFilters} 
             filter={filter}
@@ -190,9 +178,6 @@ function App({data}) {
             {activeModule === "Choose" && 
               <Choose 
                 sortedFonts={sortedFonts} 
-                filter={filter} 
-                setFilter={setFilter} 
-                showFilters={showFilters} 
                 setModal={setModal} 
                 handleChoose={handleChoose}
               />
@@ -203,9 +188,8 @@ function App({data}) {
                 setSecondaryFont={setSecondaryFont} 
                 alternatives={alternatives} 
                 pairings={pairings}
+                handleSwap={handleSwap} 
                 handlePair={handlePair}
-                filter={pairFilter}
-                setFilter={setPairFilter}
               />
             }
             {activeModule === "Test" && 
@@ -215,63 +199,13 @@ function App({data}) {
                 alternatives={alternatives} 
                 pairings={pairings}
                 template={template}
-                setSwap={setSwap} 
+                handleSwap={handleSwap} 
                 setPairing={setPairing}
                 setModal={setModal}
-                filter={pairFilter}
-                setFilter={setPairFilter}
               />}
           </div>
         </div>
       </AppContext.Provider>
-      
-{/*       <AppContext.Provider value={contextValue}>
-        <TransitionGroup className="flex-1 overflow-hidden relative">
-          <CSSTransition 
-            key={activeModule}
-            timeout={300}
-            classNames={`slide-${direction}`}
-            nodeRef={
-              activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
-            }
-          >
-            <div className="absolute inset-0 overflow-hidden flex flex-col" ref={
-              activeModule === "Choose" ? chooseRef : activeModule === "Pair" ? pairRef : testRef
-            }>
-              {activeModule === "Choose" && 
-                <Choose 
-                  sortedFonts={sortedFonts} 
-                  filter={filter} 
-                  setFilter={setFilter} 
-                  showFilters={showFilters} 
-                  setModal={setModal} 
-                  handleChoose={handleChoose}
-                />
-              }
-              {activeModule === "Pair" && 
-                <Pair
-                  setPrimaryFont={setPrimaryFont} 
-                  setSecondaryFont={setSecondaryFont} 
-                  alternatives={alternatives} 
-                  pairings={pairings}
-                  handlePair={handlePair}
-                />
-              }
-              {activeModule === "Test" && 
-                <Test 
-                  setPrimaryFont={setPrimaryFont} 
-                  setSecondaryFont={setSecondaryFont} 
-                  alternatives={alternatives} 
-                  pairings={pairings}
-                  template={template}
-                  setSwap={setSwap} 
-                  setPairing={setPairing}
-                  setModal={setModal}
-                />}
-            </div>
-          </CSSTransition>
-        </TransitionGroup>
-      </AppContext.Provider> */}
       <Modal modal={modal} setModal={setModal} data={data} />
     </div>
   )

@@ -89,8 +89,6 @@ function About({font, action, close, sites}) {
       weights = font.weight.split(";");
     }
 
-    console.log(weights);
-
     return weights.map((weight) => {
       if(!weight.includes("i")) {
         return <li className="flex gap-1 items-start" style={{fontWeight: weight}}><div className="text-xs leading-none pt-px">{weight}</div><div>{getFontLabel(parseInt(weight))}</div>{getItalics(weight, weights)}</li>

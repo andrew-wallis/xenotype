@@ -3,11 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { AppContext } from "../../../App";
 import PairSample from "./PairSample";
 import CTA from "../../Elements/CTA";
-import 'swiper/css';
 import Icon from "../../Elements/Icon";
-import PairFilters from "../Filters/PairFilters";
+import 'swiper/css';
 
-function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair, filter, setFilter}) {
+function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handlePair, handleSwap}) {
 
   // React Hooks
 
@@ -20,17 +19,12 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
   const [sliderPairs, setSlidePairs] = useState([]);
 
   const [pair, setPair] = useState(context.pairing);
+  const [swap, setSwap] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
-
-  const [showFilters, setShowFilters] = useState(false);
-
-  useEffect(() => {
-    console.log('Pair state changed:', pair);
-  }, [pair]);
 
   useEffect(() => {
     const index = alternatives.indexOf(context.primaryFont);
@@ -122,9 +116,14 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
     setPair(!pair);
   }
 
+  const handleSwapButton = () => {
+    handleSwap();
+    setSwap(!swap);
+  }
+
   return (
     <div className="">
-      <div className="mb-12">
+      <div className="">
         <Swiper 
           slidesPerView={isMobile ? 2 : 3} 
           spaceBetween={isMobile ? 16 : 72} 
@@ -141,6 +140,20 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
           ))}
         </Swiper>
       </div>
+      <div className="my-9 flex justify-center">
+          <div className="max-w-[calc((100%_-_9rem)_/_3)]  w-full">
+            <div className="flex gap-1">
+              {pair ? 
+              <>
+                <Icon icon="Unpair" label="Don't Pair" callback={handlePairToggle} />
+                <Icon icon="Swap" label="Swap" callback={handleSwapButton} rotate={swap} />
+              </>
+              :
+                <Icon icon="Pair" label="Pair" callback={handlePairToggle} />
+              }
+            </div>
+          </div>
+        </div>
       <div className="mb-12">
         <div className="relative">
           <Swiper 
@@ -160,21 +173,6 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
             ))}
           </Swiper>
           {!pair && <div className="absolute inset-0 bg-white opacity-80 z-10"></div>}
-        </div>
-        <div className="mt-9 flex justify-center">
-          <div className="max-w-[calc((100%_-_9rem)_/_3)]  w-full">
-            <div className="flex gap-1">
-                {pair ? 
-                  <Icon icon="Pair" label="Don't Pair" callback={handlePairToggle} />
-                  :
-                  <Icon icon="Unpair" label="Pair" callback={handlePairToggle} />
-                }
-              </div>
-
-              {/* {pair &&
-              <PairFilters showFilters={showFilters} setShowFilters={setShowFilters} filter={filter} setFilter={setFilter} /> } */}
-          </div>
-
         </div>
       </div>
       <div className="flex justify-center mb-6">

@@ -1,17 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../../../App";
 import TestTemplate from "./TestTemplate";
-import CTA from "../../Elements/CTA";
 import TestSelect from "./TestSelect";
 import ArrowIcon from "../../Elements/Icons/ArrowIcon";
 import Icon from "../../Elements/Icon";
-import PairFilters from "../Filters/PairFilters";
-import TestFilters from "../Filters/TestFilters";
 
-function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap, setModal, template, setPairing, filter, setFilter}) {
+function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleSwap, setModal, template, setPairing}) {
 
   // React Hooks
 
+  const [swap, setSwap] = useState(false);
   const context = useContext(AppContext);
   const ref = useRef(null);
 
@@ -45,10 +43,6 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap
     }
   }
 
-  const handleSwap = () => {
-    setSwap(!context.swap);
-  }
-
   const getFonts = () => {
     setModal({
       type: "GetFonts",
@@ -60,23 +54,25 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, setSwap
     })
   }
 
+  const handleSwapButton = () => {
+    handleSwap();
+    setSwap(!swap);
+  }
+
   return (
     <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto relative">
       <aside className="hidden md:block w-56 mr-6 pr-4">
         <div className={`flex flex-col`}>
           <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} />
           <div className="flex gap-1 mt-5 mb-8">
-              {context.pairing ? 
+            {context.pairing ? 
               <>
                 <Icon icon="Unpair" label="Don't Pair" callback={handlePairing} />
-                <Icon icon="Swap" label="Swap" callback={handleSwap} rotate={context.swap} />
+                <Icon icon="Swap" label="Swap" callback={handleSwapButton} rotate={swap} />
               </>
               :
                 <Icon icon="Pair" label="Pair" callback={handlePairing} />
             }
-            {/* {context.pairing &&
-              <TestFilters showFilters={showFilters} setShowFilters={setShowFilters} filter={filter} setFilter={setFilter} />
-            } */}
           </div>
           <div className="relative">
             <TestSelect fonts={pairings} activeFont={context.secondaryFont} sampleText={context.sampleText} chooseFont={chooseSecondaryFont} />

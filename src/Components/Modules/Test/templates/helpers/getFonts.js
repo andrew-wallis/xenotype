@@ -4,13 +4,8 @@ function getFonts(context) {
   let pairingFont = {};
 
   if(context.pairing) {
-    if(!context.swap) {
-      thisFont = context.primaryFont;
-      pairingFont = context.secondaryFont;
-    } else {
-      thisFont = context.secondaryFont;
-      pairingFont = context.primaryFont;
-    }
+    thisFont = context.primaryFont;
+    pairingFont = context.secondaryFont;
   } else {
     thisFont = context.primaryFont;
     pairingFont = context.primaryFont;

@@ -1,5 +1,4 @@
 import ArrowIcon from "../../Elements/Icons/ArrowIcon";
-import Checkbox from "../../Elements/Checkbox";
 
 function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
 

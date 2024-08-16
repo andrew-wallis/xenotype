@@ -50,12 +50,18 @@
 
 
 .icon-label {
+  @apply sr-only;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
   transition-delay: 0ms;
 }
 
 .icon:hover > .icon-label {
+  @apply not-sr-only;
+  position: absolute;
+  width: 96px;
+  padding-top: 8px;
+  z-index: 20;
   opacity: 1;
   transition-delay: 0.5s;
 }

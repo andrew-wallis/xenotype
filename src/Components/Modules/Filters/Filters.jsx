@@ -1,13 +1,12 @@
-import { act, useEffect, useRef, useState } from "react";
-import FilterSelect from "./FilterSelect";
+import { useEffect, useRef, useState } from "react";
+import FilterSelect from "./FiltersSelect";
 import updateFilters from "./helpers/updateFilters";
 import SortSelect from "./SortSelect";
 import ResetIcon from "../../Elements/Icons/ResetIcon";
 import FilterIcon from "../../Elements/Icons/FilterIcon";
-import Icon from "../../Elements/Icon";
 import SearchIcon from "../../Elements/Icons/SearchIcon";
 
-function ChooseFilters({showFilters, setShowFilters, filter, setFilter, sort, setSort, sortOptions, search, setSearch}) {
+function Filters({showFilters, setShowFilters, filter, setFilter, sort, setSort, sortOptions, search, setSearch}) {
 
   const [open, setOpen] = useState(false);
   const [activeFilters, setActiveFilters] = useState(0);
@@ -51,7 +50,6 @@ function ChooseFilters({showFilters, setShowFilters, filter, setFilter, sort, se
       Object.entries(updateFilter).map(([key, val]) => {
         val.length = 0;
       });
-      console.log(updateFilter);
       setFilter(updateFilter);
       setSearch("");
     }
@@ -142,4 +140,4 @@ function ChooseFilters({showFilters, setShowFilters, filter, setFilter, sort, se
   );
 }
 
-export default ChooseFilters;
+export default Filters;

@@ -1,7 +1,8 @@
 import _ from "lodash";
 
-function findPairings(font, fonts) {
+function findPairings(font, fonts, initialFont) {
   
+  let matchingInitial = [];
   let matchingFamily = [];
   let matchingPairing = [];
   let matchingOther = [];
@@ -10,6 +11,11 @@ function findPairings(font, fonts) {
   const thisFont = font;
   
   fontList = fontList.filter(font => font.id !== thisFont.id);
+
+  if(initialFont) {
+    matchingInitial.push(initialFont);
+    fontList = fontList.filter(font => font.id !== initialFont.id);
+  }
 
   if(thisFont.family) {
     matchingFamily = fontList.filter(font => font.family === thisFont.family).sort((a, b) => {
@@ -77,6 +83,7 @@ function findPairings(font, fonts) {
   }
 
   const sortedFonts = [
+    ...matchingInitial,
     ...matchingFamily,
     ...matchingPairing,
     ...matchingOther

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import About from "../About/About";
 import GetFonts from "../GetFonts/GetFonts";
 
