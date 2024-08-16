@@ -59,7 +59,7 @@
 .icon:hover > .icon-label {
   @apply not-sr-only;
   position: absolute;
-  width: 96px;
+  max-width: 96px;
   padding-top: 8px;
   z-index: 20;
   opacity: 1;

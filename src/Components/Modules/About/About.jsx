@@ -1,6 +1,8 @@
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
 import CTA from "../../Elements/CTA";
+import GoogleLogo from "../../../assets/Google.svg";
+import AdobeLogo from "../../../assets/Adobe.svg";
 
 function About({font, action, close, sites}) {
 
@@ -98,19 +100,19 @@ function About({font, action, close, sites}) {
     })
   }
 
-  function getUsage() {
-    const usages = font.usage.split(";");
-    return usages.map((usage) => (
-      <li>{usage}</li>
-    ))
+  function getDistribution() {
+    switch(font.distribution) {
+      case "Google":
+        return GoogleLogo;
+      case "Adobe":
+        return AdobeLogo;
+    }
   }
-
+ 
   function getDesigners() {
     const designers = font.designer.split(";");
     return designers.join(", ");
   }
-
-
 
   function getInUse() {
     const examples = font.inuse.split(";");
@@ -134,16 +136,27 @@ function About({font, action, close, sites}) {
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
-      <header className="shrink-0 mb-12">
+      <header className="shrink-0 mb-8">
         <div className="flex justify-end mb-8">
           <a href="#" onClick={(e) => {e.preventDefault(); close()}} className="h-4 w-4 flex justify-center items-center">
             <span className="absolute bg-black h-[1.5px] w-3 rotate-45"></span>
             <span className="absolute bg-black h-[1.5px] w-3 -rotate-45"></span>
           </a>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center mb-8">
           <h2 className="font-semibold stylistic-alternates" style={{...headingStyles}}>{font.label}</h2>
           <CTA callback={tryFont}>Try It Out </CTA>
+        </div>
+        <div className="flex gap-4 items-center text-sm leading-4 text-gray-800">
+          <div className="icon h-9 w-9 flex items-center justify-center rounded-full border border-gray-200">
+            <img src={getDistribution()} />
+          </div>
+          <div>
+            {getDesigners()} 
+          </div>
+          <div>
+            {font.Year}
+          </div>
         </div>
       </header>
       <div className="flex-1 overflow-y-auto custom-scrollbar pr-4">
@@ -152,10 +165,10 @@ function About({font, action, close, sites}) {
         </ul>
         <div className="grid grid-cols-3 gap-8">
           <div className="col-span-2 text-sm leading-5">
-            <p className="mb-8">{font.history}</p>
+{/*             <p className="mb-8">{font.history}</p>
             {font.usage &&
               <p className="mb-8">{font.usage}</p>
-            }
+            } */}
             {font.whattheysay && 
               <>
                 <h3 className="uppercase font-bold tracking-wider mb-3">What They Say</h3>
@@ -172,16 +185,6 @@ function About({font, action, close, sites}) {
                 </ul>
               </div>
             }
-            <div className="bg-gray-100/50 p-4 mb-8">
-              <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Designer</h3>
-              <p className="text-sm leading-4 mb-4">{getDesigners()}</p>
-              <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Distribution</h3>
-              <p className="text-sm leading-4 mb-4">{font.distribution}</p>
-              <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Year</h3>
-              <p className="text-sm leading-4 mb-4">{font.Year}</p>
-              <h3 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">Classification</h3>
-              <p className="text-sm leading-4 mb-4">{`${font.superclass} / ${font.classification}`}</p>
-            </div>
           </div>
         </div>
       </div>
