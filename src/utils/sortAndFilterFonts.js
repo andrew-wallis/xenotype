@@ -3,7 +3,7 @@ function sortAndFilterFonts(fonts, filter, sort, search) {
   delete fonts.columns;
 
   if(search) {
-    fonts = fonts.filter(font => font.name.includes(search));
+    fonts = fonts.filter(font => font.name.toLowerCase().includes(search.toLowerCase()));
   }
   
   if(filter.classification.length > 0) {

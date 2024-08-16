@@ -121,7 +121,7 @@ function ChooseFilters({showFilters, setShowFilters, filter, setFilter, sort, se
           </div>
           <SortSelect sort={sort} setSort={setSort} sortOptions={sortOptions} open={open} setOpen={setOpen}>Sort</SortSelect>
         </div>
-        <div className={`absolute top-0 right-0 z-20 border-4 rounded-full  ${showFilters ? "border-transparent" : "border-transparent"}`}>
+        <div className={`absolute top-0 right-0 z-10 border-4 rounded-full  ${showFilters ? "border-transparent" : "border-transparent"}`}>
           <a onClick={(e) => {e.preventDefault; handleToggleFilters()}} className={`icon relative text-gray-600 h-9 w-9 rounded-full flex items-center justify-center ${showFilters ? "bg-gray-200" : activeFilters > 0 ? "bg-gray-200 text-gray-700" : "bg-gray-100"}`} href="#">
             <FilterIcon />
             <div className="icon-label absolute top-full pt-2 w-[96px] flex justify-center">
@@ -135,7 +135,7 @@ function ChooseFilters({showFilters, setShowFilters, filter, setFilter, sort, se
           </a>
         </div>
         <div className="absolute top-0 right-0 bottom-0 left-0 rounded-[22px] overflow-x-hidden sm:relative sm:h-[44px] sm:rounded-full">
-          <div className={`absolute inset-0 z-5 bg-gray-100 duration-300 transition-all ease-out ${showFilters ? "translate-y-0 " : "translate-x-full"}`}></div>
+          <div className={`absolute inset-0 z-0 bg-gray-100 duration-300 transition-all ease-out ${showFilters ? "translate-y-0 " : "translate-x-full"}`}></div>
         </div>
       </div>
     </>

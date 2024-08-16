@@ -73,10 +73,13 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
           {sampleText}
         </div>
       </a>
-      <a className="flex gap-[2px] py-2" onClick={(e) => showAbout(e)} href="#">
+      <a className="icon flex gap-[2px] py-2 relative z-10 flex h-4 w-4" onClick={(e) => showAbout(e)} href="#">
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
+        <div className="icon-label absolute top-full left-0 pt-2">
+          <div className="flex py-1.5 px-3 rounded-[4px] bg-gray-100 text-gray-700 font-medium text-sm leading-4 text-center">About</div>
+        </div>
       </a>
     </div>
   );

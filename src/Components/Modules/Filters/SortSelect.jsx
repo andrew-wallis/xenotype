@@ -15,6 +15,7 @@ function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
   function handleSort(e, val) {
     e.preventDefault();
     setSort(val);
+    setOpen(false);
   }
 
   return (
@@ -26,10 +27,10 @@ function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
         </div>
       </a>
       {open === "Sort" && 
-        <ul className="min-w-full absolute top-[calc(100%_+_3px)] left-0 z-20 border-[1.5px] border-gray-100 bg-white">
+        <ul className="min-w-full absolute top-[calc(100%_+_3px)] left-0 z-10 border-[1.5px] border-gray-100 bg-white">
           {sortOptions.map((val) => (
             <li>
-              <a href="#" onClick={(e) => handleSort(e, val)} className={`block py-1.5 px-3 uppercase tracking-wider text-xs leading-5 font-semibold ${sort === val ? "bg-gray-200" : ""}`}>{val}</a>
+              <a href="#" onClick={(e) => handleSort(e, val)} className={`block py-1.5 px-3 uppercase tracking-wider text-xs leading-5 font-semibold ${sort === val ? "bg-gray-200" : "hover:bg-gray-100"}`}>{val}</a>
             </li>
           ))}
         </ul>

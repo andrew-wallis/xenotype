@@ -21,7 +21,7 @@ function FilterSelect({children, options, id, subId, open, setOpen, filter, hand
         </div>
       </a>
       {open === id && 
-        <ul className="min-w-full absolute top-[calc(100%_+_3px)] left-0 z-20 p-3 border-[1.5px] border-gray-100 bg-white">
+        <ul className="min-w-full absolute top-[calc(100%_+_3px)] left-0 z-10 p-3 border-[1.5px] border-gray-100 bg-white">
           {Object.entries(options).map(([key, val]) => (
             <li>
               <Checkbox value={key} id={id} callback={handleFilter} checked={filter[id].includes(key)} />

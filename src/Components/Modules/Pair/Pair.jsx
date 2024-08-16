@@ -151,6 +151,7 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
             allowTouchMove={true}
             onReachEnd={handleReachEndPairings}
             onSlideChange={handleSlideChangePairings}
+            onSwiper={(swiper) => (pairingsSwiperRef.current = swiper)}
           >
             {sliderPairs.map((font, index) => (
               <SwiperSlide key={index}>
@@ -163,7 +164,6 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
         <div className="mt-9 flex justify-center">
           <div className="max-w-[calc((100%_-_9rem)_/_3)]  w-full">
             <div className="flex gap-1">
-              <div className="p-1">
                 {pair ? 
                   <Icon icon="Pair" label="Don't Pair" callback={handlePairToggle} />
                   :
@@ -173,7 +173,6 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
 
               {/* {pair &&
               <PairFilters showFilters={showFilters} setShowFilters={setShowFilters} filter={filter} setFilter={setFilter} /> } */}
-            </div>
           </div>
 
         </div>
