@@ -67,11 +67,11 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
           <div className="flex gap-1 mt-5 mb-8">
             {context.pairing ? 
               <>
-                <Icon icon="Unpair" label="Don't Pair" callback={handlePairing} />
+                <Icon icon="Pair" label="Don't Pair" callback={handlePairing} />
                 <Icon icon="Swap" label="Swap" callback={handleSwapButton} rotate={swap} />
               </>
               :
-                <Icon icon="Pair" label="Pair" callback={handlePairing} />
+                <Icon icon="Unpair" label="Pair" callback={handlePairing} />
             }
           </div>
           <div className="relative">

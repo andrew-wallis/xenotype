@@ -145,11 +145,11 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
             <div className="flex gap-1">
               {pair ? 
               <>
-                <Icon icon="Unpair" label="Don't Pair" callback={handlePairToggle} />
+                <Icon icon="Pair" label="Don't Pair" callback={handlePairToggle} />
                 <Icon icon="Swap" label="Swap" callback={handleSwapButton} rotate={swap} />
               </>
               :
-                <Icon icon="Pair" label="Pair" callback={handlePairToggle} />
+                <Icon icon="Unpair" label="Pair" callback={handlePairToggle} />
               }
             </div>
           </div>
