@@ -66,6 +66,11 @@ function Filters({showFilters, setShowFilters, filter, setFilter, sort, setSort,
     setSearch(e.target.value);
   }
 
+  const resetSearch = (e) => {
+    e.preventDefault();
+    setSearch("");
+  }
+
   const typeOptions = {
     "Sans": {
       "Humanist": "Humanist",
@@ -100,8 +105,16 @@ function Filters({showFilters, setShowFilters, filter, setFilter, sort, setSort,
         <div className={`relative sm:absolute inset-0  z-10 flex flex-col sm:flex-row justify-start sm:justify-end pl-1 py-1 pr-[3.5rem] gap-4 duration-300 transition-all ease-out ${showFilters ? "opacity-100" : "opacity-0"}`}>
           <div className="relative flex-1">
             <input value={search} placeholder="Search" className="w-full rounded-full bg-gray-200 text-xs leading-[1.125rem] pl-[1.125rem] pr-[36px] py-[0.5625rem] text-gray-800" onChange={handleSearch} />
-            <a onClick={(e) => {e.preventDefault(); setSearch(e, search)}} href="#" className="block top-0 right-0 bottom-0 flex items-center justify-center w-[36px] absolute">
-              <SearchIcon />
+            <a onClick={resetSearch} href="#" className="block top-0 right-0 bottom-0 flex items-center justify-center w-[36px] absolute">
+              {search.length === 0 ? 
+                <SearchIcon />
+              :
+                <div className="h-4 w-4 flex justify-center items-center">
+                  <span className="absolute bg-[#878A8A] h-[1.5px] w-3 rotate-45"></span>
+                  <span className="absolute bg-[#878A8A] h-[1.5px] w-3 -rotate-45"></span>
+                </div>
+              }
+              
             </a>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">

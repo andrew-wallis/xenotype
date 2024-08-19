@@ -128,7 +128,8 @@ function App({data}) {
     setModal({});
   }
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = (e) => {
+    e.preventDefault();
     setIsDarkMode(prevMode => {
       const newMode = !prevMode;
       localStorage.setItem('theme', newMode ? 'dark' : 'light');
@@ -150,7 +151,6 @@ function App({data}) {
       <header className="w-full max-w-[68rem] px-4 mx-auto my-12 md:my-16 relative">
         <div className="absolute uppercase tracking-wider font-bold text-center leading-5">UX<span className="font-medium">Type</span></div>
         <h1 className="uppercase tracking-wider font-black text-center leading-5">{activeModule}</h1>
-        <button onClick={toggleDarkMode} className="absolute top-0 right-4 uppercase tracking-wider font-medium text-sm leading-5 select-none">{isDarkMode ? "Light" : "Dark"}</button>
       </header>
       <div className="w-full max-w-[68rem] px-4 mx-auto mb-12 md:mb-16">
         {activeModule === "Choose" && 
@@ -218,6 +218,14 @@ function App({data}) {
           </div>
         </div>
       </AppContext.Provider>
+      <footer className="w-full max-w-[68rem] p-4 mx-auto flex justify-between">
+        <ul className="flex gap-4 uppercase font-bold tracking-wider text-xs gray-700">
+        {/* <li>About</li>
+          <li>Help</li> */}
+          <li><a href="#" onClick={toggleDarkMode}>{`${isDarkMode ? "Light" : "Dark"}`} Mode</a></li>
+        </ul>
+        <div className="text-xs gray-700">© UXType 2024</div>
+      </footer>
       <Modal modal={modal} setModal={setModal} data={data} />
     </div>
   )

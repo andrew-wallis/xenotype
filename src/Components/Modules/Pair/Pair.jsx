@@ -122,7 +122,7 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
   }
 
   return (
-    <div className="">
+    <div className="overflow-y-auto">
       <div className="">
         <Swiper 
           slidesPerView={isMobile ? 2 : 3} 
