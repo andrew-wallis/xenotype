@@ -5,15 +5,13 @@ import TestSelect from "./TestSelect";
 import ArrowIcon from "../../Elements/Icons/ArrowIcon";
 import Icon from "../../Elements/Icon";
 
-function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleSwap, setModal, template, setPairing}) {
+function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleSwap, setModal, template, setPairing, handleFindAnother}) {
 
   // React Hooks
 
   const [swap, setSwap] = useState(false);
   const context = useContext(AppContext);
   const ref = useRef(null);
-
-  const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
     if(ref.current) {
@@ -43,13 +41,15 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
     }
   }
 
-  const getFonts = () => {
+  const getFonts = (e) => {
+    e.preventDefault();
     setModal({
       type: "GetFonts",
+      action: handleFindAnother,
       content: {
         primaryFont: context.primaryFont,
         secondaryFont: context.pairing ? context.secondaryFont : null,
-        sampleText: context.sampleText
+        sampleText: context.sampleText,
       }
     })
   }
@@ -84,10 +84,10 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
         <TestTemplate template={template} />
       </main>
       <div className="absolute bottom-12 left-4">
-        <a onClick={(e) => {e.preventDefault(); getFonts()}} className="inline-block relative rounded-full py-3 pl-6 pr-[14px] bg-gray-900 text-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-6 font-bold flex gap-[5px]" href="#">
+        <a onClick={getFonts} className="inline-block relative rounded-full py-3 pl-6 pr-[14px] bg-gray-900 text-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-6 font-bold flex gap-[5px]" href="#">
         {context.pairing ? "Get These Fonts" : "Get This Font"}
           <div className="w-[14px] text-gray-300 dark:text-gray-700 flex items-center">
-            <ArrowIcon direction="Up" />
+            <ArrowIcon direction="Right" />
           </div>
         </a>
       </div>

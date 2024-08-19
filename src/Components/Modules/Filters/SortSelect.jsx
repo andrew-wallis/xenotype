@@ -2,7 +2,7 @@ import ArrowIcon from "../../Elements/Icons/ArrowIcon";
 
 function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
 
-  function handleOpen(e) {
+  const handleOpen = (e) => {
     e.preventDefault(); 
     if(open !== "Sort") {
       setOpen("Sort");
@@ -11,7 +11,7 @@ function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
     }
   }
 
-  function handleSort(e, val) {
+  const handleSort = (e, val) => {
     e.preventDefault();
     setSort(val);
     setOpen(false);
@@ -19,7 +19,7 @@ function SortSelect({children, sort, setSort, sortOptions, open, setOpen}) {
 
   return (
     <div className="relative">
-      <a href="#" onClick={(e) => handleOpen(e)} className="flex items-center gap-1 rounded-full bg-gray-200 text-xs leading-4.5 pl-4.5 pr-[11px] py-2.25 uppercase tracking-wider font-semibold text-gray-800">
+      <a href="#" onClick={handleOpen} className="flex items-center gap-1 rounded-full bg-gray-200 text-xs leading-4.5 pl-4.5 pr-[11px] py-2.25 uppercase tracking-wider font-semibold text-gray-800">
         <div>{children}</div>
         <div className={`text-gray-600 transition-all duration-300 ease-out ${open === "Sort" ? "rotate-180" : ""}`}>
           <ArrowIcon direction="Down" />

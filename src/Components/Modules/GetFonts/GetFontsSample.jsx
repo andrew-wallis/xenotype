@@ -11,7 +11,7 @@ function GetFontsSample({font, sampleText}) {
     lineHeight: `${1.5 / font.adjust}rem`
   }
 
-  function getDistribution() {
+  const getDistribution = () => {
     switch(font.distribution) {
       case "Google":
         return GoogleLogo;

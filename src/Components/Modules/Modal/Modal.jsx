@@ -15,18 +15,17 @@ function Modal({modal, setModal, data}) {
     }
   }, [modal]);
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    e.preventDefault();
     setShowModal(false);
-
     setTimeout(() => {
       setModal({});
     }, 300);
-    
   }
 
   const handleWrapperClick = (e) => {
     if(e.target.id === "#modal-wrapper") {
-      closeModal();
+      closeModal(e);
     }
   }
 
@@ -38,7 +37,7 @@ function Modal({modal, setModal, data}) {
             <About font={modal.content} action={modal.action} close={closeModal} sites={data.sites} />
           }
           {(modal && modal.type === "GetFonts") &&
-            <GetFonts content={modal.content} close={closeModal} />
+            <GetFonts content={modal.content} close={closeModal} action={modal.action} />
           }
         </div>
       </div>

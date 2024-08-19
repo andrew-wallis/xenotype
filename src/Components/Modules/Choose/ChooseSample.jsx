@@ -18,42 +18,12 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
     lineHeight: `${1.5 / font.adjust}rem`
   }
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
     chooseFont(font);
   }
 
-  function getWeights() {
-    if(font.weight.includes("..")) {
-      return "Variable Weights • "
-    } else {
-      let count = 0;
-      const weightArray = font.weight.split(";");
-      weightArray.forEach((weight) => {
-        if(!weight.includes("i")) {
-          count++;
-        }
-      });
-      return `${count} Weight${count !== 1 ? "s" : ""} • `;
-    }
-  }
-
-  function getItalics() {
-    if(font.weight.includes("..")) {
-      return "Italics • "
-    } else {
-      let count = 0;
-      const weightArray = font.weight.split(";");
-      weightArray.forEach((weight) => {
-        if(weight.includes("i")) {
-          count++;
-        }
-      });
-      return count ? `${count} Italic${count !== 1 ? "s" : ""} • ` : "";
-    }
-  }
-
-  function showAbout(e) {
+  const showAbout = (e) => {
     e.preventDefault();
     setModal({
       type: "About",
@@ -64,7 +34,7 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
 
   return (
     <div className="relative font-sample relative">
-      <a ref={ref} href="#" className="select-none overflow-hidden" onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+      <a ref={ref} href="#" className="select-none overflow-hidden" onClick={handleClick} style={{...wrapperStyles}}>
         <style>
           @import url('{getFontStylesheet(font, ["rg"])}')
         </style>
@@ -73,7 +43,7 @@ const ChooseSample = forwardRef(({font, sampleText, chooseFont, setModal}, ref) 
           {sampleText}
         </div>
       </a>
-      <a className="icon flex gap-[2px] py-2 relative z-10 flex h-4 w-4" onClick={(e) => showAbout(e)} href="#">
+      <a className="icon flex gap-[2px] py-2 relative z-10 flex h-4 w-4" onClick={showAbout} href="#">
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>
         <span className="h-1 w-1 rounded-full bg-gray-300"></span>

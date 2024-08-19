@@ -3,7 +3,7 @@ import Checkbox from "../../Elements/Checkbox";
 
 function FilterSelect({children, options, id, subId, open, setOpen, filter, handleFilter}) {
 
-  function handleOpen(e) {
+  const handleOpen = (e) => {
     e.preventDefault(); 
     if(open !== id) {
       setOpen(id);
@@ -14,7 +14,7 @@ function FilterSelect({children, options, id, subId, open, setOpen, filter, hand
 
   return (
     <div className="relative">
-      <a href="#" onClick={(e) => handleOpen(e)} className={`flex items-center gap-1 rounded-full text-xs leading-4.5 pl-4.5 pr-[11px] py-2.25 uppercase tracking-wider font-semibold text-gray-800 ${filter[id].length > 0 || open === id ? "bg-gray-300" : "bg-gray-200 "}`}>
+      <a href="#" onClick={handleOpen} className={`flex items-center gap-1 rounded-full text-xs leading-4.5 pl-4.5 pr-[11px] py-2.25 uppercase tracking-wider font-semibold text-gray-800 ${filter[id].length > 0 || open === id ? "bg-gray-300" : "bg-gray-200 "}`}>
         <div>{children}</div>
         <div className={`text-gray-600 transition-all duration-300 ease-out ${open === id ? "rotate-180" : ""}`}>
           <ArrowIcon direction="Down" />

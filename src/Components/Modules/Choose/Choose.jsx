@@ -9,6 +9,7 @@ function Choose({sortedFonts, setModal, handleChoose}) {;
 
   const context = useContext(AppContext);
 
+  
   // Functions
 
   const chooseFont = (font) => {

@@ -17,13 +17,13 @@ function PairSample({font, activeFont, sampleText, chooseFont}) {
     lineHeight:`${2 / font.adjust}rem`
   }
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
     chooseFont(font);
   }
 
   return (
-    <a href="#" className={`select-none overflow-hidden shrink-0 ${font !== activeFont ? "opacity-60" : "cursor-grab"}`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+    <a href="#" className={`select-none overflow-hidden shrink-0 ${font !== activeFont ? "opacity-60" : "cursor-grab"}`} onClick={handleClick} style={{...wrapperStyles}}>
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>

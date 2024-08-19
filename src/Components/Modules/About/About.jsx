@@ -23,6 +23,11 @@ function About({font, action, close, sites}) {
     action(font);
   }
 
+  const handleClose = (e) => {
+    e.preventDefault(); 
+    close();
+  }
+
   function getFontLabel(weight) {
     switch (weight) {
       case 100:
@@ -138,7 +143,7 @@ function About({font, action, close, sites}) {
       </style>
       <header className="shrink-0 mb-8">
         <div className="flex justify-end mb-8">
-          <a href="#" onClick={(e) => {e.preventDefault(); close()}} className="h-4 w-4 flex justify-center items-center">
+          <a href="#" onClick={handleClose} className="h-4 w-4 flex justify-center items-center">
             <span className="absolute bg-black h-[1.5px] w-3 rotate-45"></span>
             <span className="absolute bg-black h-[1.5px] w-3 -rotate-45"></span>
           </a>

@@ -85,7 +85,7 @@ function App({data}) {
   }, [isDarkMode]);
 
 
-  // Function
+  // Functions
 
   const handleChoose = (font) => {
     setPrimaryFont(font);
@@ -115,6 +115,17 @@ function App({data}) {
   
   const handleBack = () => {
     changeModule(activeModule === "Pair" ? "Choose" : "Pair");
+  }
+
+  const handleTemplateSwitch = (e, template) => {
+    e.preventDefault();
+    setTemplate(template);
+  }
+
+  const handleFindAnother = (e) => {
+    e.preventDefault();
+    changeModule("Choose");
+    setModal({});
   }
 
   const toggleDarkMode = () => {
@@ -164,7 +175,7 @@ function App({data}) {
               <div className="flex justify-between w-full">
                 <ul className="flex gap-12 py-2.5">
                   {templates.map((thisTemplate) => (
-                    <li key={thisTemplate}><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} href="#">{thisTemplate}</a></li>
+                    <li key={thisTemplate}><a className={`uppercase tracking-wider font-bold text-sm leading-5 ${template === thisTemplate ? "" : "opacity-60"}`} onClick={(e) => handleTemplateSwitch(e, thisTemplate)} href="#">{thisTemplate}</a></li>
                   ))}
                 </ul>
               </div>
@@ -202,6 +213,7 @@ function App({data}) {
                 handleSwap={handleSwap} 
                 setPairing={setPairing}
                 setModal={setModal}
+                handleFindAnother={handleFindAnother}
               />}
           </div>
         </div>

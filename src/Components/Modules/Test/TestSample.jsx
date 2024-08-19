@@ -13,7 +13,7 @@ const TestSample = forwardRef(({font, activeFont, chooseFont}, ref) => {
     lineHeight: `${1 / font.adjust}rem`
   }
 
-  function handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
     chooseFont(font);
   }
@@ -23,7 +23,7 @@ const TestSample = forwardRef(({font, activeFont, chooseFont}, ref) => {
       <style>
         @import url('{getFontStylesheet(font, ["rg"])}');
       </style>
-      <a ref={ref} href="#" className={`block mb-3 font-semibold ${font !== activeFont ? "opacity-60" : ""} h-5 flex items-center`} onClick={(e) => handleClick(e)} style={{...wrapperStyles}}>
+      <a ref={ref} href="#" className={`block mb-3 font-semibold ${font !== activeFont ? "opacity-60" : ""} h-5 flex items-center`} onClick={handleClick} style={{...wrapperStyles}}>
       <div style={{...fontNameStyles}}>{font.label}</div>
     </a>
     </>

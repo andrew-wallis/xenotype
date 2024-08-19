@@ -82,37 +82,37 @@ function Pair({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleP
     }
   }
 
-  function testPairing() {
+  const testPairing = () => {
     handlePair(pair);
   }
 
-  function handleSlideChangeAlternatives(swiper) {
+  const handleSlideChangeAlternatives = (swiper) => {
     if(sliderAlts.length > 0) {
       setPrimaryFont(sliderAlts[swiper.activeIndex]);
     }
   }
 
-  function handleSlideChangePairings(swiper) {
+  const handleSlideChangePairings = (swiper) => {
     if(sliderPairs.length > 0 && pair) {
       setSecondaryFont(sliderPairs[swiper.activeIndex]);
     }
   }
 
-  function handleReachEndAlternatives() {
+  const handleReachEndAlternatives = () => {
     setSliderAlts((prev) => [
       ...prev,
       ...alternatives.slice(prev.length, prev.length + 4)
     ]);
   }
 
-  function handleReachEndPairings() {
+  const handleReachEndPairings = () => {
     setSlidePairs((prev) => [
       ...prev,
       ...pairings.slice(prev.length, prev.length + 4)
     ]);
   }
 
-  function handlePairToggle() {
+  const handlePairToggle = () => {
     setPair(!pair);
   }
 
