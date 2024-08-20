@@ -3,6 +3,7 @@ import LandingPage from "./templates/LandingPage";
 import ProductPage from "./templates/ProductPage";
 import LoginPage from "./templates/LoginPage";
 import Dashboard from "./templates/Dashboard";
+import SettingsPage from "./templates/SettingsPage";
 
 function TestTemplate({template}) {
 
@@ -19,6 +20,8 @@ function TestTemplate({template}) {
       return <Dashboard />
     case "Log In":
       return <LoginPage />
+    case "Settings":
+      return <SettingsPage />
   }
 }
 

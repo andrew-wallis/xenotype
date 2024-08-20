@@ -18,7 +18,7 @@ function App({data}) {
   // Variables
 
   const sortOptions = ["Rating", "A-Z"];
-  const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In"];
+  const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In", "Settings"];
   const fonts = data.fonts.filter(font => font.status !== "REMOVE");
   const defaultFont = data.fonts.find(font => font.name === "Inter");
 
@@ -167,8 +167,8 @@ function App({data}) {
           />
         }
         {(activeModule === "Pair" || activeModule === "Test") &&
-          <div className="flex">
-            <div className="w-48 mr-6 pr-4">
+          <div className="flex gap-8">
+            <div className="w-60 shrink-0">
               <Icon icon="ArrowLeft" callback={handleBack} label="Back" />
             </div>
             {activeModule === "Test" &&

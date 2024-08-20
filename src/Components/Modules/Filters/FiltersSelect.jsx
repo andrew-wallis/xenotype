@@ -21,12 +21,12 @@ function FilterSelect({children, options, id, subId, open, setOpen, filter, hand
         </div>
       </a>
       {open === id && 
-        <ul className="min-w-full absolute top-[calc(100%_+_3px)] left-0 z-10 p-3 border-[1.5px] border-gray-100 bg-white">
+        <ul className="flex flex-col gap-2 min-w-full absolute top-[calc(100%_+_3px)] left-0 z-10 p-3 border-[1.5px] border-gray-100 bg-white">
           {Object.entries(options).map(([key, val]) => (
             <li>
               <Checkbox value={key} id={id} callback={handleFilter} checked={filter[id].includes(key)} />
               {typeof val === "object" && filter[id].includes(key) && 
-                <ul className="ml-2">
+                <ul className="ml-2 flex flex-col gap-2 mt-2">
                   {Object.entries(val).map(([subKey, subVal]) => (
                     <Checkbox value={subKey} id={subId} callback={handleFilter} checked={filter[subId].includes(subKey)}/>
                   ))}

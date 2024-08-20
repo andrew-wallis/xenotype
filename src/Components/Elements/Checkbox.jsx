@@ -1,7 +1,7 @@
 function Checkbox({id, value, callback, checked}) {
 
   return (
-    <div className="mb-2.5">
+    <div>
       <input 
         id={id+value} 
         type="checkbox"

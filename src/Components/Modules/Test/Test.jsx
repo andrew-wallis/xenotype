@@ -60,8 +60,8 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
   }
 
   return (
-    <div className="w-full flex overflow-hidden max-w-[68rem] sm:px-4 mx-auto relative">
-      <aside className="hidden md:block w-56 mr-6 pr-4">
+    <div className="w-full flex gap-8 overflow-hidden max-w-[68rem] sm:px-4 mx-auto relative">
+      <aside className="hidden md:block w-60">
         <div className={`flex flex-col`}>
           <TestSelect fonts={alternatives} activeFont={context.primaryFont} sampleText={context.sampleText} chooseFont={choosePrimaryFont} swap={swap} />
           <div className="flex gap-1 mt-5 mb-8">
@@ -83,7 +83,7 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
       <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
         <TestTemplate template={template} />
       </main>
-      <div className="absolute bottom-12 left-4">
+      <div className="absolute bottom-4 left-4">
         <a onClick={getFonts} className="inline-block relative rounded-full py-3 pl-6 pr-[14px] bg-gray-900 text-gray-100 dark:bg-gray-900 uppercase tracking-wider text-sm leading-6 font-bold flex gap-[5px]" href="#">
         {context.pairing ? "Get These Fonts" : "Get This Font"}
           <div className="w-[14px] text-gray-300 dark:text-gray-700 flex items-center">
