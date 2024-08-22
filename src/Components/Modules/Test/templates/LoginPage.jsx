@@ -16,8 +16,8 @@ function LoginPage() {
   }
 
   const text = {
-    fontFamily: getFontFamily(thisFont, "rg"),
-    fontSize: `${0.875 / thisFont.adjust}rem`,
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${0.875 / pairingFont.adjust}rem`,
     lineHeight: "1.125rem"
   }
 

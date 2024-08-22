@@ -80,7 +80,7 @@ function Test({setPrimaryFont, setSecondaryFont, alternatives, pairings, handleS
           </div>
         </div>
       </aside>
-      <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0">
+      <main ref={ref} className="overflow-y-auto flex-1 custom-scrollbar px-4 md:px-0 lining-nums">
         <TestTemplate template={template} />
       </main>
       <div className="absolute bottom-4 left-4">

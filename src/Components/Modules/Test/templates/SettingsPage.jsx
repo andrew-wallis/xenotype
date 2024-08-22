@@ -10,20 +10,20 @@ function SettingsPage() {
   const [thisFont, pairingFont] = getFonts(context);
 
   const title = {
-    fontFamily: getFontFamily(pairingFont, "rg"),
-    fontSize: `${1.5 / pairingFont.adjust}rem`,
+    fontFamily: getFontFamily(thisFont, "rg"),
+    fontSize: `${1.5 / thisFont.adjust}rem`,
     lineHeight: "1.5rem"
   }
 
   const heading = {
-    fontFamily: getFontFamily(thisFont, "rg"),
-    fontSize: `${1 / thisFont.adjust}rem`,
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${1 / pairingFont.adjust}rem`,
     lineHeight: "1.25rem"
   }
 
   const text = {
-    fontFamily: getFontFamily(thisFont, "rg"),
-    fontSize: `${0.875 / thisFont.adjust}rem`,
+    fontFamily: getFontFamily(pairingFont, "rg"),
+    fontSize: `${0.875 / pairingFont.adjust}rem`,
     lineHeight: "1.125rem"
   }
 
