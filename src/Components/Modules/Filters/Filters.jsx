@@ -87,6 +87,15 @@ function Filters({showFilters, setShowFilters, filter, setFilter, sort, setSort,
     "Mono": "Mono"
   }
 
+  const useOptions = {
+    "Workhorse": "Workhorse",
+    "Titles": "Titles",
+    "Labels": "Labels",
+    "Accents": "Accents",
+    "Short Text": "Short Text",
+    "Long Text": "Long Text"
+  }
+
   const vibeOptions = {
     "Neutral": "Neutral",
     "Quirky": "Quirky",
@@ -118,6 +127,7 @@ function Filters({showFilters, setShowFilters, filter, setFilter, sort, setSort,
             </a>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
+            <FilterSelect options={useOptions} id="useage" open={open} setOpen={setOpen} filter={filter} handleFilter={handleFilter}>Usage</FilterSelect>
             <FilterSelect options={typeOptions} id="classification" subId="subclassification" open={open} setOpen={setOpen} filter={filter} handleFilter={handleFilter}>Type</FilterSelect>
             <FilterSelect options={vibeOptions} id="vibe" open={open} setOpen={setOpen} filter={filter} handleFilter={handleFilter}>Vibe</FilterSelect>
             <FilterSelect options={licenceOptions} id="licence" open={open} setOpen={setOpen} filter={filter} handleFilter={handleFilter}>Licence</FilterSelect>

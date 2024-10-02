@@ -35,6 +35,7 @@ function App({data}) {
   const [search, setSearch] = useState("");
 
   const [filter, setFilter] = useState({
+    useage: [],
     classification: [],
     subclassification: [],
     vibe: [],

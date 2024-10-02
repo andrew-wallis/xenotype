@@ -26,7 +26,7 @@ function ChooseSelect({fonts, activeFont, chooseFont, setModal, sampleText}) {
     }
   }, [inView]);
 
-/*   useEffect(() => {
+  useEffect(() => {
     if(activeFontRef.current) {
       activeFontRef.current.scrollIntoView({
         behavior: 'instant',
@@ -34,7 +34,7 @@ function ChooseSelect({fonts, activeFont, chooseFont, setModal, sampleText}) {
         inline: 'nearest'
       })
     }
-  }, [activeFont, fonts]); */
+  }, [activeFont, fonts]);
 
   return (
     <main className="custom-scrollbar overflow-y-auto flex-1 transition-[width] duration-300">
