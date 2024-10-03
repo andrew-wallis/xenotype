@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      'sans': '"Sofia Pro", sans-serif'
+      'sans': '"Inter", sans-serif'
     },
     extend: {
       spacing: {
@@ -15,7 +15,7 @@ export default {
         "4.5": "1.125rem"
       },
       colors: {
-        "white": "#F5F5F5",
+        "white": "#FFF",
         "gray-100": "#EAEAEA",
         "gray-200": "#DEDEDF",
         "gray-300": "#C9C9CA",

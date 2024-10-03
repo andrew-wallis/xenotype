@@ -74,7 +74,6 @@ function findAlternatives(font, fonts) {
   }
 
   const sortedFonts = [
-    ...[thisFont],
     ...matchingSubclass,
     ...matchingClass
   ]
