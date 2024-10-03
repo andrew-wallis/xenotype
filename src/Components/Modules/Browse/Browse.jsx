@@ -66,7 +66,7 @@ function Browse() {
           Xenotype
         </h1>
       </header>
-      <main className="grow overflow-y-auto p-4">
+      <main className="grow overflow-y-auto p-4 custom-scrollbar">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedFonts.slice(0, itemsToShow).map((font, index) => (
             <SampleLink 

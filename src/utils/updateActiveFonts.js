@@ -1,3 +1,0 @@
-function updateActiveFonts(key, value) {
-  
-}

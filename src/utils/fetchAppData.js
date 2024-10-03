@@ -1,4 +1,5 @@
 import { csvParse } from 'd3-dsv';
+import { baseURL } from '/config';
 
 async function fetchCSV(url) {
   const response = await fetch(url);
@@ -6,12 +7,12 @@ async function fetchCSV(url) {
   return csvParse(text);
 }
 
-export async function fetchGameData(csvFiles) {
+export async function fetchAppData(csvFiles) {
   const data = {};
 
   for (const csvFile of csvFiles) {
 
-    const filename = `/src/data/${csvFile}.csv`;
+    const filename = `${baseURL}data/${csvFile}.csv`;
     const key = csvFile.split("-")[0];
     data[key] = await fetchCSV(filename);
   }

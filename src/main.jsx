@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { fetchGameData } from './utils/fetchGameData.js';
+import { fetchAppData } from './utils/fetchAppData.js';
 
 async function renderApp() {
 
@@ -10,7 +10,7 @@ async function renderApp() {
     'fonts',
     'sites'
   ];
-  const appData = await fetchGameData(csvFiles);
+  const appData = await fetchAppData(csvFiles);
 
   ReactDOM.createRoot(document.getElementById('root')).render(
   

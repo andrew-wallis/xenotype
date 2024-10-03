@@ -23,7 +23,7 @@ function App({data}) {
   }
 
   return (
-    <div className="w-full max-w-[72rem] mx-auto h-screen">
+    <div className="w-full max-w-[72rem] mx-auto h-screen overflow-hidden">
       <AppContext.Provider value={contextValue}>
         {Object.keys(activeFont).length === 0 ?
           <Browse />

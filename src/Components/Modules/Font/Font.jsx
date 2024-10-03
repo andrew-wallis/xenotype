@@ -57,7 +57,7 @@ function Font() {
         <header className="shrink-0 py-4 px-4">
           <FontHeader />
         </header>
-        <main className="grow overflow-y-auto overflow-x-hidden px-4 pb-12">
+        <main className="grow overflow-y-auto overflow-x-hidden px-4 pb-12 custom-scrollbar">
           <FontMain activeModule={activeModule} />
         </main>
         <nav className="sticky bottom-0 grid grid-cols-4 px-4 gap-4 justify-between">
