@@ -6,12 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Vite + React</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=block" rel="stylesheet">
-    <script type="module" crossorigin src="/xenotype/assets/index-FVCtgntm.js"></script>
-    <link rel="stylesheet" crossorigin href="/xenotype/assets/index-BG2lOUEw.css">
+    <script type="module" crossorigin src="/xenotype/assets/index-dQQWq6Z9.js"></script>
+    <link rel="stylesheet" crossorigin href="/xenotype/assets/index-e8SRTXxa.css">
   </head>
   <!-- Removed overflow-hidden bg-white text-black dark:bg-black dark:text-gray-100 transition-colors -->
   <body class="h-screen w-screen relative overflow-hidden">
     <!-- Removed overflow-hidden -->
     <div class="app-canvas bg-blue-100 overflow-hidden" id="root"></div>
+    <script>
+      document.body.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+  
+      document.body.addEventListener('wheel', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+    </script>
   </body>
 </html>
