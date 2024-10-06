@@ -12,7 +12,26 @@
   <body class="h-screen w-screen relative overflow-hidden overscroll-none touch-none">
     <div class="app-canvas overflow-hidden touch-auto" id="root"></div>
     <script>
-      window.alert("Hello");
+      document.addEventListener("DOMContentLoaded", () => {
+          // Function to handle the scroll event
+          function handleScroll(event) {
+              const element = event.target;
+              const tagName = element.tagName;
+              const id = element.id ? `ID: ${element.id}` : "No ID";
+              const classes = element.className ? `Classes: ${element.className}` : "No Classes";
+              
+              const debugInfo = `Scrolled Element:\nTag: ${tagName}\n${id}\n${classes}`;
+              window.alert(debugInfo);
+          }
+
+          // Select all elements
+          const allElements = document.querySelectorAll("*");
+
+          // Add scroll event listener to each element
+          allElements.forEach(element => {
+              element.addEventListener("scroll", handleScroll, { passive: true });
+          });
+      });
     </script>
   </body>
 </html>
