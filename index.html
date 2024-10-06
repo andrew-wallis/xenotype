@@ -12,4 +12,9 @@
   <body class="h-screen w-screen relative overflow-hidden overscroll-none touch-none">
     <div class="app-canvas overflow-hidden touch-auto" id="root"></div>
   </body>
+  <script>
+    document.body.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    }, false);
+  </script>
 </html>
