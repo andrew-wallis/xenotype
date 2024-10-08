@@ -10,14 +10,6 @@ function Browse() {
 
   const {fonts, activeFont, setActiveFont, sampleText, browsePosition, setBrowsePosition} = useContext(AppContext);
 
-  const mainRef = useRef(null);
-
-  useEffect(() => {
-    if (mainRef.current) {
-      mainRef.current.scrollTop = browsePosition;
-    }
-  }, [activeFont]);
-
   // Variables
 
   const loadMoreCount = 12;
@@ -54,21 +46,23 @@ function Browse() {
   }, [inView]);
 
   useEffect(() => {
-    if(activeFontRef.current) {
-      activeFontRef.current.scrollIntoView({
-        behavior: 'instant',
-        block: 'start',
-        inline: 'nearest'
-      })
+    window.scrollTo(0, browsePosition);
+  }, [activeFont]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setBrowsePosition(window.scrollY);
     }
-  }, [activeFont, sortedFonts]);
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
 
 
   // Functions
-
-  const handleScroll = (e) => {
-    setBrowsePosition(mainRef.current.scrollTop);
-  };
 
   const chooseFont = (font) => {
     setActiveFont(font);
@@ -81,11 +75,7 @@ function Browse() {
           Xenotype
         </h1>
       </header>
-      <main 
-        className="p-4 custom-scrollbar overflow-y-auto touch-auto"
-        onScroll={(e) => {handleScroll(e)}}
-        ref={mainRef}
-      >
+      <main className="p-4 custom-scrollbar overflow-y-auto touch-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedFonts.slice(0, itemsToShow).map((font, index) => (
             <SampleLink 

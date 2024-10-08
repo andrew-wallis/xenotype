@@ -29,7 +29,8 @@ function FontHeader({}) {
     setAlternative({});
   }
 
-  const backButton = () => {
+  const backButton = (e) => {
+    e.preventDefault();
     setActiveFont({});
   }
 
@@ -40,7 +41,7 @@ function FontHeader({}) {
       </style>
       <div className="grid grid-cols-4 gap-2 pb-4">
         <div className="text-sm leading-4">
-          <a href="#" onClick={(e) => backButton()}>All Fonts</a>
+          <a href="#" onClick={(e) => backButton(e)}>All Fonts</a>
         </div>
         <h1 className="col-span-2 text-center uppercase tracking-wider font-semibold text-sm leading-4">
           {activeModule}

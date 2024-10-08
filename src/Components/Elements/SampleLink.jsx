@@ -10,7 +10,7 @@ const SampleLink = forwardRef(({font, sampleText, action, inactive}, ref) => {
 
   return (
     <div className={`relative font-sample ${inactive ? "opacity-50" : "opacity-100"}`}>
-      <a ref={ref} href="#" className="select-none overflow-hidden" onClick={handleClick}>
+      <a ref={ref} href="#" className="select-none overflow-hidden" onClick={(e) => {handleClick(e)}}>
         <Sample font={font} sampleText={sampleText} />
       </a>
     </div>

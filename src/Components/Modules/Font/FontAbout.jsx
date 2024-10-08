@@ -154,7 +154,7 @@ function FontAbout() {
       </div>
       {font.inuse &&
         <div className="mb-4">
-          <div className="bg-gray-100/50 p-4 mb-8">
+          <div className="bg-gray-100/50 p-4">
             <h2 className="text-xs leading-none uppercase font-bold tracking-wider mb-2 text-gray-800">{font.label} In Use</h2>
             <ul>
               {getInUse()}

@@ -33,7 +33,7 @@ function Icon({callback, icon, active, label, rotate}) {
 
 
   return (
-    <a onClick={handleClick} className={`icon relative text-gray-600 h-9 w-9 rounded-full flex items-center justify-center ${active ? "bg-gray-200" : "bg-gray-100"}`} href="#">
+    <a onClick={(e) => {handleClick(e)}} className={`icon relative text-gray-600 h-9 w-9 rounded-full flex items-center justify-center ${active ? "bg-gray-200" : "bg-gray-100"}`} href="#">
       <div className={`translate-rotate duration-300 ease-out ${rotate ? "rotate-180" : ""}`}>
         {getIcon()}
       </div>

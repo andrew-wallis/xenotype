@@ -13,17 +13,20 @@ function App({data}) {
 
   const [activeFont, setActiveFont] = useState({});
   const [sampleText, setSampleText] = useState("hamburgers & JACKDAWS");
+  const [browsePosition, setBrowsePosition] = useState(0);
 
   const contextValue = {
     data,
     fonts,
     activeFont,
     setActiveFont,
+    browsePosition,
+    setBrowsePosition,
     sampleText
   }
 
   return (
-    <div className="w-full max-w-[72rem] mx-auto h-screen overflow-hidden">
+    <div className="">
       <AppContext.Provider value={contextValue}>
         {Object.keys(activeFont).length === 0 ?
           <Browse />

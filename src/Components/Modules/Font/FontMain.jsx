@@ -10,7 +10,7 @@ import FontTest from "./FontTest";
 function FontMain() {
 
   const { setActiveFont } = useContext(AppContext);
-  const { activeModule, setActiveModule, modules} = useContext(FontContext);
+  const { activeModule, setActiveModule, modules, positions, setPositions} = useContext(FontContext);
 
   const index = modules.indexOf(activeModule);
 
@@ -27,7 +27,21 @@ function FontMain() {
         setActiveFont({});
       }
     },
-  })
+    preventScrollOnSwipe: true
+  });
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setBrowsePosition(window.scrollY);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
 
   return (
     <div {...handlers}>

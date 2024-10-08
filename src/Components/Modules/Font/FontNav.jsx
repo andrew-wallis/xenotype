@@ -9,7 +9,8 @@ function FontNav({}) {
 
   const contextFont = useContext(FontContext);
 
-  const chooseModule = (module) => {
+  const chooseModule = (e, module) => {
+    e.preventDefault();
     contextFont.setActiveModule(module);
   }
   
@@ -29,7 +30,7 @@ function FontNav({}) {
   return (
     <>
       {contextFont.modules.map((module) => (
-        <a key={module} className={`block h-12 text-center text-[12px] leading-none text-gray-800 ${(module === contextFont.activeModule) ? "opacity-100" : "opacity-60"}`} href="#" onClick={(e) => chooseModule(module)}>
+        <a key={module} className={`block h-12 text-center text-[12px] leading-none text-gray-800 ${(module === contextFont.activeModule) ? "opacity-100" : "opacity-60"}`} href="#" onClick={(e) => chooseModule(e, module)}>
           <img className="mx-auto block my-1" src={getIcon(module)} />
           {module}
         </a>
