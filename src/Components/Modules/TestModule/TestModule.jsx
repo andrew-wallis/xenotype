@@ -1,9 +1,18 @@
+import { useState } from "react";
+
 function TestModule(props) {
 
+  const [title, setTitle] = useState("This is the title");
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setTitle(e.target.textContent);
+  }
+
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      <header className="bg-red-100 h-12 shrink-0 pointer-events-none">This is the header</header>
-      <main className="bg-yellow-100 grow overflow-y-auto pointer-events-auto" data-scrollable="true">
+    <div className="relative">
+      <header className="inset-x-0 top-0 sticky bg-lime-100 h-12">{title}</header>
+      <main className="bg-yellow-100" data-scrollable="true">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus, libero tempus maximus viverra, nisi tellus tristique justo, egestas molestie urna orci non ligula. In tristique metus tortor, a accumsan eros dapibus sed. Mauris malesuada finibus velit in ultrices. Aliquam varius justo vel leo bibendum, quis euismod purus sagittis. Praesent vestibulum dictum imperdiet. Mauris in metus venenatis lacus sollicitudin dictum sit amet sit amet orci. Vivamus vel nibh sed nulla suscipit consectetur nec pharetra nibh. Aliquam aliquet velit arcu, interdum consectetur nunc viverra et. Nulla aliquet tortor eget ex lobortis, ac feugiat eros sagittis. Sed maximus consectetur leo eget eleifend. Morbi elit dolor, finibus non arcu iaculis, accumsan fermentum arcu. Curabitur blandit vulputate lacus. Morbi in nunc non orci cursus sollicitudin. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam a eleifend diam. Sed tincidunt venenatis tempus.</p>
 
         <p>Morbi sed leo consectetur, tincidunt turpis vitae, pretium lectus. Pellentesque nec lorem et nunc rhoncus placerat. Quisque quis sem justo. Ut eu ultrices diam. Ut quis iaculis augue. Fusce velit risus, scelerisque et faucibus vel, commodo non libero. Proin vulputate eget ipsum sit amet porta. Aenean sed gravida tellus. Integer ac lacus vehicula, rhoncus mauris tempor, ornare leo. Donec tempor nulla quis diam efficitur, nec egestas dolor interdum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas at commodo sapien, a tincidunt enim. Etiam eu diam tortor. Cras vitae faucibus neque. Vivamus interdum posuere urna et accumsan.</p>
@@ -24,11 +33,13 @@ function TestModule(props) {
 
         <p>Donec interdum ultrices ornare. Praesent elementum odio urna, vel pulvinar massa commodo ut. Aliquam mattis tincidunt augue eu semper. Pellentesque eu placerat diam. Vestibulum non dui risus. Nam sodales eu diam ut imperdiet. In vel posuere justo. Integer pellentesque ac erat eget cursus.</p>
       </main>
-      <nav className="bg-green-100 h-12 shrink-0 grid grid-cols-4 justify-between p-4 gap-4 bottom-nav pointer-events-none">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Shop</a>
-        <a href="#">Link</a>
+      <nav className="fixed inset-x-8 nav-test">
+        <div className="bg-green-100 h-12 grid grid-cols-4 justify-between p-4 gap-4 rounded-full">
+          <a onClick={(e) => handleClick(e)} href="#">Home</a>
+          <a onClick={(e) => handleClick(e)} href="#">About</a>
+          <a onClick={(e) => handleClick(e)} href="#">Shop</a>
+          <a onClick={(e) => handleClick(e)} href="#">Link</a>
+        </div>
       </nav>
     </div>
   );

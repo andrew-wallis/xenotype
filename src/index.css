@@ -93,3 +93,8 @@
   left: 0;
   left: env(safe-area-inset-left);
 }
+
+.nav-test {
+  bottom: 64px;
+  bottom: calc(64px + env(safe-area-inset-bottom));
+}
