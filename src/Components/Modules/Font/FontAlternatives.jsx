@@ -1,15 +1,16 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { AppContext } from "../../../App";
 import { FontContext } from "./Font";
 import SampleLink from "../../Elements/SampleLink";
+import FontHeader from "./FontHeader";
 
 function FontAlternatives() {
   
 
   // React Context
 
-  const {setActiveFont, sampleText} = useContext(AppContext);
+  const {activeFont, setActiveFont, sampleText} = useContext(AppContext);
   const {alternatives, alternative, setAlternative, setActiveModule, modules} = useContext(FontContext);
 
 
@@ -21,8 +22,6 @@ function FontAlternatives() {
   // React Hooks
 
   const [itemsToShow, setItemsToShow] = useState((alternatives.indexOf(alternative) + 1) > 10 ? alternatives.indexOf(alternative) + 1 : 10);
-
-  const activeFontRef = useRef(null);
 
   const {ref, inView} = useInView({
     threshold: 1
@@ -45,21 +44,34 @@ function FontAlternatives() {
     }
   }
 
+  const resetAlternative = () => {
+    setAlternative({});
+  }
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-8">
-        {alternatives.slice(0, itemsToShow).map((font) => (
-          <SampleLink 
-            key={font.label}
-            font={font}
-            sampleText={sampleText} 
-            action={chooseAlternative} 
-            inactive={(Object.keys(alternative).length > 0 && alternative !== font ? true : false)} 
-            ref={font === alternative ? activeFontRef : null} 
-          />
-        ))}
-      </div>
-      <div ref={ref} className="h-6"></div>
+      <FontHeader>
+        <SampleLink 
+          font={activeFont}
+          sampleText={sampleText} 
+          action={resetAlternative}
+          inactive={(Object.keys(alternative).length > 0 && alternative !== activeFont ? true : false)}
+        />
+      </FontHeader>
+      <main className="px-4 pb-4">
+        <div className="grid grid-cols-1 gap-8">
+          {alternatives.slice(0, itemsToShow).map((font) => (
+            <SampleLink 
+              key={font.label}
+              font={font}
+              sampleText={sampleText} 
+              action={chooseAlternative} 
+              inactive={(Object.keys(alternative).length > 0 && alternative !== font ? true : false)}
+            />
+          ))}
+        </div>
+        <div ref={ref} className="h-6"></div>
+      </main>
     </>
   );
 }

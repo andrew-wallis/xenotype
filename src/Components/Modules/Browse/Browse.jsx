@@ -33,8 +33,6 @@ function Browse() {
     (sortedFonts.indexOf(activeFont) + 1) > 24 ? sortedFonts.indexOf(activeFont) + 1 : 24
   );
 
-  const activeFontRef = useRef(null);
-
   const {ref, inView} = useInView({
     threshold: 1
   });
@@ -82,8 +80,7 @@ function Browse() {
               key={index}
               font={font}
               sampleText={sampleText}
-              action={chooseFont}
-              ref={font === activeFont ? activeFontRef : null} />
+              action={chooseFont} />
           ))}
         </div>
         <div ref={ref} className="h-6"></div>

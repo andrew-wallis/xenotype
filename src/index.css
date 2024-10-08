@@ -71,8 +71,8 @@
 }
 
 .nav-position {
-  bottom: 4rem;
-  bottom: calc(4rem + env(safe-area-inset-bottom));
+  bottom: 3rem;
+  bottom: calc(3rem + env(safe-area-inset-bottom));
 }
 
 .body-padding {
@@ -80,8 +80,8 @@
   padding-top:  env(safe-area-inset-top);
   padding-right:  0;
   padding-right:  env(safe-area-inset-right);
-  padding-bottom: 4rem;
-  padding-bottom:  calc(4rem + env(safe-area-inset-bottom));
+  padding-bottom: 3rem;
+  padding-bottom:  calc(3rem + env(safe-area-inset-bottom));
   padding-left:  0;
   padding-left:  env(safe-area-inset-left);
 }
