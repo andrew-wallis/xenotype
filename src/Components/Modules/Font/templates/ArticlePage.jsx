@@ -6,11 +6,17 @@ import { FontContext } from "../Font";
 
 function ArticlePage() {
 
-  const context = useContext(AppContext);
-  const contextFont = useContext(FontContext);
+  const {activeFont} = useContext(AppContext);
+  const {alternative, pairing, swap} = useContext(FontContext);
 
-  const thisFont = Object.keys(contextFont.alternative).length > 0 ? contextFont.alternative : context.activeFont;
-  const pairingFont = Object.keys(contextFont.pairing).length > 0 ? contextFont.pairing : context.activeFont;
+  let thisFont = Object.keys(alternative).length > 0 ? alternative : activeFont;
+  let pairingFont = Object.keys(pairing).length > 0 ? pairing : activeFont;
+
+  if(swap) {
+    let swapThisFont = thisFont;
+    thisFont = pairingFont;
+    pairingFont = swapThisFont;
+  }
 
   const title = {
     fontFamily: getFontFamily(thisFont, "rg"),

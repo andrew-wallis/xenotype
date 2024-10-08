@@ -1,28 +1,15 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../../App";
 import getFontFamily from "../../../utils/getFontFamily";
 import GoogleLogo from "../../../assets/Google.svg";
 import AdobeLogo from "../../../assets/Adobe.svg";
-import { FontContext } from "./Font";
 
 function FontAbout() {
+
+  const {activeFont, data} = useContext(AppContext);
   
-  const context = useContext(AppContext);
-  const contextFont = useContext(FontContext);
-  const font = context.activeFont;
-  const sites = context.data.sites;
-
-  const topRef = useRef(null);
-
-  useEffect(() => {
-    if(topRef.current) {
-      topRef.current.scrollIntoView({
-        behavior: 'instant',
-        block: 'start',
-        inline: 'nearest'
-      })
-    }
-  }, [contextFont.activeModule]);
+  const font = activeFont;
+  const sites = data.sites;
 
   const sampleStyles = {
     fontFamily: getFontFamily(font, "rg"),
@@ -140,7 +127,6 @@ function FontAbout() {
  
   return (
     <>
-      <div className="pb-4" ref={topRef}></div>
       <div className="mb-4 flex gap-4 items-center text-sm leading-6 text-gray-800 font-semibold">
         <div className="icon h-9 w-9 flex items-center justify-center rounded-full border border-gray-200">
           <img src={getDistribution()} />
@@ -152,6 +138,9 @@ function FontAbout() {
           {font.Year}
         </div>
       </div>
+      <ul style={{...sampleStyles}} className="mb-4 flex flex-wrap gap-4 pt-2">
+        {getWeights()}
+      </ul>
       <div className="mb-4">
         {font.usage &&
           <p className="mb-4">{font.usage}</p>
@@ -173,9 +162,6 @@ function FontAbout() {
           </div>
         </div>
       }
-      <ul style={{...sampleStyles}} className="flex flex-wrap gap-4 pt-2">
-        {getWeights()}
-      </ul>
     </>
   );
 }

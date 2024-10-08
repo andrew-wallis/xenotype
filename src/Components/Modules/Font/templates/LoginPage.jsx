@@ -1,10 +1,22 @@
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
+import { useContext } from "react";
+import { AppContext } from "../../../../App";
+import { FontContext } from "../Font";
 
-function LoginPage({font, pairing, alternative}) {
+function LoginPage() {
 
-  const thisFont = Object.keys(alternative).length > 0 ? alternative : font;
-  const pairingFont = Object.keys(pairing).length > 0 ? pairing : font;
+  const {activeFont} = useContext(AppContext);
+  const {alternative, pairing, swap} = useContext(FontContext);
+
+  let thisFont = Object.keys(alternative).length > 0 ? alternative : activeFont;
+  let pairingFont = Object.keys(pairing).length > 0 ? pairing : activeFont;
+
+  if(swap) {
+    let swapThisFont = thisFont;
+    thisFont = pairingFont;
+    pairingFont = swapThisFont;
+  }
 
   const title = {
     fontFamily: getFontFamily(thisFont, "rg"),
@@ -21,8 +33,8 @@ function LoginPage({font, pairing, alternative}) {
   return (
     <div className="mx-auto max-w-80">
       <style>
-        @import url('{getFontStylesheet(context.primaryFont, ["rg"])}');
-        @import url('{getFontStylesheet(context.secondaryFont, ["rg"])}');
+        @import url('{getFontStylesheet(thisFont, ["rg"])}');
+        @import url('{getFontStylesheet(pairingFont, ["rg"])}');
       </style>
       <div style={{...title}} className="font-semibold text-center mb-8">
         Welcome back

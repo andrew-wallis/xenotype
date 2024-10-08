@@ -1,75 +1,82 @@
 import { useContext, useRef } from "react";
 import { AppContext } from "../../../App";
 import { FontContext } from "./Font";
+import SampleLink from "../../Elements/SampleLink";
 import getFontFamily from "../../../utils/getFontFamily";
 import getFontStylesheet from "../../../utils/getFontStylesheet";
-import SampleLink from "../../Elements/SampleLink";
+import SelectComponent from "../../Elements/SelectComponent";
 
 function FontHeader({}) {
 
-  const context = useContext(AppContext);
-  const contextFont = useContext(FontContext);
-
-  const font = context.activeFont;
+  const {activeFont, setActiveFont, sampleText} = useContext(AppContext);
+  const {alternative, setPairing, setAlternative, activeModule, templates, template, setTemplate, swap, setSwap, pairing} = useContext(FontContext);
 
   const activeFontRef = useRef(null);
 
   const headingStyles = {
-    fontFamily: getFontFamily(font, "rg"),
-    fontSize: `${1.75 / font.adjust}rem`,
+    fontFamily: getFontFamily(activeFont, "rg"),
+    fontSize: `${1.75 / activeFont.adjust}rem`,
   }
 
 
   // Functions
 
   const resetPairing = () => {
-    contextFont.setPairing({});
+    setPairing({});
   }
 
   const resetAlternative = () => {
-    contextFont.setAlternative({});
+    setAlternative({});
   }
 
   const backButton = () => {
-    context.setActiveFont({});
+    setActiveFont({});
   }
-
 
   return (
     <>
       <style>
-        @import url('{getFontStylesheet(font, ["rg"])}')
+        @import url('{getFontStylesheet(activeFont, ["rg"])}')
       </style>
       <div className="grid grid-cols-4 gap-2 pb-4">
         <div className="text-sm leading-4">
           <a href="#" onClick={(e) => backButton()}>All Fonts</a>
         </div>
         <h1 className="col-span-2 text-center uppercase tracking-wider font-semibold text-sm leading-4">
-          {contextFont.activeModule}
+          {activeModule}
         </h1>
       </div>
-      {(contextFont.activeModule === "About") ?
+      {(activeModule === "About") ?
         <div className="leading-[52px] font-semibold" style={{...headingStyles}}>
-          {font.label}
+          {activeFont.label}
         </div> 
-        : (contextFont.activeModule === "Pairings") ?
+        : (activeModule === "Pairings") ?
           <SampleLink 
-            font={font}
-            sampleText={context.sampleText} 
+            font={activeFont}
+            sampleText={sampleText} 
             action={resetPairing}
-            inactive={(Object.keys(contextFont.pairing).length > 0 && contextFont.pairing !== font ? true : false)}
             ref={activeFontRef}
           />
-        : (contextFont.activeModule === "Alternatives") ?
+        : (activeModule === "Alternatives") ?
           <SampleLink 
-            font={font}
-            sampleText={context.sampleText} 
+            font={activeFont}
+            sampleText={sampleText} 
             action={resetAlternative}
-            inactive={(Object.keys(contextFont.alternative).length > 0 && contextFont.alternative !== font ? true : false)}
+            inactive={(Object.keys(alternative).length > 0 && alternative !== activeFont ? true : false)}
             ref={activeFontRef}
           />
-        : (contextFont.activeModule === "Test") ?
-          <></> : <></>
+        : (activeModule === "Test") ?
+            <div className="flex">
+              <div className={`grow border-gray-100 border ${Object.keys(pairing).length > 0 ? "rounded-l-lg" : "rounded-lg"} `}>
+                <SelectComponent id="template-select" label="Select template" options={templates} action={setTemplate} value={template} />
+              </div>
+              {Object.keys(pairing).length > 0 ? 
+                <div className="shrink-0">
+                  <button onClick={(e) => {e.preventDefault; setSwap(!swap)}} className="block py-3 px-4 border-gray-100 bg-gray-100 border rounded-r-lg leading-6 h-12">Swap</button>
+                </div>
+              : <></>}
+            </div>
+        : <></>
       }
     </>
   );

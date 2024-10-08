@@ -19,10 +19,10 @@ function FontNav({}) {
         return About;
       case "Pairings":
         return Pairings;
-      case "Alternatives":
-        return Alternatives;
       case "Test":
         return Test;
+      case "Alternatives":
+        return Alternatives;
     }
   }
 

@@ -1,31 +1,29 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { FontContext } from "./Font";
 import ArticlePage from "./templates/ArticlePage";
+import LandingPage from "./templates/LandingPage";
+import ProductPage from "./templates/ProductPage";
+import Dashboard from "./templates/Dashboard";
+import LoginPage from "./templates/LoginPage";
+import SettingsPage from "./templates/SettingsPage";
 
 function FontTest() {
 
-  const contextFont = useContext(FontContext);
+  const {template} = useContext(FontContext);
 
-  const topRef = useRef(null);
-
-  useEffect(() => {
-    if(topRef.current) {
-      topRef.current.scrollIntoView({
-        behavior: 'instant',
-        block: 'start',
-        inline: 'nearest'
-      })
-    }
-  }, [contextFont.activeModule, contextFont.template]);
-
-  switch(contextFont.template) {
+  switch(template) {
     case "Article":
-      return (
-        <>
-          <div className="pb-4" ref={topRef}></div>
-          <ArticlePage/>
-        </>
-      )
+      return <ArticlePage/>;
+    case "Landing Page":
+      return <LandingPage/>;
+    case "Product Page":
+      return <ProductPage />;
+    case "Dashboard":
+      return <Dashboard />;
+    case "Log In":
+      return <LoginPage />;
+    case "Settings":
+      return <SettingsPage />
   }
 }
 

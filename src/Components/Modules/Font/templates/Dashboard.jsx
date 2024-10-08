@@ -1,10 +1,22 @@
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
+import { useContext } from "react";
+import { AppContext } from "../../../../App";
+import { FontContext } from "../Font";
 
-function Dashboard({font, pairing, alternative}) {
+function Dashboard() {
 
-  const thisFont = Object.keys(alternative).length > 0 ? alternative : font;
-  const pairingFont = Object.keys(pairing).length > 0 ? pairing : font;
+  const {activeFont} = useContext(AppContext);
+  const {alternative, pairing, swap} = useContext(FontContext);
+
+  let thisFont = Object.keys(alternative).length > 0 ? alternative : activeFont;
+  let pairingFont = Object.keys(pairing).length > 0 ? pairing : activeFont;
+
+  if(swap) {
+    let swapThisFont = thisFont;
+    thisFont = pairingFont;
+    pairingFont = swapThisFont;
+  }
 
   const text = {
     fontFamily: getFontFamily(pairingFont, "rg"),
@@ -33,8 +45,8 @@ function Dashboard({font, pairing, alternative}) {
   return (
     <div className="flex h-full bg-gray-100/50 text-gray-800">
       <style>
-        @import url('{getFontStylesheet(context.primaryFont, ["rg"])}');
-        @import url('{getFontStylesheet(context.secondaryFont, ["rg"])}');
+        @import url('{getFontStylesheet(thisFont, ["rg"])}');
+        @import url('{getFontStylesheet(pairingFont, ["rg"])}');
       </style>
       <div style={{...text}} className="bg-gray-100 w-56 p-3 font-semibold">
         <div className="w-10 h-10 rounded-full bg-gray-200"></div>

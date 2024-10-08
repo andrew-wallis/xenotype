@@ -1,10 +1,22 @@
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
+import { useContext } from "react";
+import { AppContext } from "../../../../App";
+import { FontContext } from "../Font";
 
-function ProductPage({font, pairing, alternative}) {
+function ProductPage() {
 
-  const thisFont = Object.keys(alternative).length > 0 ? alternative : font;
-  const pairingFont = Object.keys(pairing).length > 0 ? pairing : font;
+  const {activeFont} = useContext(AppContext);
+  const {alternative, pairing, swap} = useContext(FontContext);
+
+  let thisFont = Object.keys(alternative).length > 0 ? alternative : activeFont;
+  let pairingFont = Object.keys(pairing).length > 0 ? pairing : activeFont;
+
+  if(swap) {
+    let swapThisFont = thisFont;
+    thisFont = pairingFont;
+    pairingFont = swapThisFont;
+  }
 
   const title = {
     fontFamily: getFontFamily(thisFont, "rg"),
@@ -46,8 +58,8 @@ function ProductPage({font, pairing, alternative}) {
     <div className="mx-4">
       <div className="grid grid-cols-2 gap-8 relative mb-16">
         <style>
-          @import url('{getFontStylesheet(context.primaryFont, ["rg"])}');
-          @import url('{getFontStylesheet(context.secondaryFont, ["rg"])}');
+          @import url('{getFontStylesheet(thisFont, ["rg"])}');
+          @import url('{getFontStylesheet(pairingFont, ["rg"])}');
         </style>
         <div className="">
           <div className="pt-[125%] bg-gray-100 dark:bg-gray-900/50 sticky top-0 rounded-sm"></div>
