@@ -9,6 +9,18 @@
   </head>
   <body class="app-body h-screen w-screen relative overflow-hidden overscroll-none touch-none">
     <div class="app-canvas overflow-hidden touch-none" id="root"></div>
+    <div class="absolute top-32 left-32 w-32 h-32 bg-blue-200" id="blue-box"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      function updateBodyHeight() {
+        const bodyHeight = document.body.offsetHeight;
+        const blueBox = document.getElementById('blue-box');
+        blueBox.textContent = `Body height: ${bodyHeight}px`;
+      }
+
+      // Update the body height immediately and then every 1 second
+      updateBodyHeight();
+      setInterval(updateBodyHeight, 1000);
+    </script>
   </body>
 </html>
