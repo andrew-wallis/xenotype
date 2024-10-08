@@ -30,19 +30,6 @@ function FontMain() {
     preventScrollOnSwipe: true
   });
 
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setBrowsePosition(window.scrollY);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
-
   return (
     <div {...handlers}>
       <div style={{ display: activeModule === "About" ? "block" : "none" }}>

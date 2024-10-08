@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { act, createContext, useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import findPairings from "../../../utils/findPairings";
 import findAlternatives from "../../../utils/findAlternatives";
@@ -13,21 +13,19 @@ function Font() {
 
   // React Context
 
-  const context = useContext(AppContext);
+  const {activeFont, fonts} = useContext(AppContext);
 
 
   // Variables
 
-  const font = context.activeFont;
-  const fonts = context.fonts;
   const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In", "Settings"];
-  const modules = ["About", "Pairings", "Alternatives", "Test"];
+  const modules = ["About", "Pairings", "Test", "Alternatives"];
 
 
   // React Hooks
-  const [pairings, setPairings] = useState(findPairings(font, fonts));
+  const [pairings, setPairings] = useState(findPairings(activeFont, fonts));
   const [pairing, setPairing] = useState({});
-  const [alternatives, setAlternatives] = useState(findAlternatives(font, fonts));
+  const [alternatives, setAlternatives] = useState(findAlternatives(activeFont, fonts));
   const [alternative, setAlternative] = useState({});
   const [template, setTemplate] = useState(templates[0]);
   const [activeModule, setActiveModule] = useState(modules[0]);
@@ -37,6 +35,46 @@ function Font() {
     "Alternatives": 0,
     "Test": 0
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setPositions((prevPositions) => ({
+        ...prevPositions,
+        [activeModule]: window.scrollY
+      }));
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [activeModule]);
+
+  useEffect(() => {
+    window.scrollTo(0, positions[activeModule]);
+  }, [activeModule]);
+
+  useEffect(() => {
+    setAlternatives(findAlternatives(activeFont, fonts));
+    setPairings(findPairings(activeFont, fonts));
+    setPairing({});
+    setAlternative({});
+
+    setPositions({
+      About: 0,
+      Pairings: 0,
+      Test: 0,
+      Alternatives: 0
+    });
+  }, [activeFont]);
+
+  useEffect(() => {
+    setPositions((prevPositions) => ({
+      ...prevPositions,
+      ["Test"]: 0,
+    }));
+  }, [pairing, alternative]);
 
 
   // Context Variable
