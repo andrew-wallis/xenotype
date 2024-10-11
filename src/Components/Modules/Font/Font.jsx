@@ -105,7 +105,6 @@ function Font() {
   // Context Variable
 
   const fontContext = {
-    positions,
     pairings,
     pairing,
     setPairing,

@@ -14,7 +14,7 @@ function Browse() {
   
   // Variables
 
-  const loadMoreCount = 4;
+  const loadMoreCount = 12;
   const sortOptions = ["Rating", "A-Z"];
 
   const [filter, setFilter] = useState({
@@ -32,7 +32,7 @@ function Browse() {
   // React Hooks
 
   const [itemsToShow, setItemsToShow] = useState(
-    (sortedFonts.indexOf(activeFont) + 1) > 12 ? sortedFonts.indexOf(activeFont) + 1 : 12
+    (sortedFonts.indexOf(activeFont) + 1) > 24 ? sortedFonts.indexOf(activeFont) + 1 : 24
   );
 
   const {ref, inView} = useInView({

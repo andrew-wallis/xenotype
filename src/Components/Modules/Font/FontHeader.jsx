@@ -22,7 +22,7 @@ function FontHeader({children}) {
           <a href="#" onClick={(e) => backButton(e)}>All Fonts</a>
         </div>
         <h1 className="col-span-2 text-center uppercase tracking-wider font-semibold text-sm leading-4">
-          {activeModule} {Object.entries(positions).map(([key, val]) => (val))}
+          {activeModule}
         </h1>
       </div>
       { children }
