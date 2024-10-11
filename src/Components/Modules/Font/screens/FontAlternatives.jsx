@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { AppContext } from "../../../App";
-import { FontContext } from "./Font";
-import SampleLink from "../../Elements/SampleLink";
-import FontHeader from "./FontHeader";
+import { AppContext } from "../../../../App";
+import { FontContext } from "../Font";
+import SampleLink from "../../../Elements/SampleLink";
+import FontHeader from "../FontHeader";
 
 function FontAlternatives() {
   
 
   // React Context
 
-  const {activeFont, setActiveFont, sampleText} = useContext(AppContext);
+  const {activeFont, setActiveFont} = useContext(AppContext);
   const {alternatives, alternative, setAlternative, setActiveModule, modules} = useContext(FontContext);
 
 
@@ -53,7 +53,6 @@ function FontAlternatives() {
       <FontHeader>
         <SampleLink 
           font={activeFont}
-          sampleText={sampleText} 
           action={resetAlternative}
           inactive={(Object.keys(alternative).length > 0 && alternative !== activeFont ? true : false)}
         />
@@ -64,7 +63,6 @@ function FontAlternatives() {
             <SampleLink 
               key={font.label}
               font={font}
-              sampleText={sampleText} 
               action={chooseAlternative} 
               inactive={(Object.keys(alternative).length > 0 && alternative !== font ? true : false)}
             />

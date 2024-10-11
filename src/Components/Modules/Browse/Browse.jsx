@@ -6,13 +6,15 @@ import SampleLink from "../../Elements/SampleLink";
 
 function Browse() {
 
+
   // React Context
 
-  const {fonts, activeFont, setActiveFont, sampleText, browsePosition, setBrowsePosition} = useContext(AppContext);
+  const {fonts, activeFont, setActiveFont, browsePosition, setBrowsePosition} = useContext(AppContext);
 
+  
   // Variables
 
-  const loadMoreCount = 12;
+  const loadMoreCount = 4;
   const sortOptions = ["Rating", "A-Z"];
 
   const [filter, setFilter] = useState({
@@ -30,7 +32,7 @@ function Browse() {
   // React Hooks
 
   const [itemsToShow, setItemsToShow] = useState(
-    (sortedFonts.indexOf(activeFont) + 1) > 24 ? sortedFonts.indexOf(activeFont) + 1 : 24
+    (sortedFonts.indexOf(activeFont) + 1) > 12 ? sortedFonts.indexOf(activeFont) + 1 : 12
   );
 
   const {ref, inView} = useInView({
@@ -79,7 +81,6 @@ function Browse() {
             <SampleLink 
               key={index}
               font={font}
-              sampleText={sampleText}
               action={chooseFont} />
           ))}
         </div>

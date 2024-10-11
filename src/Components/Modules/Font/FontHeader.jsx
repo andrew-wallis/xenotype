@@ -5,7 +5,7 @@ import { FontContext } from "./Font";
 function FontHeader({children}) {
 
   const {setActiveFont} = useContext(AppContext);
-  const {activeModule} = useContext(FontContext);
+  const {activeModule, positions} = useContext(FontContext);
 
 
   // Functions
@@ -22,7 +22,7 @@ function FontHeader({children}) {
           <a href="#" onClick={(e) => backButton(e)}>All Fonts</a>
         </div>
         <h1 className="col-span-2 text-center uppercase tracking-wider font-semibold text-sm leading-4">
-          {activeModule}
+          {activeModule} {Object.entries(positions).map(([key, val]) => (val))}
         </h1>
       </div>
       { children }

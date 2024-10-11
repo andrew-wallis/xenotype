@@ -1,6 +1,6 @@
 import Sample from "./Sample";
 
-function SampleLink({font, sampleText, action, inactive}) {
+function SampleLink({font, action, inactive}) {
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -10,7 +10,7 @@ function SampleLink({font, sampleText, action, inactive}) {
   return (
     <div className={`relative font-sample ${inactive ? "opacity-50" : "opacity-100"}`}>
       <a href="#" className="select-none overflow-hidden" onClick={(e) => {handleClick(e)}}>
-        <Sample font={font} sampleText={sampleText} />
+        <Sample font={font}/>
       </a>
     </div>
   );

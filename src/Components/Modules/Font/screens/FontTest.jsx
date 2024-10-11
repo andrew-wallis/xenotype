@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { FontContext } from "./Font";
-import ArticlePage from "./templates/ArticlePage";
-import LandingPage from "./templates/LandingPage";
-import ProductPage from "./templates/ProductPage";
-import Dashboard from "./templates/Dashboard";
-import LoginPage from "./templates/LoginPage";
-import SettingsPage from "./templates/SettingsPage";
-import FontHeader from "./FontHeader";
-import SelectComponent from "../../Elements/SelectComponent";
+import { FontContext } from "../Font";
+import ArticlePage from "../templates/ArticlePage";
+import LandingPage from "../templates/LandingPage";
+import ProductPage from "../templates/ProductPage";
+import Dashboard from "../templates/Dashboard";
+import LoginPage from "../templates/LoginPage";
+import SettingsPage from "../templates/SettingsPage";
+import FontHeader from "../FontHeader";
+import SelectComponent from "../../../Elements/SelectComponent";
 
 function FontTest() {
   

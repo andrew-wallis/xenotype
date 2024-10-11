@@ -4,10 +4,10 @@ import { AppContext } from "../../../App";
 import findPairings from "../../../utils/findPairings";
 import findAlternatives from "../../../utils/findAlternatives";
 import FontNav from "./FontNav";
-import FontAbout from "./FontAbout";
-import FontPairings from "./FontPairings";
-import FontTest from "./FontTest";
-import FontAlternatives from "./FontAlternatives";
+import FontAbout from "./screens/FontAbout";
+import FontPairings from "./screens/FontPairings";
+import FontTest from "./screens/FontTest";
+import FontAlternatives from "./screens/FontAlternatives";
 
 export const FontContext = createContext();
 
@@ -105,6 +105,7 @@ function Font() {
   // Context Variable
 
   const fontContext = {
+    positions,
     pairings,
     pairing,
     setPairing,

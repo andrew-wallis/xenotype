@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import { AppContext } from "../../App";
 import getFontFamily from "../../utils/getFontFamily";
 import getFontStylesheet from "../../utils/getFontStylesheet";
 
-function Sample({font, sampleText}) {
+function Sample({font}) {
+
+  const {sampleText} = useContext(AppContext);
 
   const fontNameStyles = {
     fontFamily: getFontFamily(font, "rg"),

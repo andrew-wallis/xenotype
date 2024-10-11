@@ -7,6 +7,7 @@ export const AppContext = createContext();
 
 function App({data}) {
 
+  
   // Variables
 
   const fonts = data.fonts.filter(font => font.status !== "REMOVE");

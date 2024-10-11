@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { AppContext } from "../../../App";
-import { FontContext } from "./Font";
-import SampleLink from "../../Elements/SampleLink";
-import FontHeader from "./FontHeader";
+import { AppContext } from "../../../../App";
+import { FontContext } from "../Font";
+import SampleLink from "../../../Elements/SampleLink";
+import FontHeader from "../FontHeader";
 
 function FontPairings() {
 
 
   // React Context
 
-  const {activeFont, setActiveFont, sampleText} = useContext(AppContext);
+  const {activeFont, setActiveFont} = useContext(AppContext);
   const {pairing, pairings, modules, setActiveModule, setPairing} = useContext(FontContext);
 
 
@@ -54,7 +54,6 @@ function FontPairings() {
       <FontHeader>
         <SampleLink 
           font={activeFont}
-          sampleText={sampleText} 
           action={resetPairing}
         />
       </FontHeader>
@@ -64,7 +63,6 @@ function FontPairings() {
             <SampleLink 
               key={index}
               font={font} 
-              sampleText={sampleText} 
               action={choosePairing}
               inactive={(Object.keys(pairing).length > 0 && pairing !== font ? true : false)} 
             />
