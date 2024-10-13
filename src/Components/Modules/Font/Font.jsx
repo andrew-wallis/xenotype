@@ -5,9 +5,7 @@ import findPairings from "../../../utils/findPairings";
 import findAlternatives from "../../../utils/findAlternatives";
 import FontNav from "./FontNav";
 import FontAbout from "./screens/FontAbout";
-import FontPairings from "./screens/FontPairings";
-import FontTest from "./screens/FontTest";
-import FontAlternatives from "./screens/FontAlternatives";
+import FontHeader from "./FontHeader";
 
 export const FontContext = createContext();
 
@@ -22,7 +20,6 @@ function Font() {
   // Variables
 
   const templates = ["Article", "Landing Page", "Product Page", "Dashboard", "Log In", "Settings"];
-  const modules = ["About", "Pairings", "Test", "Alternatives"];
 
 
   // React Hooks
@@ -32,56 +29,9 @@ function Font() {
   const [alternative, setAlternative] = useState({});
   const [swap, setSwap] = useState(false);
   const [template, setTemplate] = useState(templates[0]);
-  const [activeModule, setActiveModule] = useState(modules[0]);
-  const [positions, setPositions] = useState({
-    "About": 0,
-    "Pairings": 0,
-    "Alternatives": 0,
-    "Test": 0
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setPositions((prevPositions) => ({
-        ...prevPositions,
-        [activeModule]: window.scrollY
-      }));
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, [activeModule]);
-
-  useEffect(() => {
-    window.scrollTo(0, positions[activeModule]);
-  }, [activeModule]);
-
-  useEffect(() => {
-    setAlternatives(findAlternatives(activeFont, fonts));
-    setPairings(findPairings(activeFont, fonts));
-    setPairing({});
-    setAlternative({});
-
-    setPositions({
-      About: 0,
-      Pairings: 0,
-      Test: 0,
-      Alternatives: 0
-    });
-  }, [activeFont]);
-
-  useEffect(() => {
-    setPositions((prevPositions) => ({
-      ...prevPositions,
-      ["Test"]: 0,
-    }));
-  }, [pairing, alternative]);
   
 
-  // React Swipeable
+/*   // React Swipeable
 
   const index = modules.indexOf(activeModule);
 
@@ -99,7 +49,7 @@ function Font() {
       }
     },
     preventScrollOnSwipe: true
-  });
+  }); */
 
 
   // Context Variable
@@ -114,9 +64,6 @@ function Font() {
     templates,
     template,
     setTemplate,
-    modules,
-    activeModule,
-    setActiveModule,
     swap, 
     setSwap
   }
@@ -124,20 +71,10 @@ function Font() {
   return (
     <FontContext.Provider value={fontContext}>
       <div className="relative">
-        <div {...handlers}>
-          <div style={{ display: activeModule === "About" ? "block" : "none" }}>
-            <FontAbout />
-          </div>
-          <div style={{ display: activeModule === "Pairings" ? "block" : "none" }}>
-            <FontPairings />
-          </div>
-          <div style={{ display: activeModule === "Test" ? "block" : "none" }}>
-            <FontTest />
-          </div>
-          <div style={{ display: activeModule === "Alternatives" ? "block" : "none" }}>
-            <FontAlternatives />
-          </div>
-        </div>
+        <FontHeader />
+        <main className="px-4 pb-4">
+          <FontAbout />
+        </main>
         <nav className="sticky mx-8 nav-position">
           <div className="bg-white grid grid-cols-4 justify-between p-4 gap-4 rounded-full">
             <FontNav />
