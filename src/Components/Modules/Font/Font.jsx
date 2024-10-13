@@ -4,7 +4,7 @@ import { AppContext } from "../../../App";
 import findPairings from "../../../utils/findPairings";
 import findAlternatives from "../../../utils/findAlternatives";
 import FontNav from "./FontNav";
-import FontAbout from "./screens/FontAbout";
+import AboutPage from "./templates/AboutPage";
 import FontHeader from "./FontHeader";
 
 export const FontContext = createContext();
@@ -29,6 +29,9 @@ function Font() {
   const [alternative, setAlternative] = useState({});
   const [swap, setSwap] = useState(false);
   const [template, setTemplate] = useState(templates[0]);
+
+  const [primaryFont, setPrimaryFont] = useState(activeFont);
+  const [secondaryFont, setSecondaryFont] = useState({});
   
 
 /*   // React Swipeable
@@ -65,7 +68,11 @@ function Font() {
     template,
     setTemplate,
     swap, 
-    setSwap
+    setSwap,
+    primaryFont,
+    setPrimaryFont,
+    secondaryFont,
+    setSecondaryFont
   }
 
   return (
@@ -73,7 +80,7 @@ function Font() {
       <div className="relative">
         <FontHeader />
         <main className="px-4 pb-4">
-          <FontAbout />
+          <AboutPage />
         </main>
         <nav className="sticky mx-8 nav-position">
           <div className="bg-white grid grid-cols-4 justify-between p-4 gap-4 rounded-full">
