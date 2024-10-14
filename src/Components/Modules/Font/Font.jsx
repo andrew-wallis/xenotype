@@ -6,6 +6,7 @@ import findAlternatives from "../../../utils/findAlternatives";
 import FontNav from "./FontNav";
 import AboutPage from "./templates/AboutPage";
 import FontHeader from "./FontHeader";
+import ArticlePage from "./templates/ArticlePage";
 
 export const FontContext = createContext();
 
@@ -24,9 +25,7 @@ function Font() {
 
   // React Hooks
   const [pairings, setPairings] = useState(findPairings(activeFont, fonts));
-  const [pairing, setPairing] = useState({});
   const [alternatives, setAlternatives] = useState(findAlternatives(activeFont, fonts));
-  const [alternative, setAlternative] = useState({});
   const [swap, setSwap] = useState(false);
   const [template, setTemplate] = useState(templates[0]);
 
@@ -59,11 +58,7 @@ function Font() {
 
   const fontContext = {
     pairings,
-    pairing,
-    setPairing,
     alternatives,
-    alternative,
-    setAlternative,
     templates,
     template,
     setTemplate,
@@ -79,14 +74,10 @@ function Font() {
     <FontContext.Provider value={fontContext}>
       <div className="relative">
         <FontHeader />
-        <main className="px-4 pb-4">
-          <AboutPage />
+        <main className="p-4">
+          <ArticlePage />
         </main>
-        <nav className="sticky mx-8 nav-position">
-          <div className="bg-white grid grid-cols-4 justify-between p-4 gap-4 rounded-full">
-            <FontNav />
-          </div>
-        </nav>
+        <FontNav />
       </div>
     </FontContext.Provider>
   );

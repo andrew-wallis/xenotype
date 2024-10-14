@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      'sans': '"Inter", sans-serif'
+      'sans': 'system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     },
     extend: {
       spacing: {
@@ -25,7 +25,10 @@ export default {
         "gray-700": "#707073",
         "gray-800": "#434447",
         "gray-900": "#2D2E31",
-        "black": "#17181C"
+        "black": "#17181C",
+        "dark-bg": "#0C0C12",
+        "dark-text": "#EEEEF7",
+        "dark-secondary": "#C1C1CA"
       }
     },
   },

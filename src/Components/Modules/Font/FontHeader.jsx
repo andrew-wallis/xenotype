@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { AppContext } from "../../../App";
 import { FontContext } from "./Font";
 import FontSample from "./FontSample";
+import BackIcon from "../../../assets/Back.svg"
 import 'swiper/css';
 
 function FontHeader() {
@@ -12,50 +13,43 @@ function FontHeader() {
   const {setActiveFont} = useContext(AppContext);
   const {alternatives, pairings, primaryFont, setPrimaryFont, secondaryFont, setSecondaryFont} = useContext(FontContext);
 
-  // Indexes - uses
   const [alternativesIndex, setAlternativesIndex] = useState(0);
   const [pairingsIndex, setPairingsIndex] = useState(0);
 
-  // Temporary array for storing alts
   const [sliderAlts, setSliderAlts] = useState([]);
   const [sliderPairs, setSlidePairs] = useState([]);
 
-  // Is Mobile - needed for spacing and styling
   const [isMobile, setIsMobile] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
 
   // Refs for the swipers
   const alternativesSwiperRef = useRef(null);
   const pairingsSwiperRef = useRef(null);
 
-  // Sets the initial index for alts (probably 0)
   useEffect(() => {
     const index = alternatives.indexOf(primaryFont);
     setAlternativesIndex(index);
     setSliderAlts(alternatives.slice(0, index + 4));
   }, [alternatives, primaryFont]);
 
-  // Sets the initial index for pairings (probably 0)
   useEffect(() => {
     const index = pairings.indexOf(secondaryFont);
-    setPairingsIndex(index);
+    setPairingsIndex(index + 1);
     setSlidePairs(pairings.slice(0, index + 4));
   }, [pairings, secondaryFont]);
 
-  // Slide to alternativesIndex if index changes
   useEffect(() => {
     if(alternativesSwiperRef.current) {
       alternativesSwiperRef.current.slideTo(alternativesIndex);
     }
   }, [alternativesIndex]);
 
-  // Slide to pairingsIndex if index changes
   useEffect(() => {
     if(pairingsSwiperRef.current) {
       pairingsSwiperRef.current.slideTo(pairingsIndex);
     }
   }, [pairingsIndex]);
 
-  // useEffect for changing changing media
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)');
 
@@ -71,6 +65,18 @@ function FontHeader() {
       mediaQuery.removeEventListener('change', handleMediaQueryChange);
     }
   }, []);
+
+  useEffect(() => {
+    if (isInteracting) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    }
+  }, [isInteracting])
 
   // Functions
 
@@ -89,7 +95,7 @@ function FontHeader() {
       setSecondaryFont(font);
       setPairingsIndex(sliderPairs.indexOf(font));
     } */
-    setPairingsIndex(sliderPairs.indexOf(font));
+    setPairingsIndex(sliderPairs.indexOf(font) + 1);
   }
 
   // Handle alts slider ??
@@ -102,7 +108,11 @@ function FontHeader() {
   // Handle pairings slider ??
   const handleSlideChangePairings = (swiper) => {
     if(sliderPairs.length > 0) {
-      setSecondaryFont(sliderPairs[swiper.activeIndex]);
+      if(swiper.activeIndex > 0) {
+        setSecondaryFont(sliderPairs[swiper.activeIndex - 1]);
+      } else {
+        setSecondaryFont({});
+      }
     }
   }
 
@@ -122,15 +132,31 @@ function FontHeader() {
     ]);
   }
 
+  const handleInteractionStart = () => {
+    setIsInteracting(true);
+  }
+
+  const handleInteractionEnd = () => {
+    setIsInteracting(false);
+  }
+
+  const handleNoPair = (e) => {
+    e.preventDefault;
+    setPairingsIndex(0);
+  }
+
   const backButton = (e) => {
     e.preventDefault();
     setActiveFont({});
   }
 
   return (
-    <header className="sticky z-50 top-0 inset-x-0 bg-white p-4">
-      <div className="grid grid-cols-4 gap-2 pb-4">
-        <div className="text-sm leading-4">
+    <header className="sticky z-50 top-0 inset-x-0 bg-dark-bg">
+      <div className="grid grid-cols-4 gap-2 p-4 border-b border-b-dark-text/20">
+        <div className="text-xs leading-4 font-medium tracking-wider uppercase flex gap-2 items-center">
+        <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path opacity="0.6" d="M5 1L1 5L5 9" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
           <a href="#" onClick={(e) => backButton(e)}>Back</a>
         </div>
         <h1 className="col-span-2 text-center uppercase tracking-wider font-semibold text-sm leading-4">
@@ -138,7 +164,7 @@ function FontHeader() {
         </h1>
       </div>
       <div className="overflow-y-auto">
-        <div className="py-4">
+        <div className="py-4 border-b border-b-dark-text/10">
           <Swiper 
             slidesPerView={isMobile ? 3 : 3} 
             spaceBetween={isMobile ? 16 : 72} 
@@ -147,6 +173,10 @@ function FontHeader() {
             onReachEnd={handleReachEndAlternatives}
             onSlideChange={handleSlideChangeAlternatives}
             onSwiper={(swiper) => (alternativesSwiperRef.current = swiper)}
+            onTouchStart={handleInteractionStart}
+            onTouchEnd={handleInteractionEnd}
+            onMouseDown={handleInteractionStart}
+            onMouseEnd={handleInteractionEnd}
           >
             {sliderAlts.map((font, index) => (
               <SwiperSlide key={index}>
@@ -155,7 +185,7 @@ function FontHeader() {
             ))}
           </Swiper>
         </div>
-        <div className="py-4">
+        <div className="py-4 border-b border-b-dark-text/10">
           <div className="relative">
             <Swiper 
               slidesPerView={isMobile ? 3 : 3} 
@@ -166,7 +196,16 @@ function FontHeader() {
               onReachEnd={handleReachEndPairings}
               onSlideChange={handleSlideChangePairings}
               onSwiper={(swiper) => (pairingsSwiperRef.current = swiper)}
+              onTouchStart={handleInteractionStart}
+              onTouchEnd={handleInteractionEnd}
+              onMouseDown={handleInteractionStart}
+              onMouseEnd={handleInteractionEnd}
             >
+              <SwiperSlide key={"nopair"}>
+                <a href="#" onClick={(e) => handleNoPair(e)} className="block text-xs leading-5 uppercase tracking-wider font-semibold opacity-60">
+                  Don’t Pair
+                </a>
+              </SwiperSlide>
               {sliderPairs.map((font, index) => (
                 <SwiperSlide key={index}>
                   <FontSample font={font} activeFont={secondaryFont} chooseFont={chooseSecondaryFont} />

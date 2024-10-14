@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { AppContext } from "../../../App";
 import sortAndFilterFonts from "../../../utils/sortAndFilterFonts";
 import SampleLink from "../../Elements/SampleLink";
+import SearchIcon from "../../Elements/Icons/SearchIcon";
 
 function Browse() {
 
@@ -68,12 +69,35 @@ function Browse() {
     setActiveFont(font);
   }
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+
+  const resetSearch = (e) => {
+    e.preventDefault();
+    setSearch("");
+  }
+
   return (
     <div className="flex flex-col h-full overflow-hidden touch-none">
       <header className="shrink-0 p-4 py-4 px-4 touch-auto">
-        <h1 className="text-center uppercase tracking-wider font-semibold text-sm leading-4">
-          Xenotype
+        <h1 className="text-center uppercase tracking-wider font-semibold text-sm leading-4 mb-4">
+          UXType
         </h1>
+        <div className="relative flex-1">
+          <input value={search} placeholder="Search" className="w-full rounded-full bg-gray-200 text-xs leading-[1.125rem] pl-[1.125rem] pr-[36px] py-[0.5625rem] text-gray-800" onChange={handleSearch} />
+          <a onClick={resetSearch} href="#" className="block top-0 right-0 bottom-0 flex items-center justify-center w-[36px] absolute">
+            {search.length === 0 ? 
+              <SearchIcon />
+            :
+              <div className="h-4 w-4 flex justify-center items-center">
+                <span className="absolute bg-[#878A8A] h-[1.5px] w-3 rotate-45"></span>
+                <span className="absolute bg-[#878A8A] h-[1.5px] w-3 -rotate-45"></span>
+              </div>
+            }
+            
+          </a>
+        </div>
       </header>
       <main className="p-4 custom-scrollbar overflow-y-auto touch-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

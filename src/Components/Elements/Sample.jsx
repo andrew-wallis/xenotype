@@ -25,7 +25,7 @@ function Sample({font}) {
         @import url('{getFontStylesheet(font, ["rg"])}')
       </style>
       <div className="mb-1 opacity-90 whitespace-nowrap flex items-center h-5" style={{...fontNameStyles}}>{font.label}</div>
-      <div className="whitespace-nowrap text-black text-gradient pb-1 flex items-center h-8" style={{...fontSampleStyles}}>
+      <div className="whitespace-nowrap pb-1 flex items-center h-8" style={{...fontSampleStyles}}>
         {sampleText}
       </div>
     </>
