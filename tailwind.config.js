@@ -27,6 +27,7 @@ export default {
         "gray-900": "#2D2E31",
         "black": "#17181C",
         "dark-bg": "#0C0C12",
+        "dark-well": "#1C1C24",
         "dark-text": "#EEEEF7",
         "dark-secondary": "#C1C1CA"
       }

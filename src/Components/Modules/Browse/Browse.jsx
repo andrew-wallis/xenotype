@@ -62,6 +62,10 @@ function Browse() {
     }
   }, []);
 
+  useEffect(() => {
+    setSortedFonts(sortAndFilterFonts(fonts, filter, sort, search));
+  }, [filter, sort, search]);
+
 
   // Functions
 
@@ -79,24 +83,27 @@ function Browse() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden touch-none">
-      <header className="shrink-0 p-4 py-4 px-4 touch-auto">
+    <div className="relative">
+      <header className="p-4 sticky z-50 top-0 inset-x-0 bg-dark-bg border-b border-b-dark-text/20">
         <h1 className="text-center uppercase tracking-wider font-semibold text-sm leading-4 mb-4">
           UXType
         </h1>
-        <div className="relative flex-1">
-          <input value={search} placeholder="Search" className="w-full rounded-full bg-gray-200 text-xs leading-[1.125rem] pl-[1.125rem] pr-[36px] py-[0.5625rem] text-gray-800" onChange={handleSearch} />
-          <a onClick={resetSearch} href="#" className="block top-0 right-0 bottom-0 flex items-center justify-center w-[36px] absolute">
-            {search.length === 0 ? 
-              <SearchIcon />
-            :
-              <div className="h-4 w-4 flex justify-center items-center">
-                <span className="absolute bg-[#878A8A] h-[1.5px] w-3 rotate-45"></span>
-                <span className="absolute bg-[#878A8A] h-[1.5px] w-3 -rotate-45"></span>
-              </div>
-            }
-            
-          </a>
+        <div className="flex gap-4 items-center">
+          <div className="relative flex-1">
+            <input value={search} placeholder="Search" className="w-full rounded-lg bg-dark-well text-base leading-4 pr-2 pl-8 py-2 text-dark-secondary" onChange={handleSearch} />
+            <a onClick={resetSearch} href="#" className="block top-0 left-0 bottom-0 flex items-center justify-center w-8 absolute">
+              {search.length === 0 ? 
+                <SearchIcon />
+              :
+                <div className="h-4 w-4 flex justify-center items-center">
+                  <span className="absolute bg-dark-secondary h-[1.5px] w-3 rotate-45"></span>
+                  <span className="absolute bg-dark-secondary h-[1.5px] w-3 -rotate-45"></span>
+                </div>
+              }
+              
+            </a>
+          </div>
+          <a href="#" className="uppercase tracking-wider text-xs leading-4 text-dark-secondary">Filter</a>
         </div>
       </header>
       <main className="p-4 custom-scrollbar overflow-y-auto touch-auto">

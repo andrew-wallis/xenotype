@@ -4,7 +4,7 @@ import { FontContext } from "./Font";
 
 function FontNav({}) {
 
-  const {swap, setSwap, secondaryFont} = useContext(FontContext);
+  const {swap, setSwap, secondaryFont, templates} = useContext(FontContext);
 
   const items = ["Templates", "Swap", "Style", "Get Fonts"];
 
@@ -62,6 +62,14 @@ function FontNav({}) {
           Get Fonts
         </a>
       </div>
+      <ul className="text-sm leading-none absolute bottom-full bg-dark-bg/60 rounded-2xl backdrop-blur-md p-4 flex flex-col gap-4 min-w-40">
+        {templates.map((template) => (
+          <li className="flex items-center gap-4">
+            <div className="rounded-full w-1 h-1 bg-dark-secondary"></div>
+            {template}
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }
