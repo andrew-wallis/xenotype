@@ -1,19 +1,17 @@
 import getFontStylesheet from "../../../../utils/getFontStylesheet";
 import getFontFamily from "../../../../utils/getFontFamily";
 import { useContext } from "react";
-import { AppContext } from "../../../../App";
 import { FontContext } from "../Font";
 
 function ProductPage() {
 
-  const {activeFont} = useContext(AppContext);
-  const {alternative, pairing, swap} = useContext(FontContext);
+  const {primaryFont, secondaryFont, swap} = useContext(FontContext);
 
-  let thisFont = Object.keys(alternative).length > 0 ? alternative : activeFont;
-  let pairingFont = Object.keys(pairing).length > 0 ? pairing : activeFont;
+  let thisFont = primaryFont;
+  let pairingFont = Object.keys(secondaryFont).length > 0 ? secondaryFont : primaryFont;
 
   if(swap) {
-    let swapThisFont = thisFont;
+    let swapThisFont = {...thisFont};
     thisFont = pairingFont;
     pairingFont = swapThisFont;
   }

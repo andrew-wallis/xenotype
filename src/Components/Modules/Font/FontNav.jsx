@@ -4,7 +4,7 @@ import { FontContext } from "./Font";
 
 function FontNav({}) {
 
-  const {swap, setSwap, secondaryFont, templates} = useContext(FontContext);
+  const {swap, setSwap, secondaryFont, templates, template, setTemplate} = useContext(FontContext);
 
   const items = ["Templates", "Swap", "Style", "Get Fonts"];
 
@@ -63,10 +63,10 @@ function FontNav({}) {
         </a>
       </div>
       <ul className="text-sm leading-none absolute bottom-full bg-dark-bg/60 rounded-2xl backdrop-blur-md p-4 flex flex-col gap-4 min-w-40">
-        {templates.map((template) => (
+        {templates.map((thisTemplate) => (
           <li className="flex items-center gap-4">
-            <div className="rounded-full w-1 h-1 bg-dark-secondary"></div>
-            {template}
+            <div className={`rounded-full w-1 h-1 bg-dark-secondary ${thisTemplate === template ? "outline outline-[3px] outline-dark-secondary/50" : ""}`}></div>
+            <a href="#" onClick={(e) => {e.preventDefault; setTemplate(thisTemplate)}} className={`${thisTemplate === template ? "text-dark-text" : ""}`}>{thisTemplate}</a>
           </li>
         ))}
       </ul>

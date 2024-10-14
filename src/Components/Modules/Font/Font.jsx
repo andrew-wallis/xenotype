@@ -4,9 +4,13 @@ import { AppContext } from "../../../App";
 import findPairings from "../../../utils/findPairings";
 import findAlternatives from "../../../utils/findAlternatives";
 import FontNav from "./FontNav";
-import AboutPage from "./templates/AboutPage";
 import FontHeader from "./FontHeader";
 import ArticlePage from "./templates/ArticlePage";
+import Dashboard from "./templates/Dashboard";
+import LandingPage from "./templates/LandingPage";
+import LoginPage from "./templates/LoginPage";
+import ProductPage from "./templates/ProductPage";
+import SettingsPage from "./templates/SettingsPage";
 
 export const FontContext = createContext();
 
@@ -75,7 +79,24 @@ function Font() {
       <div className="relative">
         <FontHeader />
         <main className="p-4">
-          <ArticlePage />
+          <div style={{ display: template === "Article" ? "block" : "none" }}>
+            <ArticlePage />
+          </div>
+          <div style={{ display: template === "Landing Page" ? "block" : "none" }}>
+            <LandingPage />
+          </div>
+          <div style={{ display: template === "Product Page" ? "block" : "none" }}>
+            <ProductPage />
+          </div>
+          <div style={{ display: template === "Dashboard" ? "block" : "none" }}>
+            <Dashboard />
+          </div>
+          <div style={{ display: template === "Log In" ? "block" : "none" }}>
+            <LoginPage />
+          </div>
+          <div style={{ display: template === "Settings" ? "block" : "none" }}>
+            <SettingsPage />
+          </div>
         </main>
         <FontNav />
       </div>
